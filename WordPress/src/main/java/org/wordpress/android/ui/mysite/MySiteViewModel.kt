@@ -5,8 +5,6 @@ package org.wordpress.android.ui.mysite
 import android.content.Intent
 import android.net.Uri
 import android.text.TextUtils
-import androidx.annotation.DimenRes
-import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -66,12 +64,11 @@ import org.wordpress.android.ui.mysite.MySiteCardAndItemBuilderParams.QuickStart
 import org.wordpress.android.ui.mysite.MySiteCardAndItemBuilderParams.SiteInfoCardBuilderParams
 import org.wordpress.android.ui.mysite.MySiteCardAndItemBuilderParams.SiteItemsBuilderParams
 import org.wordpress.android.ui.mysite.MySiteCardAndItemBuilderParams.TodaysStatsCardBuilderParams
-import org.wordpress.android.ui.mysite.MySiteUiState.PartialState
 import org.wordpress.android.ui.mysite.MySiteUiState.PartialState.BloggingPromptUpdate
 import org.wordpress.android.ui.mysite.MySiteUiState.PartialState.CardsUpdate
-import org.wordpress.android.ui.mysite.MySiteViewModel.State.NoSites
-import org.wordpress.android.ui.mysite.MySiteViewModel.State.SiteSelected
-import org.wordpress.android.ui.mysite.MySiteViewModel.TabsUiState.TabUiState
+import org.wordpress.android.ui.mysite.State.NoSites
+import org.wordpress.android.ui.mysite.State.SiteSelected
+import org.wordpress.android.ui.mysite.TabsUiState.TabUiState
 import org.wordpress.android.ui.mysite.SiteDialogModel.AddSiteIconDialogModel
 import org.wordpress.android.ui.mysite.SiteDialogModel.ChangeSiteIconDialogModel
 import org.wordpress.android.ui.mysite.SiteDialogModel.ShowRemoveNextStepsDialog
@@ -86,7 +83,6 @@ import org.wordpress.android.ui.mysite.cards.jetpackfeature.JetpackFeatureCardSh
 import org.wordpress.android.ui.mysite.cards.quickstart.QuickStartCardBuilder
 import org.wordpress.android.ui.mysite.cards.quickstart.QuickStartRepository
 import org.wordpress.android.ui.mysite.cards.quickstart.QuickStartRepository.QuickStartCategory
-import org.wordpress.android.ui.mysite.cards.quickstart.QuickStartRepository.QuickStartTabStep
 import org.wordpress.android.ui.mysite.cards.siteinfo.SiteInfoHeaderCardBuilder
 import org.wordpress.android.ui.mysite.dynamiccards.DynamicCardMenuFragment.DynamicCardMenuModel
 import org.wordpress.android.ui.mysite.dynamiccards.DynamicCardMenuViewModel.DynamicCardMenuInteraction
@@ -106,7 +102,6 @@ import org.wordpress.android.ui.quickstart.QuickStartTracker
 import org.wordpress.android.ui.quickstart.QuickStartType.NewSiteQuickStartType
 import org.wordpress.android.ui.sitecreation.misc.SiteCreationSource
 import org.wordpress.android.ui.utils.ListItemInteraction
-import org.wordpress.android.ui.utils.UiString
 import org.wordpress.android.ui.utils.UiString.UiStringRes
 import org.wordpress.android.util.BuildConfigWrapper
 import org.wordpress.android.util.DisplayUtilsWrapper
@@ -1532,88 +1527,6 @@ class MySiteViewModel @Inject constructor(
             }
         }
     }
-
-    data class UiModel(
-        val accountAvatarUrl: String,
-        val state: State
-    )
-
-    sealed class State {
-        abstract val tabsUiState: TabsUiState
-        abstract val siteInfoToolbarViewParams: SiteInfoToolbarViewParams
-
-        data class SiteSelected(
-            override val tabsUiState: TabsUiState,
-            override val siteInfoToolbarViewParams: SiteInfoToolbarViewParams,
-            val siteInfoHeaderState: SiteInfoHeaderState,
-            val cardAndItems: List<MySiteCardAndItem>,
-            val siteMenuCardsAndItems: List<MySiteCardAndItem>,
-            val dashboardCardsAndItems: List<MySiteCardAndItem>
-        ) : State()
-
-        data class NoSites(
-            override val tabsUiState: TabsUiState,
-            override val siteInfoToolbarViewParams: SiteInfoToolbarViewParams,
-            val shouldShowImage: Boolean
-        ) : State()
-    }
-
-    data class SiteInfoHeaderState(
-        val hasUpdates: Boolean,
-        val siteInfoHeader: SiteInfoHeaderCard
-    )
-
-    data class TabsUiState(
-        val showTabs: Boolean = false,
-        val tabUiStates: List<TabUiState>,
-        val shouldUpdateViewPager: Boolean = false
-    ) {
-        data class TabUiState(
-            val label: UiString,
-            val tabType: MySiteTabType,
-            val showQuickStartFocusPoint: Boolean = false,
-            val pendingTask: QuickStartTask? = null
-        )
-
-        fun update(quickStartTabStep: QuickStartTabStep?) = tabUiStates.map { tabUiState ->
-            tabUiState.copy(
-                showQuickStartFocusPoint = quickStartTabStep?.mySiteTabType == tabUiState.tabType &&
-                        quickStartTabStep.isStarted,
-                pendingTask = quickStartTabStep?.task
-            )
-        }
-    }
-
-    data class SiteInfoToolbarViewParams(
-        @DimenRes val appBarHeight: Int,
-        @DimenRes val toolbarBottomMargin: Int,
-        val headerVisible: Boolean = true,
-        val appBarLiftOnScroll: Boolean = false
-    )
-
-    data class TabNavigation(val position: Int, val smoothAnimation: Boolean)
-
-    data class TextInputDialogModel(
-        val callbackId: Int = SITE_NAME_CHANGE_CALLBACK_ID,
-        @StringRes val title: Int,
-        val initialText: String,
-        @StringRes val hint: Int,
-        val isMultiline: Boolean,
-        val isInputEnabled: Boolean
-    )
-
-    private data class SiteIdToState(val siteId: Int?, val state: MySiteUiState = MySiteUiState()) {
-        fun update(partialState: PartialState): SiteIdToState {
-            return this.copy(state = state.update(partialState))
-        }
-    }
-
-    data class MySiteTrackWithTabSource(
-        val stat: Stat,
-        val properties: HashMap<String, *>? = null,
-        val key: String = TAB_SOURCE,
-        val currentTab: MySiteTabType = MySiteTabType.ALL
-    )
 
     companion object {
         private const val MIN_DISPLAY_PX_HEIGHT_NO_SITE_IMAGE = 600
