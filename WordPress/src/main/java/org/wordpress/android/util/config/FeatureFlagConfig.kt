@@ -103,40 +103,29 @@ class FeatureFlagConfig
         return flags.find { it.key == field }?.key ?: ""
     }
 
-    fun getFeatureState(remoteField: String, buildConfigValue: Boolean): FeatureState {
+    fun getFeatureState(remoteField: String): FeatureState {
         val remoteFeatureFlag = flags.find { it.key == remoteField }
         return if (remoteFeatureFlag == null) {
             val defaultValue = getRemoteConfigDefaultValue(remoteField)
-            if (defaultValue != null) {
-                appScope.launch {
-                    featureFlagStore.insertFeatureFlagValue(
-                        remoteField,
-                        defaultValue
-                    )
-                    flags = featureFlagStore.getFeatureFlags()
-                }
-                FeatureState.DefaultValue(defaultValue)
-            } else {
-                appScope.launch {
-                    featureFlagStore.insertFeatureFlagValue(
-                        remoteField,
-                        buildConfigValue
-                    )
-                    flags = featureFlagStore.getFeatureFlags()
-                }
-                FeatureState.BuildConfigValue(buildConfigValue)
+            appScope.launch {
+                featureFlagStore.insertFeatureFlagValue(
+                    remoteField,
+                    defaultValue
+                )
+                flags = featureFlagStore.getFeatureFlags()
             }
+            FeatureState.DefaultValue(defaultValue)
         } else {
             FeatureState.RemoteValue(remoteFeatureFlag.value)
         }
     }
 
-    private fun getRemoteConfigDefaultValue(remoteField: String): Boolean? {
+    private fun getRemoteConfigDefaultValue(remoteField: String): Boolean {
         val defaultValue = RemoteFeatureConfigDefaults.remoteFeatureConfigDefaults[remoteField]
         return when (defaultValue.toString()) {
             "true" -> true
             "false" -> false
-            else -> null
+            else -> false
         }
     }
 
