@@ -3,7 +3,6 @@ package org.wordpress.android.util.config
 import kotlinx.coroutines.CoroutineScope
 import org.wordpress.android.analytics.AnalyticsTracker.Stat
 import org.wordpress.android.util.analytics.AnalyticsTrackerWrapper
-import org.wordpress.android.util.config.AppConfig.FeatureState.BuildConfigValue
 import org.wordpress.android.util.config.AppConfig.FeatureState.ManuallyOverriden
 import org.wordpress.android.util.config.ExperimentConfig.Variant
 import javax.inject.Inject
