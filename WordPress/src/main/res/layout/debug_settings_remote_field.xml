@@ -11,8 +11,7 @@
         style="@style/MainBottomSheetRowTextView"
         android:layout_width="0dp"
         android:gravity="start"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/remote_field_value"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
@@ -22,10 +21,8 @@
         android:id="@+id/remote_field_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/remote_field_key"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/remote_field_key"
-        app:layout_constraintTop_toTopOf="@+id/remote_field_key"
+        app:layout_constraintStart_toStartOf="@+id/remote_field_source"
+        app:layout_constraintTop_toBottomOf="@+id/remote_field_key"
         tools:text="remote value" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -34,9 +31,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:paddingBottom="@dimen/margin_small"
+        android:paddingTop="@dimen/margin_small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/remote_field_key"
+        app:layout_constraintTop_toBottomOf="@+id/remote_field_value"
         tools:text="Remote Source" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
