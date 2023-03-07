@@ -69,13 +69,10 @@ class AppConfig
                 ManuallyOverriden(manualFeatureConfig.isManuallyEnabled(feature))
             }
             feature.remoteField == null -> {
-                BuildConfigValue(feature.buildConfigValue)
-            }
-            feature.buildConfigValue -> {
-                BuildConfigValue(feature.buildConfigValue)
+                FeatureState.DefaultValue(feature.buildConfigValue)
             }
             else -> {
-                featureFlagConfig.getFeatureState(feature.remoteField, feature.buildConfigValue)
+                featureFlagConfig.getFeatureState(feature.remoteField)
             }
         }
     }
@@ -109,17 +106,9 @@ class AppConfig
             override val isEnabled: Boolean
         ) : FeatureState(isEnabled, "manually_overriden")
 
-        data class BuildConfigValue(
-            override val isEnabled: Boolean
-        ) : FeatureState(isEnabled, "build_config_value")
-
         data class RemoteValue(
             override val isEnabled: Boolean
         ) : FeatureState(isEnabled, "remote_source_value")
-
-        data class StaticValue(
-            override val isEnabled: Boolean
-        ) : FeatureState(isEnabled, "static_source_value")
 
         data class DefaultValue(
             override val isEnabled: Boolean
