@@ -1,7 +1,7 @@
 package org.wordpress.android.userflags
 
 import org.wordpress.android.util.BuildConfigWrapper
-import org.wordpress.android.util.config.JetpackLocalUserFlagsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.JetpackLocalUserFlagsFeatureConfig
 import javax.inject.Inject
 
 class JetpackLocalUserFlagsFlag @Inject constructor(
