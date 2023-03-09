@@ -5,18 +5,17 @@ import org.wordpress.android.annotation.LocalFeatureFlagDefault
 import org.wordpress.android.fluxc.model.experiments.Variation.Control
 import org.wordpress.android.util.config.AppConfig
 import org.wordpress.android.util.config.AppConfig.FeatureState.ManuallyOverriden
-import org.wordpress.android.util.config.FeatureFlag
+import org.wordpress.android.util.config.LocalFeatureFlag
 import org.wordpress.android.util.experiments.SiteCreationDomainPurchasingExperiment
 import javax.inject.Inject
 
-@LocalFeatureFlagDefault
+@LocalFeatureFlagDefault(BuildConfig.ENABLE_SITE_CREATION_DOMAIN_PURCHASING)
 class SiteCreationDomainPurchasingFeatureFlag
 @Inject constructor(
     appConfig: AppConfig,
     private val experiment: SiteCreationDomainPurchasingExperiment,
-) : FeatureFlag(
-    appConfig,
-    BuildConfig.ENABLE_SITE_CREATION_DOMAIN_PURCHASING,
+) : LocalFeatureFlag(
+    appConfig
 ) {
     override fun isEnabled(): Boolean {
         return super.isEnabled() && experiment.getVariation() != Control
