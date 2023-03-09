@@ -81,7 +81,7 @@ import org.wordpress.android.util.SiteUtils;
 import org.wordpress.android.util.ToastUtils;
 import org.wordpress.android.util.ToastUtils.Duration;
 import org.wordpress.android.util.WPActivityUtils;
-import org.wordpress.android.util.config.BloggingRemindersFeatureConfig;
+import org.wordpress.android.util.config.featureflags.remote.BloggingRemindersFeatureConfig;
 import org.wordpress.android.util.extensions.ContextExtensionsKt;
 
 import java.util.ArrayList;
