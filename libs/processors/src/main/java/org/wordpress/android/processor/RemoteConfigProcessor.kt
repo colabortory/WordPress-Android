@@ -106,10 +106,10 @@ class RemoteConfigProcessor : AbstractProcessor() {
 
     @Suppress("TooGenericExceptionCaught")
     private fun generateLocalFeatureFlagDefaults(
-        remoteFeatureNames: List<String>
+        localFeatureFlagNames: List<String>
     ) {
         try {
-            val fileContent = LocalFeatureFlagDefaultsBuilder(remoteFeatureNames).getContent()
+            val fileContent = LocalFeatureFlagDefaultsBuilder(localFeatureFlagNames).getContent()
 
             val kaptKotlinGeneratedDir = processingEnv.options[KAPT_KOTLIN_GENERATED_OPTION_NAME]
             fileContent.writeTo(File(kaptKotlinGeneratedDir))

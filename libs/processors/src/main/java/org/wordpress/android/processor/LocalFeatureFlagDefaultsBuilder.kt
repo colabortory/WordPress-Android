@@ -6,15 +6,15 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
 
-class LocalFeatureFlagDefaultsBuilder(private val featuresInDevelopment: List<String>) {
+class LocalFeatureFlagDefaultsBuilder(private val localFeatureFlags: List<String>) {
     fun getContent(): FileSpec {
         val map = List::class.asClassName()
             .parameterizedBy(String::class.asClassName())
         val stringBuilder = StringBuilder()
-        featuresInDevelopment.forEachIndexed { index, className ->
+        localFeatureFlags.forEachIndexed { index, className ->
             stringBuilder.append("\n")
             stringBuilder.append("\"${className.split(".").last()}\"")
-            if (index < featuresInDevelopment.size - 1) {
+            if (index < localFeatureFlags.size - 1) {
                 stringBuilder.append(",")
             }
         }
