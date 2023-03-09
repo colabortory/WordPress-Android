@@ -1,10 +1,10 @@
 package org.wordpress.android.util.config
 
 import org.wordpress.android.BuildConfig
-import org.wordpress.android.annotation.Feature
+import org.wordpress.android.annotation.RemoteFeatureFlagDefault
 import javax.inject.Inject
 
-@Feature(JetpackPoweredBottomSheetFeatureConfig.JETPACK_POWERED_BOTTOM_SHEET_REMOTE_FIELD, false)
+@RemoteFeatureFlagDefault(JetpackPoweredBottomSheetFeatureConfig.JETPACK_POWERED_BOTTOM_SHEET_REMOTE_FIELD, false)
 class JetpackPoweredBottomSheetFeatureConfig @Inject constructor(
     appConfig: AppConfig
 ) : FeatureConfig(

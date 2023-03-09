@@ -1,14 +1,14 @@
 package org.wordpress.android.util.config
 
 import org.wordpress.android.BuildConfig
-import org.wordpress.android.annotation.Feature
+import org.wordpress.android.annotation.RemoteFeatureFlagDefault
 import org.wordpress.android.util.config.MySiteDashboardTabsFeatureConfig.Companion.MY_SITE_DASHBOARD_TABS
 import javax.inject.Inject
 
 /**
  * Configuration of the 'My Site Dashboard - Tabs' that will display tabs on the 'My Site' screen.
  */
-@Feature(
+@RemoteFeatureFlagDefault(
     remoteField = MY_SITE_DASHBOARD_TABS,
     defaultValue = true
 )

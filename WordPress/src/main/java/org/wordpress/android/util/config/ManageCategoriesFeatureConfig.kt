@@ -1,13 +1,13 @@
 package org.wordpress.android.util.config
 
 import org.wordpress.android.BuildConfig
-import org.wordpress.android.annotation.Feature
+import org.wordpress.android.annotation.RemoteFeatureFlagDefault
 import javax.inject.Inject
 
 /**
  * Configuration of the manage categories feature
  */
-@Feature(ManageCategoriesFeatureConfig.MANAGE_CATEGORIES_REMOTE_FIELD, true)
+@RemoteFeatureFlagDefault(ManageCategoriesFeatureConfig.MANAGE_CATEGORIES_REMOTE_FIELD, true)
 class ManageCategoriesFeatureConfig
 @Inject constructor(
     appConfig: AppConfig

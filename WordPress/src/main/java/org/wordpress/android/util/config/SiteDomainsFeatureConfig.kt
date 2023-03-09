@@ -1,10 +1,10 @@
 package org.wordpress.android.util.config
 
 import org.wordpress.android.BuildConfig
-import org.wordpress.android.annotation.Feature
+import org.wordpress.android.annotation.RemoteFeatureFlagDefault
 import javax.inject.Inject
 
-@Feature(SiteDomainsFeatureConfig.SITE_DOMAINS_REMOTE_FIELD, true)
+@RemoteFeatureFlagDefault(SiteDomainsFeatureConfig.SITE_DOMAINS_REMOTE_FIELD, true)
 class SiteDomainsFeatureConfig
 @Inject constructor(appConfig: AppConfig) : FeatureConfig(
     appConfig,

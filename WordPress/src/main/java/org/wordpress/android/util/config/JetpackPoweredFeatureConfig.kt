@@ -1,13 +1,13 @@
 package org.wordpress.android.util.config
 
 import org.wordpress.android.BuildConfig
-import org.wordpress.android.annotation.Feature
+import org.wordpress.android.annotation.RemoteFeatureFlagDefault
 import javax.inject.Inject
 
 /**
  * Configuration for Jetpack Powered indicators
  */
-@Feature(JetpackPoweredFeatureConfig.JETPACK_POWERED_REMOTE_FIELD, true)
+@RemoteFeatureFlagDefault(JetpackPoweredFeatureConfig.JETPACK_POWERED_REMOTE_FIELD, true)
 class JetpackPoweredFeatureConfig @Inject constructor(
     appConfig: AppConfig
 ) : FeatureConfig(

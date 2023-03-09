@@ -1,14 +1,14 @@
 package org.wordpress.android.util.config
 
 import org.wordpress.android.BuildConfig
-import org.wordpress.android.annotation.Feature
+import org.wordpress.android.annotation.RemoteFeatureFlagDefault
 import javax.inject.Inject
 
 /**
  * Configuration of the 'Quick Start for Existing Users V2' that will introduce a new set of
  * Quick Start steps that are relevant to existing users.
  */
-@Feature(
+@RemoteFeatureFlagDefault(
     remoteField = QuickStartExistingUsersV2FeatureConfig.QUICK_START_EXISTING_USERS_V2,
     defaultValue = true
 )

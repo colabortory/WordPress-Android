@@ -1,10 +1,10 @@
 package org.wordpress.android.util.config
 
 import org.wordpress.android.BuildConfig
-import org.wordpress.android.annotation.Feature
+import org.wordpress.android.annotation.RemoteFeatureFlagDefault
 import javax.inject.Inject
 
-@Feature(JetpackReaderSavedPostsFeatureConfig.JETPACK_READER_SAVED_POSTS_REMOTE_FIELD, false)
+@RemoteFeatureFlagDefault(JetpackReaderSavedPostsFeatureConfig.JETPACK_READER_SAVED_POSTS_REMOTE_FIELD, false)
 class JetpackReaderSavedPostsFeatureConfig
 @Inject constructor(
     appConfig: AppConfig

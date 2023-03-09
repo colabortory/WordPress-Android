@@ -1,10 +1,10 @@
 package org.wordpress.android.util.config
 
 import org.wordpress.android.BuildConfig
-import org.wordpress.android.annotation.Feature
+import org.wordpress.android.annotation.RemoteFeatureFlagDefault
 import javax.inject.Inject
 
-@Feature(QRCodeAuthFlowFeatureConfig.QRCODE_AUTH_FLOW_REMOTE_FIELD, true)
+@RemoteFeatureFlagDefault(QRCodeAuthFlowFeatureConfig.QRCODE_AUTH_FLOW_REMOTE_FIELD, true)
 class QRCodeAuthFlowFeatureConfig
 @Inject constructor(appConfig: AppConfig) : FeatureConfig(
     appConfig,
