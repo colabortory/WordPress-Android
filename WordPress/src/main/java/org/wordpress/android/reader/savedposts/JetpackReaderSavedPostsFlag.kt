@@ -1,7 +1,7 @@
 package org.wordpress.android.reader.savedposts
 
 import org.wordpress.android.util.BuildConfigWrapper
-import org.wordpress.android.util.config.JetpackReaderSavedPostsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.JetpackReaderSavedPostsFeatureConfig
 import javax.inject.Inject
 
 class JetpackReaderSavedPostsFlag @Inject constructor(
