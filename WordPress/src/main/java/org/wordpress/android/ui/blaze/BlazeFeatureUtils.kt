@@ -8,7 +8,7 @@ import org.wordpress.android.fluxc.model.post.PostStatus
 import org.wordpress.android.ui.prefs.AppPrefsWrapper
 import org.wordpress.android.util.BuildConfigWrapper
 import org.wordpress.android.util.analytics.AnalyticsTrackerWrapper
-import org.wordpress.android.util.config.BlazeFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BlazeFeatureConfig
 import javax.inject.Inject
 
 class BlazeFeatureUtils @Inject constructor(
