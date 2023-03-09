@@ -21,7 +21,7 @@ class AppConfig
      * while using the app. We should only reload the flags when the application is created.
      */
     private val experimentValues = mutableMapOf<String, String>()
-    private val remoteFeatureConfigCheck = RemoteFeatureConfigCheck(this)
+    private val remoteFeatureConfigCheck = RemoteFeatureFlagCheck(this)
 
     /**
      * This method initialized the config

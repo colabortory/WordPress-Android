@@ -26,9 +26,9 @@ import org.wordpress.android.ui.utils.ListItemInteraction
 import org.wordpress.android.ui.utils.ListItemInteraction.Companion.create
 import org.wordpress.android.util.DebugUtils
 import org.wordpress.android.util.config.FeatureFlagConfig
-import org.wordpress.android.util.config.FeaturesInDevelopment
+import org.wordpress.android.util.config.LocalFeatureFlagDefaults
 import org.wordpress.android.util.config.ManualFeatureConfig
-import org.wordpress.android.util.config.RemoteFeatureConfigDefaults
+import org.wordpress.android.util.config.RemoteFeatureFlagDefaults
 import org.wordpress.android.util.config.RemoteFieldConfigDefaults
 import org.wordpress.android.util.config.RemoteFieldConfigRepository
 import org.wordpress.android.viewmodel.ContextProvider
@@ -103,7 +103,7 @@ class DebugSettingsViewModel
     }
 
     private fun buildDevelopedFeatures(): List<Feature> {
-        return FeaturesInDevelopment.featuresInDevelopment.map { name ->
+        return LocalFeatureFlagDefaults.localFeatureFlags.map { name ->
             val value = if (manualFeatureConfig.hasManualSetup(name)) {
                 manualFeatureConfig.isManuallyEnabled(name)
             } else {
@@ -114,7 +114,7 @@ class DebugSettingsViewModel
     }
 
     private fun buildRemoteFeatures(): List<Feature> {
-        return RemoteFeatureConfigDefaults.remoteFeatureConfigDefaults.mapNotNull { (key, defaultValue) ->
+        return RemoteFeatureFlagDefaults.remoteFeatureFlagDefaults.mapNotNull { (key, defaultValue) ->
             val value = if (manualFeatureConfig.hasManualSetup(key)) {
                 manualFeatureConfig.isManuallyEnabled(key)
             } else {

@@ -48,7 +48,7 @@ class FeatureFlagConfig
     }
 
     private fun insertRemoteConfigDefaultsInDatabase() {
-        RemoteFeatureConfigDefaults.remoteFeatureConfigDefaults.mapNotNull { remoteField ->
+        RemoteFeatureFlagDefaults.remoteFeatureFlagDefaults.mapNotNull { remoteField ->
             val defaultValue = when (remoteField.value.toString()) {
                 "true" -> true
                 "false" -> false
@@ -121,7 +121,7 @@ class FeatureFlagConfig
     }
 
     private fun getRemoteConfigDefaultValue(remoteField: String): Boolean {
-        val defaultValue = RemoteFeatureConfigDefaults.remoteFeatureConfigDefaults[remoteField]
+        val defaultValue = RemoteFeatureFlagDefaults.remoteFeatureFlagDefaults[remoteField]
         return when (defaultValue.toString()) {
             "true" -> true
             "false" -> false
