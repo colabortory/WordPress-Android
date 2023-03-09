@@ -43,7 +43,7 @@ import org.wordpress.android.util.GravatarUtilsWrapper
 import org.wordpress.android.util.JetpackMigrationLanguageUtil
 import org.wordpress.android.util.LocaleManagerWrapper
 import org.wordpress.android.util.SiteUtilsWrapper
-import org.wordpress.android.util.config.PreventDuplicateNotifsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.PreventDuplicateNotifsFeatureConfig
 import org.wordpress.android.viewmodel.ContextProvider
 import java.util.Locale
 
