@@ -19,7 +19,7 @@ import org.wordpress.android.fluxc.store.bloggingprompts.BloggingPromptsStore
 import org.wordpress.android.ui.bloggingreminders.BloggingRemindersAnalyticsTracker
 import org.wordpress.android.ui.jetpackoverlay.JetpackFeatureRemovalPhaseHelper
 import org.wordpress.android.util.HtmlCompatWrapper
-import org.wordpress.android.util.config.BloggingPromptsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureConfig
 import org.wordpress.android.viewmodel.ContextProvider
 import org.wordpress.android.viewmodel.ResourceProvider
 import org.wordpress.android.workers.reminder.prompt.PromptReminderNotifier

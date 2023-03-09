@@ -24,7 +24,7 @@ import org.wordpress.android.ui.mysite.SelectedSiteRepository
 import org.wordpress.android.ui.prefs.AppPrefsWrapper
 import org.wordpress.android.util.analytics.AnalyticsTrackerWrapper
 import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureConfig
-import org.wordpress.android.util.config.BloggingPromptsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureConfig
 import java.util.Date
 
 @ExperimentalCoroutinesApi

@@ -98,7 +98,7 @@ import org.wordpress.android.util.WPActivityUtils;
 import org.wordpress.android.util.WPPrefUtils;
 import org.wordpress.android.util.analytics.AnalyticsUtils;
 import org.wordpress.android.util.analytics.AnalyticsUtils.BlockEditorEnabledSource;
-import org.wordpress.android.util.config.BloggingPromptsFeatureConfig;
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureConfig;
 import org.wordpress.android.util.config.BloggingRemindersFeatureConfig;
 import org.wordpress.android.util.config.ManageCategoriesFeatureConfig;
 import org.wordpress.android.util.extensions.ContextExtensionsKt;

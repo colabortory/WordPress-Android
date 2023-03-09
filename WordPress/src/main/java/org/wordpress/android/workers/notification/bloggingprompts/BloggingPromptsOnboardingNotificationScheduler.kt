@@ -1,7 +1,7 @@
 package org.wordpress.android.workers.notification.bloggingprompts
 
 import org.wordpress.android.R
-import org.wordpress.android.util.config.BloggingPromptsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureConfig
 import org.wordpress.android.workers.notification.local.LocalNotification
 import org.wordpress.android.workers.notification.local.LocalNotification.Type.BLOGGING_PROMPTS_ONBOARDING
 import org.wordpress.android.workers.notification.local.LocalNotificationScheduler

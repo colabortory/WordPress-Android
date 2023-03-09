@@ -28,7 +28,7 @@ import org.wordpress.android.ui.notifications.DismissNotificationReceiver
 import org.wordpress.android.ui.posts.PostUtils.EntryPoint
 import org.wordpress.android.util.HtmlCompatWrapper
 import org.wordpress.android.util.SiteUtils
-import org.wordpress.android.util.config.BloggingPromptsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureConfig
 import org.wordpress.android.viewmodel.ContextProvider
 import org.wordpress.android.viewmodel.ResourceProvider
 import org.wordpress.android.workers.reminder.ReminderNotification

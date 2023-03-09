@@ -14,7 +14,7 @@ import org.wordpress.android.ui.bloggingreminders.BloggingRemindersItem.Title
 import org.wordpress.android.ui.bloggingreminders.BloggingRemindersViewModel.UiState.PrimaryButton
 import org.wordpress.android.ui.utils.ListItemInteraction.Companion
 import org.wordpress.android.ui.utils.UiString.UiStringRes
-import org.wordpress.android.util.config.BloggingPromptsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureConfig
 
 @RunWith(MockitoJUnitRunner::class)
 class PrologueBuilderTest {
