@@ -1,8 +1,10 @@
-package org.wordpress.android.util.config
+package org.wordpress.android.util.config.featureflags.remote
 
 import org.wordpress.android.BuildConfig
 import org.wordpress.android.annotation.RemoteFeatureFlagDefault
-import org.wordpress.android.util.config.RecommendTheAppFeatureConfig.Companion.RECOMMEND_THE_APP_FIELD
+import org.wordpress.android.util.config.AppConfig
+import org.wordpress.android.util.config.FeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.RecommendTheAppFeatureConfig.Companion.RECOMMEND_THE_APP_FIELD
 import javax.inject.Inject
 
 @RemoteFeatureFlagDefault(RECOMMEND_THE_APP_FIELD, true)

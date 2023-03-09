@@ -76,7 +76,7 @@ import org.wordpress.android.util.ToastUtils
 import org.wordpress.android.util.ToastUtils.Duration.SHORT
 import org.wordpress.android.util.WPMediaUtils
 import org.wordpress.android.util.config.featureflags.remote.QRCodeAuthFlowFeatureConfig
-import org.wordpress.android.util.config.RecommendTheAppFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.RecommendTheAppFeatureConfig
 import org.wordpress.android.util.extensions.getColorFromAttribute
 import org.wordpress.android.util.image.ImageManager.RequestListener
 import org.wordpress.android.util.image.ImageType.AVATAR_WITHOUT_BACKGROUND
