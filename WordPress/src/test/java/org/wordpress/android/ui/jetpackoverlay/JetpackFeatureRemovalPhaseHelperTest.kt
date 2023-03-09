@@ -23,7 +23,7 @@ import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemov
 import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseOneConfig
 import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseThreeConfig
 import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseTwoConfig
-import org.wordpress.android.util.config.JetpackFeatureRemovalSelfHostedUsersConfig
+import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalSelfHostedUsersConfig
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)

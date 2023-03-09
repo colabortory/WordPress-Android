@@ -14,7 +14,7 @@ import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemov
 import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseOneConfig
 import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseThreeConfig
 import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseTwoConfig
-import org.wordpress.android.util.config.JetpackFeatureRemovalSelfHostedUsersConfig
+import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalSelfHostedUsersConfig
 import javax.inject.Inject
 
 private const val PHASE_ONE_GLOBAL_OVERLAY_FREQUENCY_IN_DAYS = 2
