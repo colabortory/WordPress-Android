@@ -46,7 +46,7 @@ import org.wordpress.android.util.HtmlCompatWrapper
 import org.wordpress.android.util.QuickStartUtilsWrapper
 import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTabsFeatureConfig
 import org.wordpress.android.util.config.featureflags.local.QuickStartDynamicCardsFeatureConfig
-import org.wordpress.android.util.config.QuickStartExistingUsersV2FeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.QuickStartExistingUsersV2FeatureConfig
 import org.wordpress.android.viewmodel.ContextProvider
 import org.wordpress.android.viewmodel.ResourceProvider
 
