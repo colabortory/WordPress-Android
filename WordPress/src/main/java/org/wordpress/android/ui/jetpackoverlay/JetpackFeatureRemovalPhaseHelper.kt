@@ -13,7 +13,7 @@ import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemov
 import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseFourConfig
 import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseOneConfig
 import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseThreeConfig
-import org.wordpress.android.util.config.JetpackFeatureRemovalPhaseTwoConfig
+import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseTwoConfig
 import org.wordpress.android.util.config.JetpackFeatureRemovalSelfHostedUsersConfig
 import javax.inject.Inject
 
