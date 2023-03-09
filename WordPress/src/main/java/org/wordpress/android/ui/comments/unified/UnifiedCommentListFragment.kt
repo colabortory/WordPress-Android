@@ -32,7 +32,7 @@ import org.wordpress.android.util.SnackbarItem.Action
 import org.wordpress.android.util.SnackbarItem.Info
 import org.wordpress.android.util.SnackbarSequencer
 import org.wordpress.android.util.WPSwipeToRefreshHelper
-import org.wordpress.android.util.config.UnifiedCommentsDetailFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.UnifiedCommentsDetailFeatureConfig
 import org.wordpress.android.util.helpers.SwipeToRefreshHelper
 import javax.inject.Inject
 
