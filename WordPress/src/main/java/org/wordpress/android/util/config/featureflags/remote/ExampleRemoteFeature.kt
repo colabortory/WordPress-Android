@@ -1,7 +1,9 @@
-package org.wordpress.android.util.config
+package org.wordpress.android.util.config.featureflags.remote
 
 import org.wordpress.android.annotation.RemoteFeatureFlagDefault
-import org.wordpress.android.util.config.ExampleRemoteFeature.Companion.EXAMPLE_REMOTE_FEATURE_FIELD
+import org.wordpress.android.util.config.AppConfig
+import org.wordpress.android.util.config.FeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.ExampleRemoteFeature.Companion.EXAMPLE_REMOTE_FEATURE_FIELD
 import javax.inject.Inject
 
 /**
