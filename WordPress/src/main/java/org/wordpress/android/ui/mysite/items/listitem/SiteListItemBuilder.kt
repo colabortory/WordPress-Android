@@ -29,7 +29,7 @@ import org.wordpress.android.ui.utils.UiString.UiStringText
 import org.wordpress.android.util.BuildConfigWrapper
 import org.wordpress.android.util.DateTimeUtils
 import org.wordpress.android.util.SiteUtilsWrapper
-import org.wordpress.android.util.config.SiteDomainsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.SiteDomainsFeatureConfig
 import java.util.GregorianCalendar
 import java.util.TimeZone
 import javax.inject.Inject

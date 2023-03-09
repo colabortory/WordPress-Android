@@ -23,7 +23,7 @@ import org.wordpress.android.ui.domains.usecases.CreateCartUseCase
 import org.wordpress.android.util.AppLog
 import org.wordpress.android.util.AppLog.T
 import org.wordpress.android.util.SiteUtils
-import org.wordpress.android.util.config.SiteDomainsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.SiteDomainsFeatureConfig
 import org.wordpress.android.util.extensions.isOnSale
 import org.wordpress.android.util.extensions.saleCostForDisplay
 import org.wordpress.android.util.helpers.Debouncer

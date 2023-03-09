@@ -30,7 +30,7 @@ import org.wordpress.android.ui.domains.DomainRegistrationActivity.DomainRegistr
 import org.wordpress.android.ui.domains.DomainRegistrationActivity.DomainRegistrationPurpose.DOMAIN_PURCHASE
 import org.wordpress.android.ui.domains.usecases.CreateCartUseCase
 import org.wordpress.android.ui.plans.PlansConstants
-import org.wordpress.android.util.config.SiteDomainsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.SiteDomainsFeatureConfig
 import org.wordpress.android.util.helpers.Debouncer
 
 @ExperimentalCoroutinesApi

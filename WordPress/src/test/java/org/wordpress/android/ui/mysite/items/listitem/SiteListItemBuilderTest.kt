@@ -28,7 +28,7 @@ import org.wordpress.android.ui.plugins.PluginUtilsWrapper
 import org.wordpress.android.ui.themes.ThemeBrowserUtils
 import org.wordpress.android.util.BuildConfigWrapper
 import org.wordpress.android.util.SiteUtilsWrapper
-import org.wordpress.android.util.config.SiteDomainsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.SiteDomainsFeatureConfig
 
 @RunWith(MockitoJUnitRunner::class)
 class SiteListItemBuilderTest {
