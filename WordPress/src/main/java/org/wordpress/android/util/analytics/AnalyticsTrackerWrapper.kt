@@ -6,7 +6,7 @@ import org.wordpress.android.analytics.AnalyticsTracker.Stat
 import org.wordpress.android.fluxc.model.SiteModel
 import org.wordpress.android.util.config.AppConfig.FeatureState
 import org.wordpress.android.util.config.ExperimentConfig
-import org.wordpress.android.util.config.FeatureConfig
+import org.wordpress.android.util.config.FeatureFlag
 import javax.inject.Inject
 
 @Reusable
@@ -34,7 +34,7 @@ class AnalyticsTrackerWrapper
         AnalyticsTracker.track(stat, properties)
     }
 
-    fun track(stat: Stat, properties: Map<String, *>, feature: FeatureConfig) {
+    fun track(stat: Stat, properties: Map<String, *>, feature: FeatureFlag) {
         AnalyticsTracker.track(stat, properties + feature.toParams())
     }
 
@@ -43,7 +43,7 @@ class AnalyticsTrackerWrapper
         AnalyticsUtils.trackWithSiteDetails(this, stat, site, properties)
     }
 
-    fun track(stat: Stat, site: SiteModel?, feature: FeatureConfig) {
+    fun track(stat: Stat, site: SiteModel?, feature: FeatureFlag) {
         AnalyticsUtils.trackWithSiteDetails(this, stat, site, feature.toParams().toMutableMap<String, Any>())
     }
 
@@ -60,5 +60,5 @@ class AnalyticsTrackerWrapper
         AnalyticsTracker.track(stat, errorContext, errorType, errorDescription)
     }
 
-    private fun FeatureConfig.toParams() = mapOf(name() to isEnabled())
+    private fun FeatureFlag.toParams() = mapOf(name() to isEnabled())
 }

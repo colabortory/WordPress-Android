@@ -155,13 +155,13 @@ import org.wordpress.android.util.QuickStartUtilsWrapper
 import org.wordpress.android.util.SnackbarSequencer
 import org.wordpress.android.util.WPMediaUtilsWrapper
 import org.wordpress.android.util.analytics.AnalyticsTrackerWrapper
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureConfig
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureConfig
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsListFeatureConfig
-import org.wordpress.android.util.config.featureflags.local.BloggingPromptsSocialFeatureConfig
-import org.wordpress.android.util.config.featureflags.local.LandOnTheEditorFeatureConfig
-import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTabsFeatureConfig
-import org.wordpress.android.util.config.featureflags.local.QuickStartDynamicCardsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureFlag
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureFlag
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsListFeatureFlag
+import org.wordpress.android.util.config.featureflags.local.BloggingPromptsSocialFeatureFlag
+import org.wordpress.android.util.config.featureflags.local.LandOnTheEditorFeatureFlag
+import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTabsFeatureFlag
+import org.wordpress.android.util.config.featureflags.local.QuickStartDynamicCardsFeatureFlag
 import org.wordpress.android.util.publicdata.AppStatus
 import org.wordpress.android.util.publicdata.WordPressPublicData
 import org.wordpress.android.viewmodel.ContextProvider
@@ -222,7 +222,7 @@ class MySiteViewModelTest : BaseUnitTest() {
     lateinit var homePageDataLoader: HomePageDataLoader
 
     @Mock
-    lateinit var quickStartDynamicCardsFeatureConfig: QuickStartDynamicCardsFeatureConfig
+    lateinit var quickStartDynamicCardsFeatureConfig: QuickStartDynamicCardsFeatureFlag
 
     @Mock
     lateinit var quickStartUtilsWrapper: QuickStartUtilsWrapper
@@ -237,7 +237,7 @@ class MySiteViewModelTest : BaseUnitTest() {
     lateinit var dynamicCardsBuilder: DynamicCardsBuilder
 
     @Mock
-    lateinit var landOnTheEditorFeatureConfig: LandOnTheEditorFeatureConfig
+    lateinit var landOnTheEditorFeatureConfig: LandOnTheEditorFeatureFlag
 
     @Mock
     lateinit var mySiteSourceManager: MySiteSourceManager
@@ -255,19 +255,19 @@ class MySiteViewModelTest : BaseUnitTest() {
     lateinit var buildConfigWrapper: BuildConfigWrapper
 
     @Mock
-    lateinit var mySiteDashboardTabsFeatureConfig: MySiteDashboardTabsFeatureConfig
+    lateinit var mySiteDashboardTabsFeatureConfig: MySiteDashboardTabsFeatureFlag
 
     @Mock
-    lateinit var bloggingPromptsFeatureConfig: BloggingPromptsFeatureConfig
+    lateinit var bloggingPromptsFeatureConfig: BloggingPromptsFeatureFlag
 
     @Mock
-    lateinit var bloggingPromptsListFeatureConfig: BloggingPromptsListFeatureConfig
+    lateinit var bloggingPromptsListFeatureConfig: BloggingPromptsListFeatureFlag
 
     @Mock
-    lateinit var bloggingPromptsEnhancementsFeatureConfig: BloggingPromptsEnhancementsFeatureConfig
+    lateinit var bloggingPromptsEnhancementsFeatureConfig: BloggingPromptsEnhancementsFeatureFlag
 
     @Mock
-    lateinit var bloggingPromptsSocialFeatureConfig: BloggingPromptsSocialFeatureConfig
+    lateinit var bloggingPromptsSocialFeatureConfig: BloggingPromptsSocialFeatureFlag
 
     @Mock
     lateinit var bloggingPromptsSettingsHelper: BloggingPromptsSettingsHelper

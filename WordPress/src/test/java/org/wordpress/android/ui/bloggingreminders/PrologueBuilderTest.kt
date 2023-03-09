@@ -14,12 +14,12 @@ import org.wordpress.android.ui.bloggingreminders.BloggingRemindersItem.Title
 import org.wordpress.android.ui.bloggingreminders.BloggingRemindersViewModel.UiState.PrimaryButton
 import org.wordpress.android.ui.utils.ListItemInteraction.Companion
 import org.wordpress.android.ui.utils.UiString.UiStringRes
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureFlag
 
 @RunWith(MockitoJUnitRunner::class)
 class PrologueBuilderTest {
     @Mock
-    lateinit var bloggingPromptsFeatureConfig: BloggingPromptsFeatureConfig
+    lateinit var bloggingPromptsFeatureConfig: BloggingPromptsFeatureFlag
     private lateinit var prologueBuilder: PrologueBuilder
     private var confirmed = false
 

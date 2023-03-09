@@ -6,7 +6,7 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoInteractions
 import org.mockito.kotlin.whenever
 import org.wordpress.android.R
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureFlag
 import org.wordpress.android.workers.notification.local.LocalNotification
 import org.wordpress.android.workers.notification.local.LocalNotification.Type.BLOGGING_PROMPTS_ONBOARDING
 import org.wordpress.android.workers.notification.local.LocalNotificationScheduler
@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit.MILLISECONDS
 class BloggingPromptsOnboardingNotificationSchedulerTest {
     private val localnotificationScheduler: LocalNotificationScheduler = mock()
     private val bloggingPromptsOnboardingNotificationHandler: BloggingPromptsOnboardingNotificationHandler = mock()
-    private val bloggingPromptsFeatureConfig: BloggingPromptsFeatureConfig = mock()
+    private val bloggingPromptsFeatureConfig: BloggingPromptsFeatureFlag = mock()
     private val classToTest = BloggingPromptsOnboardingNotificationScheduler(
         localnotificationScheduler, bloggingPromptsOnboardingNotificationHandler, bloggingPromptsFeatureConfig
     )

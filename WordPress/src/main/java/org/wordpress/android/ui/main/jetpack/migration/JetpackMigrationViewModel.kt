@@ -65,7 +65,7 @@ import org.wordpress.android.util.GravatarUtilsWrapper
 import org.wordpress.android.util.JetpackMigrationLanguageUtil
 import org.wordpress.android.util.LocaleManagerWrapper
 import org.wordpress.android.util.SiteUtilsWrapper
-import org.wordpress.android.util.config.featureflags.remote.PreventDuplicateNotifsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.PreventDuplicateNotifsFeatureFlag
 import org.wordpress.android.viewmodel.ContextProvider
 import java.util.Locale
 import javax.inject.Inject
@@ -75,7 +75,7 @@ class JetpackMigrationViewModel @Inject constructor(
     private val siteUtilsWrapper: SiteUtilsWrapper,
     private val gravatarUtilsWrapper: GravatarUtilsWrapper,
     private val contextProvider: ContextProvider,
-    private val preventDuplicateNotifsFeatureConfig: PreventDuplicateNotifsFeatureConfig,
+    private val preventDuplicateNotifsFeatureConfig: PreventDuplicateNotifsFeatureFlag,
     private val appPrefsWrapper: AppPrefsWrapper,
     private val localMigrationOrchestrator: LocalMigrationOrchestrator,
     private val migrationEmailHelper: MigrationEmailHelper,

@@ -3,14 +3,14 @@ package org.wordpress.android.ui.domains
 import org.wordpress.android.analytics.AnalyticsTracker
 import org.wordpress.android.fluxc.model.SiteModel
 import org.wordpress.android.util.analytics.AnalyticsTrackerWrapper
-import org.wordpress.android.util.config.featureflags.local.SiteCreationDomainPurchasingFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.SiteCreationDomainPurchasingFeatureFlag
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class DomainsRegistrationTracker @Inject constructor(
     val tracker: AnalyticsTrackerWrapper,
-    private val purchasingFeatureConfig: SiteCreationDomainPurchasingFeatureConfig,
+    private val purchasingFeatureConfig: SiteCreationDomainPurchasingFeatureFlag,
 ) {
     private enum class PROPERTY(val key: String) {
         ORIGIN("origin"),

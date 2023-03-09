@@ -22,7 +22,7 @@ import org.wordpress.android.fluxc.store.ThemeStore.FetchStarterDesignsPayload
 import org.wordpress.android.fluxc.store.ThemeStore.OnStarterDesignsFetched
 import org.wordpress.android.ui.sitecreation.usecases.FetchHomePageLayoutsUseCase
 import org.wordpress.android.ui.sitecreation.usecases.FetchHomePageLayoutsUseCase.GROUP
-import org.wordpress.android.util.config.featureflags.local.BetaSiteDesignsFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.BetaSiteDesignsFeatureFlag
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
@@ -37,7 +37,7 @@ class FetchHomePageLayoutsUseCaseTest : BaseUnitTest() {
     lateinit var thumbDimensionProvider: SiteDesignRecommendedDimensionProvider
 
     @Mock
-    lateinit var betaSiteDesigns: BetaSiteDesignsFeatureConfig
+    lateinit var betaSiteDesigns: BetaSiteDesignsFeatureFlag
 
     private lateinit var useCase: FetchHomePageLayoutsUseCase
     private lateinit var dispatchCaptor: KArgumentCaptor<Action<SuggestDomainsPayload>>

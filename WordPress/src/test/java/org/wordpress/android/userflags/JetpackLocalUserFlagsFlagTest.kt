@@ -5,10 +5,10 @@ import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import org.wordpress.android.util.BuildConfigWrapper
-import org.wordpress.android.util.config.featureflags.remote.JetpackLocalUserFlagsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.JetpackLocalUserFlagsFeatureFlag
 
 class JetpackLocalUserFlagsFlagTest {
-    private val jetpackLocalUserFlagsFeatureConfig: JetpackLocalUserFlagsFeatureConfig = mock()
+    private val jetpackLocalUserFlagsFeatureConfig: JetpackLocalUserFlagsFeatureFlag = mock()
     private val buildConfigWrapper: BuildConfigWrapper = mock()
     private val classToTest = JetpackLocalUserFlagsFlag(jetpackLocalUserFlagsFeatureConfig, buildConfigWrapper)
 

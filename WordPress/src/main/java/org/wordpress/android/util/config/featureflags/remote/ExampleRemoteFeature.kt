@@ -2,7 +2,7 @@ package org.wordpress.android.util.config.featureflags.remote
 
 import org.wordpress.android.annotation.RemoteFeatureFlagDefault
 import org.wordpress.android.util.config.AppConfig
-import org.wordpress.android.util.config.FeatureConfig
+import org.wordpress.android.util.config.FeatureFlag
 import org.wordpress.android.util.config.featureflags.remote.ExampleRemoteFeature.Companion.EXAMPLE_REMOTE_FEATURE_FIELD
 import javax.inject.Inject
 
@@ -12,7 +12,7 @@ import javax.inject.Inject
 @Suppress("Unused")
 @RemoteFeatureFlagDefault(remoteField = EXAMPLE_REMOTE_FEATURE_FIELD, defaultValue = false)
 class ExampleRemoteFeature
-@Inject constructor(appConfig: AppConfig) : FeatureConfig(
+@Inject constructor(appConfig: AppConfig) : FeatureFlag(
     appConfig,
     false,
     EXAMPLE_REMOTE_FEATURE_FIELD

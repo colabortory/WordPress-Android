@@ -11,7 +11,7 @@ import org.wordpress.android.ui.bloggingprompts.promptslist.mapper.BloggingPromp
 import org.wordpress.android.ui.bloggingprompts.promptslist.model.BloggingPromptsListItemModel
 import org.wordpress.android.ui.bloggingprompts.promptslist.usecase.FetchBloggingPromptsListUseCase
 import org.wordpress.android.util.NetworkUtilsWrapper
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureFlag
 import org.wordpress.android.viewmodel.ScopedViewModel
 import javax.inject.Inject
 import javax.inject.Named
@@ -22,7 +22,7 @@ class BloggingPromptsListViewModel @Inject constructor(
     private val itemModelMapper: BloggingPromptsListItemModelMapper,
     private val tracker: BloggingPromptsListAnalyticsTracker,
     private val networkUtilsWrapper: NetworkUtilsWrapper,
-    private val bloggingPromptsEnhancementsFeatureConfig: BloggingPromptsEnhancementsFeatureConfig,
+    private val bloggingPromptsEnhancementsFeatureConfig: BloggingPromptsEnhancementsFeatureFlag,
     @Named(BG_THREAD) private val bgDispatcher: CoroutineDispatcher,
 ) : ScopedViewModel(bgDispatcher) {
     private val _uiStateFlow = MutableStateFlow<UiState>(UiState.None)

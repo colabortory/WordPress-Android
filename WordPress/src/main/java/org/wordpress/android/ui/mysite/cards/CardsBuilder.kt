@@ -15,12 +15,12 @@ import org.wordpress.android.ui.mysite.cards.quicklinksribbon.QuickLinkRibbonBui
 import org.wordpress.android.ui.mysite.cards.quickstart.QuickStartCardBuilder
 import org.wordpress.android.ui.utils.ListItemInteraction
 import org.wordpress.android.util.BuildConfigWrapper
-import org.wordpress.android.util.config.featureflags.local.QuickStartDynamicCardsFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.QuickStartDynamicCardsFeatureFlag
 import javax.inject.Inject
 
 class CardsBuilder @Inject constructor(
     private val buildConfigWrapper: BuildConfigWrapper,
-    private val quickStartDynamicCardsFeatureConfig: QuickStartDynamicCardsFeatureConfig,
+    private val quickStartDynamicCardsFeatureConfig: QuickStartDynamicCardsFeatureFlag,
     private val quickActionsCardBuilder: QuickActionsCardBuilder,
     private val quickStartCardBuilder: QuickStartCardBuilder,
     private val quickLinkRibbonBuilder: QuickLinkRibbonBuilder,

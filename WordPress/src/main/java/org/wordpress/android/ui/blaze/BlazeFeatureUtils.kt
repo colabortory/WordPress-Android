@@ -8,13 +8,13 @@ import org.wordpress.android.fluxc.model.post.PostStatus
 import org.wordpress.android.ui.prefs.AppPrefsWrapper
 import org.wordpress.android.util.BuildConfigWrapper
 import org.wordpress.android.util.analytics.AnalyticsTrackerWrapper
-import org.wordpress.android.util.config.featureflags.remote.BlazeFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BlazeFeatureFlag
 import javax.inject.Inject
 
 class BlazeFeatureUtils @Inject constructor(
     private val analyticsTrackerWrapper: AnalyticsTrackerWrapper,
     private val appPrefsWrapper: AppPrefsWrapper,
-    private val blazeFeatureConfig: BlazeFeatureConfig,
+    private val blazeFeatureConfig: BlazeFeatureFlag,
     private val buildConfigWrapper: BuildConfigWrapper,
 ) {
     fun isBlazeEnabled(): Boolean {

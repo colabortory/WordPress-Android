@@ -211,7 +211,7 @@ import org.wordpress.android.util.WPUrlUtils;
 import org.wordpress.android.util.analytics.AnalyticsTrackerWrapper;
 import org.wordpress.android.util.analytics.AnalyticsUtils;
 import org.wordpress.android.util.analytics.AnalyticsUtils.BlockEditorEnabledSource;
-import org.wordpress.android.util.config.featureflags.local.GlobalStyleSupportFeatureConfig;
+import org.wordpress.android.util.config.featureflags.local.GlobalStyleSupportFeatureFlag;
 import org.wordpress.android.util.extensions.AppBarLayoutExtensionsKt;
 import org.wordpress.android.util.helpers.MediaFile;
 import org.wordpress.android.util.helpers.MediaGallery;
@@ -413,7 +413,7 @@ public class EditPostActivity extends LocaleAwareActivity implements
     @Inject StoriesPrefs mStoriesPrefs;
     @Inject StoriesEventListener mStoriesEventListener;
     @Inject UpdateFeaturedImageUseCase mUpdateFeaturedImageUseCase;
-    @Inject GlobalStyleSupportFeatureConfig mGlobalStyleSupportFeatureConfig;
+    @Inject GlobalStyleSupportFeatureFlag mGlobalStyleSupportFeatureConfig;
     @Inject ZendeskHelper mZendeskHelper;
     @Inject BloggingPromptsStore mBloggingPromptsStore;
     @Inject JetpackFeatureRemovalPhaseHelper mJetpackFeatureRemovalPhaseHelper;

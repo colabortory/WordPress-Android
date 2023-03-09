@@ -22,7 +22,7 @@ import org.wordpress.android.util.AppLog.T;
 import org.wordpress.android.util.StringUtils;
 import org.wordpress.android.util.WPMediaUtils;
 import org.wordpress.android.util.analytics.AnalyticsUtils;
-import org.wordpress.android.util.config.featureflags.remote.Mp4ComposerVideoOptimizationFeatureConfig;
+import org.wordpress.android.util.config.featureflags.remote.Mp4ComposerVideoOptimizationFeatureFlag;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,7 +40,7 @@ public class MediaUploadHandler implements UploadHandler<MediaModel>, VideoOptim
 
     @Inject Dispatcher mDispatcher;
     @Inject SiteStore mSiteStore;
-    @Inject Mp4ComposerVideoOptimizationFeatureConfig mMp4ComposerVideoOptimizationFeatureConfig;
+    @Inject Mp4ComposerVideoOptimizationFeatureFlag mMp4ComposerVideoOptimizationFeatureConfig;
 
     MediaUploadHandler() {
         ((WordPress) WordPress.getContext().getApplicationContext()).component().inject(this);

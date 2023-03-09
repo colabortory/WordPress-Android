@@ -11,8 +11,8 @@ import org.wordpress.android.ui.mysite.SelectedSiteRepository
 import org.wordpress.android.ui.prefs.AppPrefsWrapper
 import org.wordpress.android.util.DateUtils.isSameDay
 import org.wordpress.android.util.analytics.AnalyticsTrackerWrapper
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureConfig
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureFlag
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureFlag
 import java.util.Date
 import javax.inject.Inject
 
@@ -20,8 +20,8 @@ class BloggingPromptsSettingsHelper @Inject constructor(
     private val bloggingRemindersStore: BloggingRemindersStore,
     private val selectedSiteRepository: SelectedSiteRepository,
     private val appPrefsWrapper: AppPrefsWrapper,
-    private val bloggingPromptsFeatureConfig: BloggingPromptsFeatureConfig,
-    private val bloggingPromptsEnhancementsFeatureConfig: BloggingPromptsEnhancementsFeatureConfig,
+    private val bloggingPromptsFeatureConfig: BloggingPromptsFeatureFlag,
+    private val bloggingPromptsEnhancementsFeatureConfig: BloggingPromptsEnhancementsFeatureFlag,
     private val analyticsTracker: AnalyticsTrackerWrapper,
 ) {
     fun getPromptsCardEnabledLiveData(

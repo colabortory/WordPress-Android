@@ -11,13 +11,13 @@ import org.wordpress.android.ui.jetpackoverlay.JetpackFeatureRemovalBrandingUtil
 import org.wordpress.android.ui.mysite.SelectedSiteRepository
 import org.wordpress.android.ui.utils.UiString
 import org.wordpress.android.util.analytics.AnalyticsTrackerWrapper
-import org.wordpress.android.util.config.featureflags.remote.JetpackPoweredBottomSheetFeatureConfig
-import org.wordpress.android.util.config.featureflags.remote.JetpackPoweredFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.JetpackPoweredBottomSheetFeatureFlag
+import org.wordpress.android.util.config.featureflags.remote.JetpackPoweredFeatureFlag
 import javax.inject.Inject
 
 class JetpackBrandingUtils @Inject constructor(
-    private val jetpackPoweredFeatureConfig: JetpackPoweredFeatureConfig,
-    private val jetpackPoweredBottomSheetFeatureConfig: JetpackPoweredBottomSheetFeatureConfig,
+    private val jetpackPoweredFeatureConfig: JetpackPoweredFeatureFlag,
+    private val jetpackPoweredBottomSheetFeatureConfig: JetpackPoweredBottomSheetFeatureFlag,
     private val jetpackFeatureRemovalBrandingUtil: JetpackFeatureRemovalBrandingUtil,
     private val selectedSiteRepository: SelectedSiteRepository,
     private val siteUtilsWrapper: SiteUtilsWrapper,

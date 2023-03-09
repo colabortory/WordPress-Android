@@ -76,8 +76,8 @@ import org.wordpress.android.util.StringUtils;
 import org.wordpress.android.util.ToastUtils;
 import org.wordpress.android.util.WPActivityUtils;
 import org.wordpress.android.util.WPUrlUtils;
-import org.wordpress.android.util.config.featureflags.local.LandingScreenRevampFeatureConfig;
-import org.wordpress.android.util.config.featureflags.remote.WordPressSupportForumFeatureConfig;
+import org.wordpress.android.util.config.featureflags.local.LandingScreenRevampFeatureFlag;
+import org.wordpress.android.util.config.featureflags.remote.WordPressSupportForumFeatureFlag;
 import org.wordpress.android.widgets.WPSnackbar;
 
 import java.util.ArrayList;
@@ -139,9 +139,9 @@ public class LoginActivity extends LocaleAwareActivity implements ConnectionCall
     @Inject protected ViewModelProvider.Factory mViewModelFactory;
     @Inject BuildConfigWrapper mBuildConfigWrapper;
 
-    @Inject LandingScreenRevampFeatureConfig mLandingScreenRevampFeatureConfig;
+    @Inject LandingScreenRevampFeatureFlag mLandingScreenRevampFeatureConfig;
 
-    @Inject WordPressSupportForumFeatureConfig mWordPressSupportForumFeatureConfig;
+    @Inject WordPressSupportForumFeatureFlag mWordPressSupportForumFeatureConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

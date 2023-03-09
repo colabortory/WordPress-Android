@@ -6,10 +6,10 @@ import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 import org.wordpress.android.fluxc.model.SiteModel
 import org.wordpress.android.ui.prefs.AppPrefsWrapper
-import org.wordpress.android.util.config.featureflags.remote.JetpackInstallFullPluginFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.JetpackInstallFullPluginFeatureFlag
 
 class GetShowJetpackFullPluginInstallOnboardingUseCaseTest {
-    private val jetpackInstallFullPluginFeatureConfig: JetpackInstallFullPluginFeatureConfig = mock()
+    private val jetpackInstallFullPluginFeatureConfig: JetpackInstallFullPluginFeatureFlag = mock()
     private val appPrefsWrapper: AppPrefsWrapper = mock()
     private val classToTest = GetShowJetpackFullPluginInstallOnboardingUseCase(
         jetpackInstallFullPluginFeatureConfig = jetpackInstallFullPluginFeatureConfig,

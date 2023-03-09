@@ -37,7 +37,7 @@ import org.wordpress.android.ui.sitecreation.previews.SitePreviewViewModel.Creat
 import org.wordpress.android.ui.sitecreation.previews.SitePreviewViewModel.CreateSiteState.SiteCreationCompleted
 import org.wordpress.android.ui.sitecreation.usecases.FetchHomePageLayoutsUseCase
 import org.wordpress.android.util.NetworkUtilsWrapper
-import org.wordpress.android.util.config.featureflags.local.SiteCreationDomainPurchasingFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.SiteCreationDomainPurchasingFeatureFlag
 import org.wordpress.android.util.experiments.SiteCreationDomainPurchasingExperiment
 import org.wordpress.android.util.image.ImageManager
 import org.wordpress.android.util.wizard.WizardManager
@@ -101,7 +101,7 @@ class SiteCreationMainVMTest : BaseUnitTest() {
     lateinit var domainPurchasingExperiment: SiteCreationDomainPurchasingExperiment
 
     @Mock
-    lateinit var domainPurchasingFeatureConfig: SiteCreationDomainPurchasingFeatureConfig
+    lateinit var domainPurchasingFeatureConfig: SiteCreationDomainPurchasingFeatureFlag
 
     private val wizardManagerNavigatorLiveData = SingleLiveEvent<SiteCreationStep>()
 

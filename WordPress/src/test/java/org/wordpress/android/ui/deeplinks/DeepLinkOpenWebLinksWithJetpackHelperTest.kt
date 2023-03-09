@@ -17,14 +17,14 @@ import org.wordpress.android.util.DateTimeUtils
 import org.wordpress.android.util.DateTimeUtilsWrapper
 import org.wordpress.android.util.FirebaseRemoteConfigWrapper
 import org.wordpress.android.util.PackageManagerWrapper
-import org.wordpress.android.util.config.featureflags.remote.OpenWebLinksWithJetpackFlowFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.OpenWebLinksWithJetpackFlowFeatureFlag
 import java.util.Date
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class DeepLinkOpenWebLinksWithJetpackHelperTest : BaseUnitTest() {
     @Mock
-    lateinit var openWebLinksWithJetpackFlowFeatureConfig: OpenWebLinksWithJetpackFlowFeatureConfig
+    lateinit var openWebLinksWithJetpackFlowFeatureConfig: OpenWebLinksWithJetpackFlowFeatureFlag
 
     @Mock
     lateinit var appPrefsWrapper: AppPrefsWrapper

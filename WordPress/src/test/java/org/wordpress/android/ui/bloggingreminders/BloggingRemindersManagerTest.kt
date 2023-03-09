@@ -8,12 +8,12 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.whenever
 import org.wordpress.android.ui.prefs.AppPrefsWrapper
-import org.wordpress.android.util.config.featureflags.remote.BloggingRemindersFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingRemindersFeatureFlag
 
 @RunWith(MockitoJUnitRunner::class)
 class BloggingRemindersManagerTest {
     @Mock
-    lateinit var bloggingRemindersFeatureConfig: BloggingRemindersFeatureConfig
+    lateinit var bloggingRemindersFeatureConfig: BloggingRemindersFeatureFlag
 
     @Mock
     lateinit var appPrefsWrapper: AppPrefsWrapper

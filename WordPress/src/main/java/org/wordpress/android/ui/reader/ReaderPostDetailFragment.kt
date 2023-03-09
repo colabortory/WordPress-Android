@@ -129,8 +129,8 @@ import org.wordpress.android.util.ToastUtils
 import org.wordpress.android.util.UrlUtils
 import org.wordpress.android.util.WPPermissionUtils.READER_FILE_DOWNLOAD_PERMISSION_REQUEST_CODE
 import org.wordpress.android.util.WPSwipeToRefreshHelper.buildSwipeToRefreshHelper
-import org.wordpress.android.util.config.featureflags.remote.CommentsSnippetFeatureConfig
-import org.wordpress.android.util.config.featureflags.remote.LikesEnhancementsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.CommentsSnippetFeatureFlag
+import org.wordpress.android.util.config.featureflags.remote.LikesEnhancementsFeatureFlag
 import org.wordpress.android.util.extensions.getColorFromAttribute
 import org.wordpress.android.util.extensions.isDarkTheme
 import org.wordpress.android.util.extensions.setVisible
@@ -250,13 +250,13 @@ class ReaderPostDetailFragment : ViewPagerFragment(),
     lateinit var readerTracker: ReaderTracker
 
     @Inject
-    lateinit var likesEnhancementsFeatureConfig: LikesEnhancementsFeatureConfig
+    lateinit var likesEnhancementsFeatureConfig: LikesEnhancementsFeatureFlag
 
     @Inject
     lateinit var contextProvider: ContextProvider
 
     @Inject
-    lateinit var commentsSnippetFeatureConfig: CommentsSnippetFeatureConfig
+    lateinit var commentsSnippetFeatureConfig: CommentsSnippetFeatureFlag
 
     @Inject
     lateinit var jetpackBrandingUtils: JetpackBrandingUtils

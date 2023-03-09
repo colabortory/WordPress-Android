@@ -22,7 +22,7 @@ import org.wordpress.android.fluxc.store.dashboard.CardsStore.CardsErrorType
 import org.wordpress.android.fluxc.store.dashboard.CardsStore.CardsResult
 import org.wordpress.android.ui.mysite.MySiteUiState.PartialState.CardsUpdate
 import org.wordpress.android.ui.mysite.SelectedSiteRepository
-import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTodaysStatsCardFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTodaysStatsCardFeatureFlag
 
 /* SITE */
 
@@ -86,7 +86,7 @@ class CardsSourceTest : BaseUnitTest() {
     private lateinit var siteModel: SiteModel
 
     @Mock
-    private lateinit var todaysStatsCardFeatureConfig: MySiteDashboardTodaysStatsCardFeatureConfig
+    private lateinit var todaysStatsCardFeatureConfig: MySiteDashboardTodaysStatsCardFeatureFlag
     private lateinit var cardSource: CardsSource
 
     private val data = CardsResult(

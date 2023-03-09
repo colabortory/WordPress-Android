@@ -22,7 +22,7 @@ import org.wordpress.android.ui.sitecreation.theme.DesignPreviewFragment.Compani
 import org.wordpress.android.ui.utils.UiHelpers
 import org.wordpress.android.util.DisplayUtilsWrapper
 import org.wordpress.android.util.ToastUtils
-import org.wordpress.android.util.config.featureflags.local.SiteNameFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.SiteNameFeatureFlag
 import org.wordpress.android.util.extensions.setVisible
 import org.wordpress.android.util.image.ImageManager
 import javax.inject.Inject
@@ -42,7 +42,7 @@ class HomePagePickerFragment : Fragment() {
     internal lateinit var uiHelper: UiHelpers
 
     @Inject
-    lateinit var siteNameFeatureConfig: SiteNameFeatureConfig
+    lateinit var siteNameFeatureConfig: SiteNameFeatureFlag
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory

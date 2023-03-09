@@ -1,7 +1,7 @@
 package org.wordpress.android.workers.notification.bloggingprompts
 
 import org.wordpress.android.R
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureFlag
 import org.wordpress.android.workers.notification.local.LocalNotification
 import org.wordpress.android.workers.notification.local.LocalNotification.Type.BLOGGING_PROMPTS_ONBOARDING
 import org.wordpress.android.workers.notification.local.LocalNotificationScheduler
@@ -11,7 +11,7 @@ import javax.inject.Inject
 class BloggingPromptsOnboardingNotificationScheduler @Inject constructor(
     private val localNotificationScheduler: LocalNotificationScheduler,
     private val bloggingPromptsOnboardingNotificationHandler: BloggingPromptsOnboardingNotificationHandler,
-    private val bloggingPromptsFeatureConfig: BloggingPromptsFeatureConfig
+    private val bloggingPromptsFeatureConfig: BloggingPromptsFeatureFlag
 ) {
     fun scheduleBloggingPromptsOnboardingNotificationIfNeeded() {
         if (bloggingPromptsOnboardingNotificationHandler.shouldShowNotification()) {

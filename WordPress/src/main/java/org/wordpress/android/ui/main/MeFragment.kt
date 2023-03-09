@@ -75,8 +75,8 @@ import org.wordpress.android.util.SnackbarSequencer
 import org.wordpress.android.util.ToastUtils
 import org.wordpress.android.util.ToastUtils.Duration.SHORT
 import org.wordpress.android.util.WPMediaUtils
-import org.wordpress.android.util.config.featureflags.remote.QRCodeAuthFlowFeatureConfig
-import org.wordpress.android.util.config.featureflags.remote.RecommendTheAppFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.QRCodeAuthFlowFeatureFlag
+import org.wordpress.android.util.config.featureflags.remote.RecommendTheAppFeatureFlag
 import org.wordpress.android.util.extensions.getColorFromAttribute
 import org.wordpress.android.util.image.ImageManager.RequestListener
 import org.wordpress.android.util.image.ImageType.AVATAR_WITHOUT_BACKGROUND
@@ -114,13 +114,13 @@ class MeFragment : Fragment(R.layout.me_fragment), OnScrollToTopListener {
     lateinit var mediaPickerLauncher: MediaPickerLauncher
 
     @Inject
-    lateinit var recommendTheAppFeatureConfig: RecommendTheAppFeatureConfig
+    lateinit var recommendTheAppFeatureConfig: RecommendTheAppFeatureFlag
 
     @Inject
     lateinit var sequencer: SnackbarSequencer
 
     @Inject
-    lateinit var qrCodeAuthFlowFeatureConfig: QRCodeAuthFlowFeatureConfig
+    lateinit var qrCodeAuthFlowFeatureConfig: QRCodeAuthFlowFeatureFlag
 
     @Inject
     lateinit var jetpackBrandingUtils: JetpackBrandingUtils

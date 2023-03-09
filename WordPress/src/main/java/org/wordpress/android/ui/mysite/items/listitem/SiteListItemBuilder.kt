@@ -29,7 +29,7 @@ import org.wordpress.android.ui.utils.UiString.UiStringText
 import org.wordpress.android.util.BuildConfigWrapper
 import org.wordpress.android.util.DateTimeUtils
 import org.wordpress.android.util.SiteUtilsWrapper
-import org.wordpress.android.util.config.featureflags.remote.SiteDomainsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.SiteDomainsFeatureFlag
 import java.util.GregorianCalendar
 import java.util.TimeZone
 import javax.inject.Inject
@@ -40,7 +40,7 @@ class SiteListItemBuilder @Inject constructor(
     private val siteUtilsWrapper: SiteUtilsWrapper,
     private val buildConfigWrapper: BuildConfigWrapper,
     private val themeBrowserUtils: ThemeBrowserUtils,
-    private val siteDomainsFeatureConfig: SiteDomainsFeatureConfig
+    private val siteDomainsFeatureConfig: SiteDomainsFeatureFlag
 ) {
     fun buildActivityLogItemIfAvailable(site: SiteModel, onClick: (ListItemAction) -> Unit): ListItem? {
         val isWpComOrJetpack = siteUtilsWrapper.isAccessedViaWPComRest(

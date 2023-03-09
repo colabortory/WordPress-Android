@@ -8,7 +8,7 @@ import org.wordpress.android.fluxc.model.SiteModel
 import org.wordpress.android.fluxc.store.bloggingprompts.BloggingPromptsStore
 import org.wordpress.android.modules.BG_THREAD
 import org.wordpress.android.ui.bloggingprompts.BloggingPromptsPostTagProvider
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureFlag
 import org.wordpress.android.viewmodel.Event
 import org.wordpress.android.viewmodel.ScopedViewModel
 import javax.inject.Inject
@@ -18,7 +18,7 @@ class EditorBloggingPromptsViewModel
 @Inject constructor(
     private val bloggingPromptsStore: BloggingPromptsStore,
     private val bloggingPromptsEditorBlockMapper: BloggingPromptsEditorBlockMapper,
-    private val bloggingPromptsEnhancementsFeatureConfig: BloggingPromptsEnhancementsFeatureConfig,
+    private val bloggingPromptsEnhancementsFeatureConfig: BloggingPromptsEnhancementsFeatureFlag,
     @Named(BG_THREAD) private val bgDispatcher: CoroutineDispatcher,
 ) : ScopedViewModel(bgDispatcher) {
     private val _onBloggingPromptLoaded = MutableLiveData<Event<EditorLoadedPrompt>>()

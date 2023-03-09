@@ -136,7 +136,7 @@ import org.wordpress.android.util.SnackbarSequencer;
 import org.wordpress.android.util.StringUtils;
 import org.wordpress.android.util.ToastUtils;
 import org.wordpress.android.util.WPActivityUtils;
-import org.wordpress.android.util.config.featureflags.remote.SeenUnseenWithCounterFeatureConfig;
+import org.wordpress.android.util.config.featureflags.remote.SeenUnseenWithCounterFeatureFlag;
 import org.wordpress.android.util.image.ImageManager;
 import org.wordpress.android.viewmodel.main.WPMainActivityViewModel;
 import org.wordpress.android.widgets.AppRatingDialog;
@@ -230,7 +230,7 @@ public class ReaderPostListFragment extends ViewPagerFragment
     @Inject UiHelpers mUiHelpers;
     @Inject TagUpdateClientUtilsProvider mTagUpdateClientUtilsProvider;
     @Inject QuickStartUtilsWrapper mQuickStartUtilsWrapper;
-    @Inject SeenUnseenWithCounterFeatureConfig mSeenUnseenWithCounterFeatureConfig;
+    @Inject SeenUnseenWithCounterFeatureFlag mSeenUnseenWithCounterFeatureConfig;
     @Inject JetpackBrandingUtils mJetpackBrandingUtils;
     @Inject QuickStartRepository mQuickStartRepository;
     @Inject ReaderTracker mReaderTracker;

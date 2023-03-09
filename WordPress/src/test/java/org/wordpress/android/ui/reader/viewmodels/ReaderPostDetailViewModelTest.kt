@@ -102,8 +102,8 @@ import org.wordpress.android.ui.utils.UiString.UiStringText
 import org.wordpress.android.util.EventBusWrapper
 import org.wordpress.android.util.NetworkUtilsWrapper
 import org.wordpress.android.util.WpUrlUtilsWrapper
-import org.wordpress.android.util.config.featureflags.remote.CommentsSnippetFeatureConfig
-import org.wordpress.android.util.config.featureflags.remote.LikesEnhancementsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.CommentsSnippetFeatureFlag
+import org.wordpress.android.util.config.featureflags.remote.LikesEnhancementsFeatureFlag
 import org.wordpress.android.util.image.ImageType.BLAVATAR_CIRCULAR
 import org.wordpress.android.viewmodel.ContextProvider
 import org.wordpress.android.viewmodel.Event
@@ -173,7 +173,7 @@ class ReaderPostDetailViewModelTest : BaseUnitTest() {
     private lateinit var getLikesHandler: GetLikesHandler
 
     @Mock
-    private lateinit var likesEnhancementsFeatureConfig: LikesEnhancementsFeatureConfig
+    private lateinit var likesEnhancementsFeatureConfig: LikesEnhancementsFeatureFlag
 
     @Mock
     private lateinit var contextProvider: ContextProvider
@@ -188,7 +188,7 @@ class ReaderPostDetailViewModelTest : BaseUnitTest() {
     private lateinit var networkUtilsWrapper: NetworkUtilsWrapper
 
     @Mock
-    private lateinit var commentsSnippetFeatureConfig: CommentsSnippetFeatureConfig
+    private lateinit var commentsSnippetFeatureConfig: CommentsSnippetFeatureFlag
 
     @Mock
     private lateinit var readerCommentTableWrapper: ReaderCommentTableWrapper

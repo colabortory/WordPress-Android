@@ -46,7 +46,7 @@ class AppConfig
      * Once the feature is ready to be fully released, we can enable the BuildConfig value.
      * @param feature feature which we're checking remotely
      */
-    fun isEnabled(feature: FeatureConfig): Boolean {
+    fun isEnabled(feature: FeatureFlag): Boolean {
         return featureState(feature).isEnabled
     }
 
@@ -54,7 +54,7 @@ class AppConfig
      * Get the enabled flag and the source where it came from.
      * @param feature feature we're checking remotely
      */
-    fun featureState(feature: FeatureConfig): FeatureState {
+    fun featureState(feature: FeatureFlag): FeatureState {
         return buildFeatureState(feature)
     }
 
@@ -62,7 +62,7 @@ class AppConfig
         return remoteFieldConfigRepository.getValue(remoteField)
     }
 
-    private fun buildFeatureState(feature: FeatureConfig): FeatureState {
+    private fun buildFeatureState(feature: FeatureFlag): FeatureState {
         return when {
             manualFeatureConfig.hasManualSetup(feature) -> {
                 ManuallyOverriden(manualFeatureConfig.isManuallyEnabled(feature))

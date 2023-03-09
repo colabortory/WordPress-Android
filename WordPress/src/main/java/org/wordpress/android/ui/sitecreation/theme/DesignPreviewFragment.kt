@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import org.wordpress.android.R
 import org.wordpress.android.WordPress
 import org.wordpress.android.ui.layoutpicker.LayoutPreviewFragment
-import org.wordpress.android.util.config.featureflags.local.SiteNameFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.SiteNameFeatureFlag
 import javax.inject.Inject
 
 /**
@@ -13,7 +13,7 @@ import javax.inject.Inject
  */
 class DesignPreviewFragment : LayoutPreviewFragment() {
     @Inject
-    lateinit var siteNameFeatureConfig: SiteNameFeatureConfig
+    lateinit var siteNameFeatureConfig: SiteNameFeatureFlag
 
     companion object {
         const val DESIGN_PREVIEW_TAG = "DESIGN_PREVIEW_TAG"

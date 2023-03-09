@@ -88,8 +88,8 @@ import org.wordpress.android.util.AppLog.T
 import org.wordpress.android.util.EventBusWrapper
 import org.wordpress.android.util.NetworkUtilsWrapper
 import org.wordpress.android.util.WpUrlUtilsWrapper
-import org.wordpress.android.util.config.featureflags.remote.CommentsSnippetFeatureConfig
-import org.wordpress.android.util.config.featureflags.remote.LikesEnhancementsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.CommentsSnippetFeatureFlag
+import org.wordpress.android.util.config.featureflags.remote.LikesEnhancementsFeatureFlag
 import org.wordpress.android.util.map
 import org.wordpress.android.viewmodel.ContextProvider
 import org.wordpress.android.viewmodel.Event
@@ -118,12 +118,12 @@ class ReaderPostDetailViewModel @Inject constructor(
     @Named(IO_THREAD) private val ioDispatcher: CoroutineDispatcher,
     @Named(BG_THREAD) private val bgDispatcher: CoroutineDispatcher,
     private val getLikesHandler: GetLikesHandler,
-    private val likesEnhancementsFeatureConfig: LikesEnhancementsFeatureConfig,
+    private val likesEnhancementsFeatureConfig: LikesEnhancementsFeatureFlag,
     private val engagementUtils: EngagementUtils,
     private val htmlMessageUtils: HtmlMessageUtils,
     private val contextProvider: ContextProvider,
     private val networkUtilsWrapper: NetworkUtilsWrapper,
-    private val commentsSnippetFeatureConfig: CommentsSnippetFeatureConfig,
+    private val commentsSnippetFeatureConfig: CommentsSnippetFeatureFlag,
     private val readerCommentTableWrapper: ReaderCommentTableWrapper,
     private val readerCommentServiceStarterWrapper: ReaderCommentServiceStarterWrapper
 ) : ScopedViewModel(mainDispatcher) {

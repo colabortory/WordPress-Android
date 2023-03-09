@@ -127,13 +127,13 @@ import org.wordpress.android.util.SnackbarSequencer
 import org.wordpress.android.util.UriWrapper
 import org.wordpress.android.util.WPMediaUtilsWrapper
 import org.wordpress.android.util.analytics.AnalyticsTrackerWrapper
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureConfig
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureConfig
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsListFeatureConfig
-import org.wordpress.android.util.config.featureflags.local.BloggingPromptsSocialFeatureConfig
-import org.wordpress.android.util.config.featureflags.local.LandOnTheEditorFeatureConfig
-import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTabsFeatureConfig
-import org.wordpress.android.util.config.featureflags.local.QuickStartDynamicCardsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureFlag
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureFlag
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsListFeatureFlag
+import org.wordpress.android.util.config.featureflags.local.BloggingPromptsSocialFeatureFlag
+import org.wordpress.android.util.config.featureflags.local.LandOnTheEditorFeatureFlag
+import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTabsFeatureFlag
+import org.wordpress.android.util.config.featureflags.local.QuickStartDynamicCardsFeatureFlag
 import org.wordpress.android.util.filter
 import org.wordpress.android.util.getEmailValidationMessage
 import org.wordpress.android.util.map
@@ -169,22 +169,22 @@ class MySiteViewModel @Inject constructor(
     private val quickStartCardBuilder: QuickStartCardBuilder,
     private val siteInfoHeaderCardBuilder: SiteInfoHeaderCardBuilder,
     private val homePageDataLoader: HomePageDataLoader,
-    private val quickStartDynamicCardsFeatureConfig: QuickStartDynamicCardsFeatureConfig,
+    private val quickStartDynamicCardsFeatureConfig: QuickStartDynamicCardsFeatureFlag,
     private val quickStartUtilsWrapper: QuickStartUtilsWrapper,
     private val snackbarSequencer: SnackbarSequencer,
     private val cardsBuilder: CardsBuilder,
     private val dynamicCardsBuilder: DynamicCardsBuilder,
-    private val landOnTheEditorFeatureConfig: LandOnTheEditorFeatureConfig,
+    private val landOnTheEditorFeatureConfig: LandOnTheEditorFeatureFlag,
     private val mySiteSourceManager: MySiteSourceManager,
     private val cardsTracker: CardsTracker,
     private val siteItemsTracker: SiteItemsTracker,
     private val domainRegistrationCardShownTracker: DomainRegistrationCardShownTracker,
     private val buildConfigWrapper: BuildConfigWrapper,
-    mySiteDashboardTabsFeatureConfig: MySiteDashboardTabsFeatureConfig,
-    bloggingPromptsFeatureConfig: BloggingPromptsFeatureConfig,
-    bloggingPromptsListFeatureConfig: BloggingPromptsListFeatureConfig,
-    bloggingPromptsEnhancementsFeatureConfig: BloggingPromptsEnhancementsFeatureConfig,
-    bloggingPromptsSocialFeatureConfig: BloggingPromptsSocialFeatureConfig,
+    mySiteDashboardTabsFeatureConfig: MySiteDashboardTabsFeatureFlag,
+    bloggingPromptsFeatureConfig: BloggingPromptsFeatureFlag,
+    bloggingPromptsListFeatureConfig: BloggingPromptsListFeatureFlag,
+    bloggingPromptsEnhancementsFeatureConfig: BloggingPromptsEnhancementsFeatureFlag,
+    bloggingPromptsSocialFeatureConfig: BloggingPromptsSocialFeatureFlag,
     private val jetpackBrandingUtils: JetpackBrandingUtils,
     private val appPrefsWrapper: AppPrefsWrapper,
     private val bloggingPromptsCardAnalyticsTracker: BloggingPromptsCardAnalyticsTracker,

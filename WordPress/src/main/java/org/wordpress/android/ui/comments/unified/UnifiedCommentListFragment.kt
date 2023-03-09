@@ -32,7 +32,7 @@ import org.wordpress.android.util.SnackbarItem.Action
 import org.wordpress.android.util.SnackbarItem.Info
 import org.wordpress.android.util.SnackbarSequencer
 import org.wordpress.android.util.WPSwipeToRefreshHelper
-import org.wordpress.android.util.config.featureflags.remote.UnifiedCommentsDetailFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.UnifiedCommentsDetailFeatureFlag
 import org.wordpress.android.util.helpers.SwipeToRefreshHelper
 import javax.inject.Inject
 
@@ -53,7 +53,7 @@ class UnifiedCommentListFragment : Fragment(R.layout.unified_comment_list_fragme
     lateinit var networkUtilsWrapper: NetworkUtilsWrapper
 
     @Inject
-    lateinit var unifiedCommentsDetailFeatureConfig: UnifiedCommentsDetailFeatureConfig
+    lateinit var unifiedCommentsDetailFeatureConfig: UnifiedCommentsDetailFeatureFlag
 
     private lateinit var viewModel: UnifiedCommentListViewModel
     private lateinit var activityViewModel: UnifiedCommentActivityViewModel

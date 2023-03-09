@@ -77,7 +77,7 @@ import org.wordpress.android.util.UriWrapper;
 import org.wordpress.android.util.UrlUtilsWrapper;
 import org.wordpress.android.util.WPActivityUtils;
 import org.wordpress.android.util.analytics.AnalyticsUtilsWrapper;
-import org.wordpress.android.util.config.featureflags.remote.SeenUnseenWithCounterFeatureConfig;
+import org.wordpress.android.util.config.featureflags.remote.SeenUnseenWithCounterFeatureFlag;
 import org.wordpress.android.widgets.WPSwipeSnackbar;
 import org.wordpress.android.widgets.WPViewPager;
 import org.wordpress.android.widgets.WPViewPagerTransformer;
@@ -159,7 +159,7 @@ public class ReaderPostPagerActivity extends LocaleAwareActivity {
     @Inject UploadActionUseCase mUploadActionUseCase;
     @Inject UploadUtilsWrapper mUploadUtilsWrapper;
     @Inject ReaderPostSeenStatusWrapper mPostSeenStatusWrapper;
-    @Inject SeenUnseenWithCounterFeatureConfig mSeenUnseenWithCounterFeatureConfig;
+    @Inject SeenUnseenWithCounterFeatureFlag mSeenUnseenWithCounterFeatureConfig;
     @Inject UrlUtilsWrapper mUrlUtilsWrapper;
     @Inject DeepLinkTrackingUtils mDeepLinkTrackingUtils;
     @Inject SelectedSiteRepository mSelectedSiteRepository;

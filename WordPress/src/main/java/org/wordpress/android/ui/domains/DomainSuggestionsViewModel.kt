@@ -23,7 +23,7 @@ import org.wordpress.android.ui.domains.usecases.CreateCartUseCase
 import org.wordpress.android.util.AppLog
 import org.wordpress.android.util.AppLog.T
 import org.wordpress.android.util.SiteUtils
-import org.wordpress.android.util.config.featureflags.remote.SiteDomainsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.SiteDomainsFeatureFlag
 import org.wordpress.android.util.extensions.isOnSale
 import org.wordpress.android.util.extensions.saleCostForDisplay
 import org.wordpress.android.util.helpers.Debouncer
@@ -39,7 +39,7 @@ class DomainSuggestionsViewModel @Inject constructor(
     private val domainsRegistrationTracker: DomainsRegistrationTracker,
     private val dispatcher: Dispatcher,
     private val debouncer: Debouncer,
-    private val siteDomainsFeatureConfig: SiteDomainsFeatureConfig,
+    private val siteDomainsFeatureConfig: SiteDomainsFeatureFlag,
     private val createCartUseCase: CreateCartUseCase,
     @Named(BG_THREAD) private val bgDispatcher: CoroutineDispatcher
 ) : ScopedViewModel(bgDispatcher) {

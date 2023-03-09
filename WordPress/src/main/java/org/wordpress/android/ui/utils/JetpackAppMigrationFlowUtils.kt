@@ -8,7 +8,7 @@ import org.wordpress.android.localcontentmigration.ContentMigrationAnalyticsTrac
 import org.wordpress.android.ui.ActivityLauncher
 import org.wordpress.android.ui.prefs.AppPrefsWrapper
 import org.wordpress.android.util.BuildConfigWrapper
-import org.wordpress.android.util.config.featureflags.local.JetpackMigrationFlowFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.JetpackMigrationFlowFeatureFlag
 import org.wordpress.android.util.helpers.Version
 import org.wordpress.android.util.publicdata.AppStatus
 import org.wordpress.android.util.publicdata.WordPressPublicData
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class JetpackAppMigrationFlowUtils @Inject constructor(
     private val buildConfigWrapper: BuildConfigWrapper,
-    private val jetpackMigrationFlowFeatureConfig: JetpackMigrationFlowFeatureConfig,
+    private val jetpackMigrationFlowFeatureConfig: JetpackMigrationFlowFeatureFlag,
     private val contextProvider: ContextProvider,
     private val appPrefsWrapper: AppPrefsWrapper,
     private val accountStore: AccountStore,

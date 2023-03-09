@@ -7,11 +7,11 @@ import org.wordpress.android.ui.bloggingreminders.BloggingRemindersItem.Title
 import org.wordpress.android.ui.bloggingreminders.BloggingRemindersViewModel.UiState.PrimaryButton
 import org.wordpress.android.ui.utils.ListItemInteraction
 import org.wordpress.android.ui.utils.UiString.UiStringRes
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureFlag
 import javax.inject.Inject
 
 class PrologueBuilder
-@Inject constructor(private val bloggingPromptsFeatureConfig: BloggingPromptsFeatureConfig) {
+@Inject constructor(private val bloggingPromptsFeatureConfig: BloggingPromptsFeatureFlag) {
     fun buildUiItems(): List<BloggingRemindersItem> {
         return if (bloggingPromptsFeatureConfig.isEnabled()) {
             listOf(

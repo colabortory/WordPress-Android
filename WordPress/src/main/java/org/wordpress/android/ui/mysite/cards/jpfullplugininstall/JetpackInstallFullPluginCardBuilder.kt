@@ -5,13 +5,13 @@ import org.wordpress.android.ui.mysite.MySiteCardAndItem.Card.JetpackInstallFull
 import org.wordpress.android.ui.mysite.MySiteCardAndItemBuilderParams.JetpackInstallFullPluginCardBuilderParams
 import org.wordpress.android.ui.prefs.AppPrefsWrapper
 import org.wordpress.android.ui.utils.ListItemInteraction
-import org.wordpress.android.util.config.featureflags.remote.JetpackInstallFullPluginFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.JetpackInstallFullPluginFeatureFlag
 import org.wordpress.android.util.extensions.activeJetpackConnectionPluginNames
 import org.wordpress.android.util.extensions.isJetpackConnectedWithoutFullPlugin
 import javax.inject.Inject
 
 class JetpackInstallFullPluginCardBuilder @Inject constructor(
-    private val installFullPluginFeatureConfig: JetpackInstallFullPluginFeatureConfig,
+    private val installFullPluginFeatureConfig: JetpackInstallFullPluginFeatureFlag,
     private val appPrefsWrapper: AppPrefsWrapper,
 ) {
     fun build(

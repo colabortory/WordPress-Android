@@ -48,9 +48,9 @@ import org.wordpress.android.util.EventBusWrapper
 import org.wordpress.android.util.HtmlCompatWrapper
 import org.wordpress.android.util.QuickStartUtilsWrapper
 import org.wordpress.android.util.SiteUtils
-import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTabsFeatureConfig
-import org.wordpress.android.util.config.featureflags.local.QuickStartDynamicCardsFeatureConfig
-import org.wordpress.android.util.config.featureflags.remote.QuickStartExistingUsersV2FeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTabsFeatureFlag
+import org.wordpress.android.util.config.featureflags.local.QuickStartDynamicCardsFeatureFlag
+import org.wordpress.android.util.config.featureflags.remote.QuickStartExistingUsersV2FeatureFlag
 import org.wordpress.android.viewmodel.ContextProvider
 import org.wordpress.android.viewmodel.Event
 import org.wordpress.android.viewmodel.ResourceProvider
@@ -72,13 +72,13 @@ class QuickStartRepository
     private val eventBus: EventBusWrapper,
     private val dynamicCardStore: DynamicCardStore,
     private val htmlCompat: HtmlCompatWrapper,
-    private val quickStartDynamicCardsFeatureConfig: QuickStartDynamicCardsFeatureConfig,
+    private val quickStartDynamicCardsFeatureConfig: QuickStartDynamicCardsFeatureFlag,
     private val contextProvider: ContextProvider,
     private val htmlMessageUtils: HtmlMessageUtils,
     private val quickStartTracker: QuickStartTracker,
     buildConfigWrapper: BuildConfigWrapper,
-    mySiteDashboardTabsFeatureConfig: MySiteDashboardTabsFeatureConfig,
-    quickStartForExistingUsersV2FeatureConfig: QuickStartExistingUsersV2FeatureConfig
+    mySiteDashboardTabsFeatureConfig: MySiteDashboardTabsFeatureFlag,
+    quickStartForExistingUsersV2FeatureConfig: QuickStartExistingUsersV2FeatureFlag
 ) : CoroutineScope {
     private val job: Job = Job()
     override val coroutineContext: CoroutineContext

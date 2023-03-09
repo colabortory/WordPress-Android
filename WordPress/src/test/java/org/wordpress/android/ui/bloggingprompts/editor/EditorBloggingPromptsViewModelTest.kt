@@ -21,7 +21,7 @@ import org.wordpress.android.ui.bloggingprompts.BloggingPromptsPostTagProvider
 import org.wordpress.android.ui.posts.BloggingPromptsEditorBlockMapper
 import org.wordpress.android.ui.posts.EditorBloggingPromptsViewModel
 import org.wordpress.android.ui.posts.EditorBloggingPromptsViewModel.EditorLoadedPrompt
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureFlag
 import java.util.Date
 
 @ExperimentalCoroutinesApi
@@ -52,7 +52,7 @@ class EditorBloggingPromptsViewModelTest : BaseUnitTest() {
     private val bloggingPromptsEditorBlockMapper: BloggingPromptsEditorBlockMapper = mock {
         on { it.map(any()) } doReturn bloggingPromptsBlock
     }
-    private val bloggingPromptsEnhancementsFeatureConfig: BloggingPromptsEnhancementsFeatureConfig = mock()
+    private val bloggingPromptsEnhancementsFeatureConfig: BloggingPromptsEnhancementsFeatureFlag = mock()
 
     @Before
     fun setUp() {

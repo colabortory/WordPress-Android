@@ -51,7 +51,7 @@ import org.wordpress.android.ui.sitecreation.verticals.SiteCreationIntentsFragme
 import org.wordpress.android.ui.sitecreation.verticals.SiteCreationIntentsViewModel
 import org.wordpress.android.ui.utils.UiHelpers
 import org.wordpress.android.util.ActivityUtils
-import org.wordpress.android.util.config.featureflags.local.SiteNameFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.SiteNameFeatureFlag
 import org.wordpress.android.util.extensions.exhaustive
 import org.wordpress.android.util.wizard.WizardNavigationTarget
 import org.wordpress.android.viewmodel.observeEvent
@@ -70,7 +70,7 @@ class SiteCreationActivity : LocaleAwareActivity(),
     internal lateinit var uiHelpers: UiHelpers
 
     @Inject
-    internal lateinit var siteNameFeatureConfig: SiteNameFeatureConfig
+    internal lateinit var siteNameFeatureConfig: SiteNameFeatureFlag
     private val mainViewModel: SiteCreationMainVM by viewModels()
     private val hppViewModel: HomePagePickerViewModel by viewModels()
     private val siteCreationIntentsViewModel: SiteCreationIntentsViewModel by viewModels()

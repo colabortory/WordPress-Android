@@ -43,7 +43,7 @@ import org.wordpress.android.util.GravatarUtilsWrapper
 import org.wordpress.android.util.JetpackMigrationLanguageUtil
 import org.wordpress.android.util.LocaleManagerWrapper
 import org.wordpress.android.util.SiteUtilsWrapper
-import org.wordpress.android.util.config.featureflags.remote.PreventDuplicateNotifsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.PreventDuplicateNotifsFeatureFlag
 import org.wordpress.android.viewmodel.ContextProvider
 import java.util.Locale
 
@@ -57,7 +57,7 @@ class JetpackMigrationViewModelTest : BaseUnitTest() {
     private val appPrefsWrapper: AppPrefsWrapper = mock()
     private val localMigrationOrchestrator: LocalMigrationOrchestrator = mock()
     private val migrationEmailHelper: MigrationEmailHelper = mock()
-    private val preventDuplicateNotifsFeatureConfig: PreventDuplicateNotifsFeatureConfig = mock()
+    private val preventDuplicateNotifsFeatureConfig: PreventDuplicateNotifsFeatureFlag = mock()
     private val contentMigrationAnalyticsTracker: ContentMigrationAnalyticsTracker = mock()
     private val contextProvider: ContextProvider = mock()
     private val accountStore: AccountStore = mock()

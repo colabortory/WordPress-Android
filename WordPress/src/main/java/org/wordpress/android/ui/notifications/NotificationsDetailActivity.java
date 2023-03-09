@@ -63,7 +63,7 @@ import org.wordpress.android.util.StringUtils;
 import org.wordpress.android.util.ToastUtils;
 import org.wordpress.android.util.analytics.AnalyticsUtils;
 import org.wordpress.android.util.analytics.AnalyticsUtils.AnalyticsCommentActionSource;
-import org.wordpress.android.util.config.featureflags.remote.LikesEnhancementsFeatureConfig;
+import org.wordpress.android.util.config.featureflags.remote.LikesEnhancementsFeatureFlag;
 import org.wordpress.android.widgets.WPSwipeSnackbar;
 import org.wordpress.android.widgets.WPViewPager;
 import org.wordpress.android.widgets.WPViewPagerTransformer;
@@ -93,7 +93,7 @@ public class NotificationsDetailActivity extends LocaleAwareActivity implements
     @Inject SiteStore mSiteStore;
     @Inject GCMMessageHandler mGCMMessageHandler;
     @Inject ReaderTracker mReaderTracker;
-    @Inject LikesEnhancementsFeatureConfig mLikesEnhancementsFeatureConfig;
+    @Inject LikesEnhancementsFeatureFlag mLikesEnhancementsFeatureConfig;
     @Inject ListScenarioUtils mListScenarioUtils;
 
     private String mNoteId;

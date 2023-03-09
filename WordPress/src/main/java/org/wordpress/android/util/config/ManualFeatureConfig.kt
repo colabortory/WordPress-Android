@@ -6,13 +6,13 @@ import javax.inject.Inject
 
 class ManualFeatureConfig
 @Inject constructor(private val appPrefsWrapper: AppPrefsWrapper, private val buildConfigWrapper: BuildConfigWrapper) {
-    fun hasManualSetup(feature: FeatureConfig): Boolean =
+    fun hasManualSetup(feature: FeatureFlag): Boolean =
         isConfigEnabled() && hasManualSetup(feature.toFeatureKey())
 
     fun hasManualSetup(featureKey: String): Boolean =
         isConfigEnabled() && appPrefsWrapper.hasManualFeatureConfig(featureKey)
 
-    fun isManuallyEnabled(feature: FeatureConfig): Boolean =
+    fun isManuallyEnabled(feature: FeatureFlag): Boolean =
         isConfigEnabled() && isManuallyEnabled(feature.toFeatureKey())
 
     fun isManuallyEnabled(featureKey: String): Boolean =
@@ -26,5 +26,5 @@ class ManualFeatureConfig
 
     private fun isConfigEnabled() = buildConfigWrapper.isDebugSettingsEnabled()
 
-    private fun FeatureConfig.toFeatureKey() = this.remoteField ?: this.javaClass.toString().split(".").last()
+    private fun FeatureFlag.toFeatureKey() = this.remoteField ?: this.javaClass.toString().split(".").last()
 }

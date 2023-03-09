@@ -147,9 +147,9 @@ import org.wordpress.android.util.ToastUtils;
 import org.wordpress.android.util.analytics.AnalyticsTrackerWrapper;
 import org.wordpress.android.util.analytics.AnalyticsUtils;
 import org.wordpress.android.util.analytics.service.InstallationReferrerServiceStarter;
-import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTodaysStatsCardFeatureConfig;
-import org.wordpress.android.util.config.featureflags.remote.OpenWebLinksWithJetpackFlowFeatureConfig;
-import org.wordpress.android.util.config.featureflags.remote.QRCodeAuthFlowFeatureConfig;
+import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTodaysStatsCardFeatureFlag;
+import org.wordpress.android.util.config.featureflags.remote.OpenWebLinksWithJetpackFlowFeatureFlag;
+import org.wordpress.android.util.config.featureflags.remote.QRCodeAuthFlowFeatureFlag;
 import org.wordpress.android.util.extensions.ViewExtensionsKt;
 import org.wordpress.android.viewmodel.main.WPMainActivityViewModel;
 import org.wordpress.android.viewmodel.main.WPMainActivityViewModel.FocusPointInfo;
@@ -263,12 +263,12 @@ public class WPMainActivity extends LocaleAwareActivity implements
     @Inject AnalyticsTrackerWrapper mAnalyticsTrackerWrapper;
     @Inject CreateSiteNotificationScheduler mCreateSiteNotificationScheduler;
     @Inject WeeklyRoundupScheduler mWeeklyRoundupScheduler;
-    @Inject MySiteDashboardTodaysStatsCardFeatureConfig mTodaysStatsCardFeatureConfig;
+    @Inject MySiteDashboardTodaysStatsCardFeatureFlag mTodaysStatsCardFeatureConfig;
     @Inject QuickStartTracker mQuickStartTracker;
     @Inject JetpackAppMigrationFlowUtils mJetpackAppMigrationFlowUtils;
     @Inject DeepLinkOpenWebLinksWithJetpackHelper mDeepLinkOpenWebLinksWithJetpackHelper;
-    @Inject OpenWebLinksWithJetpackFlowFeatureConfig mOpenWebLinksWithJetpackFlowFeatureConfig;
-    @Inject QRCodeAuthFlowFeatureConfig mQrCodeAuthFlowFeatureConfig;
+    @Inject OpenWebLinksWithJetpackFlowFeatureFlag mOpenWebLinksWithJetpackFlowFeatureConfig;
+    @Inject QRCodeAuthFlowFeatureFlag mQrCodeAuthFlowFeatureConfig;
     @Inject JetpackFeatureRemovalOverlayUtil mJetpackFeatureRemovalOverlayUtil;
     @Inject JetpackFeatureRemovalPhaseHelper mJetpackFeatureRemovalPhaseHelper;
 

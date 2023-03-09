@@ -18,7 +18,7 @@ import org.wordpress.android.models.ReaderPost
 import org.wordpress.android.ui.reader.discover.ReaderPostCardAction.SecondaryAction
 import org.wordpress.android.ui.reader.utils.ReaderUtilsWrapper
 import org.wordpress.android.ui.utils.UiString.UiStringRes
-import org.wordpress.android.util.config.featureflags.remote.SeenUnseenWithCounterFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.SeenUnseenWithCounterFeatureFlag
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
@@ -36,7 +36,7 @@ class ReaderPostMoreButtonUiStateBuilderTest : BaseUnitTest() {
     lateinit var readerUtilsWrapper: ReaderUtilsWrapper
 
     @Mock
-    lateinit var mSeenUnseenWithCounterFeatureConfig: SeenUnseenWithCounterFeatureConfig
+    lateinit var mSeenUnseenWithCounterFeatureConfig: SeenUnseenWithCounterFeatureFlag
 
     @Before
     fun setUp() = test {

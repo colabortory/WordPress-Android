@@ -24,7 +24,7 @@ import org.wordpress.android.ui.bloggingprompts.BloggingPromptsSettingsHelper
 import org.wordpress.android.ui.mysite.MySiteUiState.PartialState.BloggingPromptUpdate
 import org.wordpress.android.ui.mysite.SelectedSiteRepository
 import org.wordpress.android.ui.prefs.AppPrefsWrapper
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureFlag
 import java.util.Date
 
 /* SITE */
@@ -58,7 +58,7 @@ class BloggingPromptCardSourceTest : BaseUnitTest() {
     private lateinit var bloggingPromptsStore: BloggingPromptsStore
 
     @Mock
-    private lateinit var bloggingPromptsFeatureConfig: BloggingPromptsFeatureConfig
+    private lateinit var bloggingPromptsFeatureConfig: BloggingPromptsFeatureFlag
 
     @Mock
     private lateinit var appPrefsWrapper: AppPrefsWrapper

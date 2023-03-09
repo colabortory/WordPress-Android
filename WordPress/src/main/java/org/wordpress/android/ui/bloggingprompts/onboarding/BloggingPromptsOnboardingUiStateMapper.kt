@@ -10,11 +10,11 @@ import org.wordpress.android.ui.bloggingprompts.onboarding.BloggingPromptsOnboar
 import org.wordpress.android.ui.bloggingprompts.onboarding.BloggingPromptsOnboardingUiState.Ready
 import org.wordpress.android.ui.utils.UiString.UiStringPluralRes
 import org.wordpress.android.ui.utils.UiString.UiStringRes
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureFlag
 import javax.inject.Inject
 
 class BloggingPromptsOnboardingUiStateMapper @Inject constructor(
-    private val bloggingPromptsEnhancementsFeatureConfig: BloggingPromptsEnhancementsFeatureConfig
+    private val bloggingPromptsEnhancementsFeatureConfig: BloggingPromptsEnhancementsFeatureFlag
 ) {
     @Suppress("MagicNumber")
     fun mapReady(

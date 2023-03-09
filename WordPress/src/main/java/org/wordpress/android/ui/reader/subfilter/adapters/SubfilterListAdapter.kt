@@ -23,12 +23,12 @@ import org.wordpress.android.ui.reader.subfilter.viewholders.SubfilterListItemVi
 import org.wordpress.android.ui.reader.subfilter.viewholders.TagViewHolder
 import org.wordpress.android.ui.stats.refresh.utils.StatsUtils
 import org.wordpress.android.ui.utils.UiHelpers
-import org.wordpress.android.util.config.featureflags.remote.SeenUnseenWithCounterFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.SeenUnseenWithCounterFeatureFlag
 
 class SubfilterListAdapter(
     val uiHelpers: UiHelpers,
     val statsUtils: StatsUtils,
-    val seenUnseenWithCounterFeatureConfig: SeenUnseenWithCounterFeatureConfig
+    val seenUnseenWithCounterFeatureConfig: SeenUnseenWithCounterFeatureFlag
 ) : Adapter<SubfilterListItemViewHolder>() {
     private var items: List<SubfilterListItem> = listOf()
 

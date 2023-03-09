@@ -30,7 +30,7 @@ import org.wordpress.android.ui.utils.UiString.UiStringRes
 import org.wordpress.android.util.AppLog
 import org.wordpress.android.util.AppLog.T
 import org.wordpress.android.util.NetworkUtilsWrapper
-import org.wordpress.android.util.config.featureflags.local.SiteCreationDomainPurchasingFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.SiteCreationDomainPurchasingFeatureFlag
 import org.wordpress.android.util.experiments.SiteCreationDomainPurchasingExperiment
 import org.wordpress.android.util.image.ImageManager
 import org.wordpress.android.util.wizard.WizardManager
@@ -69,7 +69,7 @@ class SiteCreationMainVM @Inject constructor(
     private val imageManager: ImageManager,
     private val jetpackFeatureRemovalOverlayUtil: JetpackFeatureRemovalOverlayUtil,
     private val domainPurchasingExperiment: SiteCreationDomainPurchasingExperiment,
-    private val domainPurchasingFeatureConfig: SiteCreationDomainPurchasingFeatureConfig,
+    private val domainPurchasingFeatureConfig: SiteCreationDomainPurchasingFeatureFlag,
 ) : ViewModel() {
     init {
         dispatcher.register(fetchHomePageLayoutsUseCase)

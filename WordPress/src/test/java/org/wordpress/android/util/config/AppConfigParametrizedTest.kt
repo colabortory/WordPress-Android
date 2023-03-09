@@ -22,7 +22,7 @@ class AppConfigParametrizedTest(
     private val featureFlagConfig: FeatureFlagConfig = mock()
     private val remoteFieldConfigRepository: RemoteFieldConfigRepository = mock()
     private val analyticsTracker: AnalyticsTrackerWrapper = mock()
-    private val featureConfig: FeatureConfig = mock()
+    private val featureFlag: FeatureFlag = mock()
     private val manualFeatureConfig: ManualFeatureConfig = mock()
     private lateinit var appConfig: AppConfig
 
@@ -35,26 +35,26 @@ class AppConfigParametrizedTest(
     fun `shows correct value of isEnabled based on params`() {
         setupFeatureConfig()
 
-        assertThat(appConfig.isEnabled(featureConfig)).isEqualTo(params.result.isEnabled)
+        assertThat(appConfig.isEnabled(featureFlag)).isEqualTo(params.result.isEnabled)
     }
 
     @Test
     fun `shows correct value of feature set based on params`() {
         setupFeatureConfig()
 
-        assertThat(appConfig.featureState(featureConfig)).isEqualTo(params.result)
+        assertThat(appConfig.featureState(featureFlag)).isEqualTo(params.result)
     }
 
     private fun setupFeatureConfig() {
-        whenever(manualFeatureConfig.hasManualSetup(featureConfig)).thenReturn(params.hasManualSetup)
-        whenever(manualFeatureConfig.isManuallyEnabled(featureConfig)).thenReturn(params.isManuallyEnabled)
-        whenever(featureConfig.buildConfigValue).thenReturn(params.buildConfigValue)
-        whenever(featureConfig.remoteField).thenReturn(params.remoteField)
+        whenever(manualFeatureConfig.hasManualSetup(featureFlag)).thenReturn(params.hasManualSetup)
+        whenever(manualFeatureConfig.isManuallyEnabled(featureFlag)).thenReturn(params.isManuallyEnabled)
+        whenever(featureFlag.buildConfigValue).thenReturn(params.buildConfigValue)
+        whenever(featureFlag.remoteField).thenReturn(params.remoteField)
         whenever(featureFlagConfig.isEnabled(REMOTE_FIELD)).thenReturn(params.remoteConfigValue)
         whenever(
             featureFlagConfig.getFeatureState(
                 REMOTE_FIELD,
-                featureConfig.buildConfigValue
+                featureFlag.buildConfigValue
             )
         ).thenReturn(params.remoteFeatureState)
     }

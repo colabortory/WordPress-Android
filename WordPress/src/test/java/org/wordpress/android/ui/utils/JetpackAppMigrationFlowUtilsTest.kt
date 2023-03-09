@@ -15,7 +15,7 @@ import org.wordpress.android.localcontentmigration.ContentMigrationAnalyticsTrac
 import org.wordpress.android.localcontentmigration.LocalContentEntityData.Companion.IneligibleReason.*
 import org.wordpress.android.ui.prefs.AppPrefsWrapper
 import org.wordpress.android.util.BuildConfigWrapper
-import org.wordpress.android.util.config.featureflags.local.JetpackMigrationFlowFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.JetpackMigrationFlowFeatureFlag
 import org.wordpress.android.util.publicdata.AppStatus
 import org.wordpress.android.util.publicdata.WordPressPublicData
 import org.wordpress.android.viewmodel.ContextProvider
@@ -23,7 +23,7 @@ import org.wordpress.android.viewmodel.ContextProvider
 @RunWith(MockitoJUnitRunner::class)
 class JetpackAppMigrationFlowUtilsTest {
     private val buildConfigWrapper: BuildConfigWrapper = mock()
-    private val jetpackMigrationFlowFeatureConfig: JetpackMigrationFlowFeatureConfig = mock()
+    private val jetpackMigrationFlowFeatureConfig: JetpackMigrationFlowFeatureFlag = mock()
     private val contextProvider: ContextProvider = mock()
     private val appPrefsWrapper: AppPrefsWrapper = mock()
     private val accountStore: AccountStore = mock()

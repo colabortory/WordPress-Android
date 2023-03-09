@@ -44,9 +44,9 @@ import org.wordpress.android.util.BuildConfigWrapper
 import org.wordpress.android.util.EventBusWrapper
 import org.wordpress.android.util.HtmlCompatWrapper
 import org.wordpress.android.util.QuickStartUtilsWrapper
-import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTabsFeatureConfig
-import org.wordpress.android.util.config.featureflags.local.QuickStartDynamicCardsFeatureConfig
-import org.wordpress.android.util.config.featureflags.remote.QuickStartExistingUsersV2FeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTabsFeatureFlag
+import org.wordpress.android.util.config.featureflags.local.QuickStartDynamicCardsFeatureFlag
+import org.wordpress.android.util.config.featureflags.remote.QuickStartExistingUsersV2FeatureFlag
 import org.wordpress.android.viewmodel.ContextProvider
 import org.wordpress.android.viewmodel.ResourceProvider
 
@@ -80,7 +80,7 @@ class QuickStartCardSourceTest : BaseUnitTest() {
     lateinit var htmlCompat: HtmlCompatWrapper
 
     @Mock
-    lateinit var quickStartDynamicCardsFeatureConfig: QuickStartDynamicCardsFeatureConfig
+    lateinit var quickStartDynamicCardsFeatureConfig: QuickStartDynamicCardsFeatureFlag
 
     @Mock
     lateinit var contextProvider: ContextProvider
@@ -92,10 +92,10 @@ class QuickStartCardSourceTest : BaseUnitTest() {
     lateinit var buildConfigWrapper: BuildConfigWrapper
 
     @Mock
-    lateinit var mySiteDashboardTabsFeatureConfig: MySiteDashboardTabsFeatureConfig
+    lateinit var mySiteDashboardTabsFeatureConfig: MySiteDashboardTabsFeatureFlag
 
     @Mock
-    lateinit var quickStartExistingUsersV2FeatureConfig: QuickStartExistingUsersV2FeatureConfig
+    lateinit var quickStartExistingUsersV2FeatureConfig: QuickStartExistingUsersV2FeatureFlag
 
     @Mock
     lateinit var quickStartTracker: QuickStartTracker

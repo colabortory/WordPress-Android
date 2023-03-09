@@ -19,7 +19,7 @@ import org.wordpress.android.fluxc.store.bloggingprompts.BloggingPromptsStore
 import org.wordpress.android.ui.bloggingreminders.BloggingRemindersAnalyticsTracker
 import org.wordpress.android.ui.jetpackoverlay.JetpackFeatureRemovalPhaseHelper
 import org.wordpress.android.util.HtmlCompatWrapper
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureFlag
 import org.wordpress.android.viewmodel.ContextProvider
 import org.wordpress.android.viewmodel.ResourceProvider
 import org.wordpress.android.workers.reminder.prompt.PromptReminderNotifier
@@ -32,7 +32,7 @@ class PromptReminderNotifierTest : BaseUnitTest() {
     private val bloggingPromptsStore: BloggingPromptsStore = mock()
     private val accountStore: AccountStore = mock()
     private val reminderNotificationManager: ReminderNotificationManager = mock()
-    private val bloggingPromptsFeatureConfig: BloggingPromptsFeatureConfig = mock()
+    private val bloggingPromptsFeatureConfig: BloggingPromptsFeatureFlag = mock()
     private val bloggingRemindersAnalyticsTracker: BloggingRemindersAnalyticsTracker = mock()
     private val bloggingRemindersStore: BloggingRemindersStore = mock()
     private val bloggingReminder: BloggingRemindersModel = mock()

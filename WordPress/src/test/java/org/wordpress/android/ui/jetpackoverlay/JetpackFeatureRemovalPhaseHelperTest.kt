@@ -18,12 +18,12 @@ import org.wordpress.android.ui.jetpackoverlay.JetpackFeatureRemovalPhase.PhaseS
 import org.wordpress.android.ui.jetpackoverlay.JetpackFeatureRemovalSiteCreationPhase.PHASE_ONE
 import org.wordpress.android.ui.jetpackoverlay.JetpackFeatureRemovalSiteCreationPhase.PHASE_TWO
 import org.wordpress.android.util.BuildConfigWrapper
-import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalNewUsersConfig
-import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseFourConfig
-import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseOneConfig
-import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseThreeConfig
-import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseTwoConfig
-import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalSelfHostedUsersConfig
+import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalNewUsersFlag
+import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseFourFlag
+import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseOneFlag
+import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseThreeFlag
+import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseTwoFlag
+import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalSelfHostedUsersFlag
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
@@ -32,22 +32,22 @@ class JetpackFeatureRemovalPhaseHelperTest : BaseUnitTest() {
     private lateinit var buildConfigWrapper: BuildConfigWrapper
 
     @Mock
-    private lateinit var jetpackFeatureRemovalPhaseOneConfig: JetpackFeatureRemovalPhaseOneConfig
+    private lateinit var jetpackFeatureRemovalPhaseOneConfig: JetpackFeatureRemovalPhaseOneFlag
 
     @Mock
-    private lateinit var jetpackFeatureRemovalPhaseTwoConfig: JetpackFeatureRemovalPhaseTwoConfig
+    private lateinit var jetpackFeatureRemovalPhaseTwoConfig: JetpackFeatureRemovalPhaseTwoFlag
 
     @Mock
-    private lateinit var jetpackFeatureRemovalPhaseThreeConfig: JetpackFeatureRemovalPhaseThreeConfig
+    private lateinit var jetpackFeatureRemovalPhaseThreeConfig: JetpackFeatureRemovalPhaseThreeFlag
 
     @Mock
-    private lateinit var jetpackFeatureRemovalPhaseFourConfig: JetpackFeatureRemovalPhaseFourConfig
+    private lateinit var jetpackFeatureRemovalPhaseFourConfig: JetpackFeatureRemovalPhaseFourFlag
 
     @Mock
-    private lateinit var jetpackFeatureRemovalNewUsersConfig: JetpackFeatureRemovalNewUsersConfig
+    private lateinit var jetpackFeatureRemovalNewUsersConfig: JetpackFeatureRemovalNewUsersFlag
 
     @Mock
-    private lateinit var jetpackFeatureRemovalSelfHostedUsersConfig: JetpackFeatureRemovalSelfHostedUsersConfig
+    private lateinit var jetpackFeatureRemovalSelfHostedUsersConfig: JetpackFeatureRemovalSelfHostedUsersFlag
 
     private lateinit var jetpackFeatureRemovalPhaseHelper: JetpackFeatureRemovalPhaseHelper
 

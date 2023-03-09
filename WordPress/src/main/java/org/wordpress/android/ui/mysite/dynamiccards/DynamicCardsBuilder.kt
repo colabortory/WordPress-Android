@@ -6,11 +6,11 @@ import org.wordpress.android.ui.mysite.MySiteCardAndItem.DynamicCard
 import org.wordpress.android.ui.mysite.cards.quickstart.QuickStartRepository.QuickStartCategory
 import org.wordpress.android.ui.mysite.dynamiccards.DynamicCardMenuFragment.DynamicCardMenuModel
 import org.wordpress.android.ui.mysite.dynamiccards.quickstart.QuickStartItemBuilder
-import org.wordpress.android.util.config.featureflags.local.QuickStartDynamicCardsFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.QuickStartDynamicCardsFeatureFlag
 import javax.inject.Inject
 
 class DynamicCardsBuilder @Inject constructor(
-    private val quickStartDynamicCardsFeatureConfig: QuickStartDynamicCardsFeatureConfig,
+    private val quickStartDynamicCardsFeatureConfig: QuickStartDynamicCardsFeatureFlag,
     private val quickStartItemBuilder: QuickStartItemBuilder
 ) {
     fun build(

@@ -21,7 +21,7 @@ import org.wordpress.android.ui.reader.discover.ReaderPostCardActionType.TOGGLE_
 import org.wordpress.android.ui.reader.discover.ReaderPostCardActionType.VISIT_SITE
 import org.wordpress.android.ui.reader.utils.ReaderUtilsWrapper
 import org.wordpress.android.ui.utils.UiString.UiStringRes
-import org.wordpress.android.util.config.featureflags.remote.SeenUnseenWithCounterFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.SeenUnseenWithCounterFeatureFlag
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -30,7 +30,7 @@ class ReaderPostMoreButtonUiStateBuilder @Inject constructor(
     private val readerPostTableWrapper: ReaderPostTableWrapper,
     private val readerBlogTableWrapper: ReaderBlogTableWrapper,
     private val readerUtilsWrapper: ReaderUtilsWrapper,
-    private val seenUnseenWithCounterFeatureConfig: SeenUnseenWithCounterFeatureConfig,
+    private val seenUnseenWithCounterFeatureConfig: SeenUnseenWithCounterFeatureFlag,
     @Named(BG_THREAD) private val bgDispatcher: CoroutineDispatcher
 ) {
     suspend fun buildMoreMenuItems(

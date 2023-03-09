@@ -47,7 +47,7 @@ import org.wordpress.android.ui.utils.UiString.UiStringResWithParams
 import org.wordpress.android.ui.utils.UiString.UiStringText
 import org.wordpress.android.util.AppLog
 import org.wordpress.android.util.NetworkUtilsWrapper
-import org.wordpress.android.util.config.featureflags.local.SiteCreationDomainPurchasingFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.SiteCreationDomainPurchasingFeatureFlag
 import org.wordpress.android.util.extensions.isOnSale
 import org.wordpress.android.util.extensions.saleCostForDisplay
 import org.wordpress.android.viewmodel.SingleLiveEvent
@@ -66,7 +66,7 @@ class SiteCreationDomainsViewModel @Inject constructor(
     private val domainSanitizer: SiteCreationDomainSanitizer,
     private val fetchDomainsUseCase: FetchDomainsUseCase,
     private val productsStore: ProductsStore,
-    private val purchasingFeatureConfig: SiteCreationDomainPurchasingFeatureConfig,
+    private val purchasingFeatureConfig: SiteCreationDomainPurchasingFeatureFlag,
     private val tracker: SiteCreationTracker,
     @Named(BG_THREAD) private val bgDispatcher: CoroutineDispatcher,
     @Named(UI_THREAD) private val mainDispatcher: CoroutineDispatcher

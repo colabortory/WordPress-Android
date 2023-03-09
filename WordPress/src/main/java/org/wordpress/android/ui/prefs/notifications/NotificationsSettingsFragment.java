@@ -81,7 +81,7 @@ import org.wordpress.android.util.SiteUtils;
 import org.wordpress.android.util.ToastUtils;
 import org.wordpress.android.util.ToastUtils.Duration;
 import org.wordpress.android.util.WPActivityUtils;
-import org.wordpress.android.util.config.featureflags.remote.BloggingRemindersFeatureConfig;
+import org.wordpress.android.util.config.featureflags.remote.BloggingRemindersFeatureFlag;
 import org.wordpress.android.util.extensions.ContextExtensionsKt;
 
 import java.util.ArrayList;
@@ -137,7 +137,7 @@ public class NotificationsSettingsFragment extends PreferenceFragment
     @Inject FollowedBlogsProvider mFollowedBlogsProvider;
     @Inject BuildConfigWrapper mBuildConfigWrapper;
     @Inject ViewModelProvider.Factory mViewModelFactory;
-    @Inject BloggingRemindersFeatureConfig mBloggingRemindersFeatureConfig;
+    @Inject BloggingRemindersFeatureFlag mBloggingRemindersFeatureConfig;
     @Inject JetpackBrandingUtils mJetpackBrandingUtils;
     @Inject UiHelpers mUiHelpers;
 

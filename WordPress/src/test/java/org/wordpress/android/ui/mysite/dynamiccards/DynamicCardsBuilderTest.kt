@@ -19,12 +19,12 @@ import org.wordpress.android.ui.mysite.cards.quickstart.QuickStartRepository.Qui
 import org.wordpress.android.ui.mysite.dynamiccards.quickstart.QuickStartItemBuilder
 import org.wordpress.android.ui.quickstart.QuickStartTaskDetails
 import org.wordpress.android.ui.utils.UiString.UiStringRes
-import org.wordpress.android.util.config.featureflags.local.QuickStartDynamicCardsFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.QuickStartDynamicCardsFeatureFlag
 
 @ExperimentalCoroutinesApi
 class DynamicCardsBuilderTest : BaseUnitTest() {
     @Mock
-    lateinit var quickStartDynamicCardsFeatureConfig: QuickStartDynamicCardsFeatureConfig
+    lateinit var quickStartDynamicCardsFeatureConfig: QuickStartDynamicCardsFeatureFlag
 
     @Mock
     lateinit var quickStartItemBuilder: QuickStartItemBuilder

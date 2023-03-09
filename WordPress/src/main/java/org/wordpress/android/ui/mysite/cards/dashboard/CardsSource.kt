@@ -14,7 +14,7 @@ import org.wordpress.android.modules.BG_THREAD
 import org.wordpress.android.ui.mysite.MySiteSource.MySiteRefreshSource
 import org.wordpress.android.ui.mysite.MySiteUiState.PartialState.CardsUpdate
 import org.wordpress.android.ui.mysite.SelectedSiteRepository
-import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTodaysStatsCardFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTodaysStatsCardFeatureFlag
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -23,7 +23,7 @@ const val REFRESH_DELAY = 500L
 class CardsSource @Inject constructor(
     private val selectedSiteRepository: SelectedSiteRepository,
     private val cardsStore: CardsStore,
-    todaysStatsCardFeatureConfig: MySiteDashboardTodaysStatsCardFeatureConfig,
+    todaysStatsCardFeatureConfig: MySiteDashboardTodaysStatsCardFeatureFlag,
     @param:Named(BG_THREAD) private val bgDispatcher: CoroutineDispatcher
 ) : MySiteRefreshSource<CardsUpdate> {
     private val isTodaysStatsCardFeatureConfigEnabled = todaysStatsCardFeatureConfig.isEnabled()

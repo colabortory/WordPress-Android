@@ -9,12 +9,12 @@ import org.wordpress.android.ui.jetpackoverlay.JetpackFeatureRemovalPhase.PhaseS
 import org.wordpress.android.ui.jetpackoverlay.JetpackFeatureRemovalSiteCreationPhase.PHASE_ONE
 import org.wordpress.android.ui.jetpackoverlay.JetpackFeatureRemovalSiteCreationPhase.PHASE_TWO
 import org.wordpress.android.util.BuildConfigWrapper
-import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalNewUsersConfig
-import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseFourConfig
-import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseOneConfig
-import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseThreeConfig
-import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseTwoConfig
-import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalSelfHostedUsersConfig
+import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalNewUsersFlag
+import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseFourFlag
+import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseOneFlag
+import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseThreeFlag
+import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalPhaseTwoFlag
+import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalSelfHostedUsersFlag
 import javax.inject.Inject
 
 private const val PHASE_ONE_GLOBAL_OVERLAY_FREQUENCY_IN_DAYS = 2
@@ -30,12 +30,12 @@ private const val PHASE_THREE_FEATURE_OVERLAY_FREQUENCY_IN_DAYS = 4
 // of the Jetpack powered migration
 class JetpackFeatureRemovalPhaseHelper @Inject constructor(
     private val buildConfigWrapper: BuildConfigWrapper,
-    private val jetpackFeatureRemovalPhaseOneConfig: JetpackFeatureRemovalPhaseOneConfig,
-    private val jetpackFeatureRemovalPhaseTwoConfig: JetpackFeatureRemovalPhaseTwoConfig,
-    private val jetpackFeatureRemovalPhaseThreeConfig: JetpackFeatureRemovalPhaseThreeConfig,
-    private val jetpackFeatureRemovalPhaseFourConfig: JetpackFeatureRemovalPhaseFourConfig,
-    private val jetpackFeatureRemovalNewUsersConfig: JetpackFeatureRemovalNewUsersConfig,
-    private val jetpackFeatureRemovalSelfHostedUsersConfig: JetpackFeatureRemovalSelfHostedUsersConfig
+    private val jetpackFeatureRemovalPhaseOneConfig: JetpackFeatureRemovalPhaseOneFlag,
+    private val jetpackFeatureRemovalPhaseTwoConfig: JetpackFeatureRemovalPhaseTwoFlag,
+    private val jetpackFeatureRemovalPhaseThreeConfig: JetpackFeatureRemovalPhaseThreeFlag,
+    private val jetpackFeatureRemovalPhaseFourConfig: JetpackFeatureRemovalPhaseFourFlag,
+    private val jetpackFeatureRemovalNewUsersConfig: JetpackFeatureRemovalNewUsersFlag,
+    private val jetpackFeatureRemovalSelfHostedUsersConfig: JetpackFeatureRemovalSelfHostedUsersFlag
 ) {
     fun getCurrentPhase(): JetpackFeatureRemovalPhase? {
         return if (buildConfigWrapper.isJetpackApp) null

@@ -7,14 +7,14 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
 import org.wordpress.android.provider.query.QueryContentProvider
-import org.wordpress.android.util.config.featureflags.remote.JetpackProviderSyncFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.JetpackProviderSyncFeatureFlag
 import org.wordpress.android.util.publicdata.ClientVerification
 
 abstract class TrustedQueryContentProvider : QueryContentProvider() {
     @EntryPoint
     @InstallIn(SingletonComponent::class)
     interface TrustedQueryContentProviderEntryPoint {
-        fun jetpackProviderSyncFeatureConfig(): JetpackProviderSyncFeatureConfig
+        fun jetpackProviderSyncFeatureConfig(): JetpackProviderSyncFeatureFlag
         fun clientVerification(): ClientVerification
     }
 

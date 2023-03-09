@@ -8,13 +8,13 @@ import org.wordpress.android.util.BuildConfigWrapper
 import org.wordpress.android.util.DateTimeUtilsWrapper
 import org.wordpress.android.util.FirebaseRemoteConfigWrapper
 import org.wordpress.android.util.PackageManagerWrapper
-import org.wordpress.android.util.config.featureflags.remote.OpenWebLinksWithJetpackFlowFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.OpenWebLinksWithJetpackFlowFeatureFlag
 import java.util.Date
 import javax.inject.Inject
 
 @Suppress("TooManyFunctions")
 class DeepLinkOpenWebLinksWithJetpackHelper @Inject constructor(
-    private val openWebLinksWithJetpackFlowFeatureConfig: OpenWebLinksWithJetpackFlowFeatureConfig,
+    private val openWebLinksWithJetpackFlowFeatureConfig: OpenWebLinksWithJetpackFlowFeatureFlag,
     private val appPrefsWrapper: AppPrefsWrapper,
     private val firebaseRemoteConfigWrapper: FirebaseRemoteConfigWrapper,
     private val packageManagerWrapper: PackageManagerWrapper,

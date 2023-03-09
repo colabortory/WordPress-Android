@@ -44,7 +44,7 @@ import org.wordpress.android.ui.utils.UiString.UiStringRes
 import org.wordpress.android.util.JetpackBrandingUtils
 import org.wordpress.android.util.NetworkUtilsWrapper
 import org.wordpress.android.util.analytics.AnalyticsTrackerWrapper
-import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTodaysStatsCardFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTodaysStatsCardFeatureFlag
 import org.wordpress.android.viewmodel.Event
 import org.wordpress.android.viewmodel.ResourceProvider
 
@@ -87,7 +87,7 @@ class StatsViewModelTest : BaseUnitTest() {
     lateinit var notificationsTracker: SystemNotificationsTracker
 
     @Mock
-    lateinit var todaysStatsCardFeatureConfig: MySiteDashboardTodaysStatsCardFeatureConfig
+    lateinit var todaysStatsCardFeatureConfig: MySiteDashboardTodaysStatsCardFeatureFlag
 
     @Mock
     lateinit var jetpackBrandingUtils: JetpackBrandingUtils

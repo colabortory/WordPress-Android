@@ -5,10 +5,10 @@ import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import org.wordpress.android.util.BuildConfigWrapper
-import org.wordpress.android.util.config.featureflags.remote.JetpackBloggingRemindersSyncFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.JetpackBloggingRemindersSyncFeatureFlag
 
 class JetpackBloggingRemindersSyncFlagTest {
-    private val jetpackBloggingRemindersSyncFeatureConfig: JetpackBloggingRemindersSyncFeatureConfig = mock()
+    private val jetpackBloggingRemindersSyncFeatureConfig: JetpackBloggingRemindersSyncFeatureFlag = mock()
     private val buildConfigWrapper: BuildConfigWrapper = mock()
     private val classToTest = JetpackBloggingRemindersSyncFlag(
         jetpackBloggingRemindersSyncFeatureConfig,

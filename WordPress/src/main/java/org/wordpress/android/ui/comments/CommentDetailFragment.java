@@ -103,7 +103,7 @@ import org.wordpress.android.util.SiteUtils;
 import org.wordpress.android.util.ToastUtils;
 import org.wordpress.android.util.WPLinkMovementMethod;
 import org.wordpress.android.util.analytics.AnalyticsUtils;
-import org.wordpress.android.util.config.featureflags.remote.UnifiedCommentsCommentEditFeatureConfig;
+import org.wordpress.android.util.config.featureflags.remote.UnifiedCommentsCommentEditFeatureFlag;
 import org.wordpress.android.util.extensions.ContextExtensionsKt;
 import org.wordpress.android.util.extensions.ViewExtensionsKt;
 import org.wordpress.android.util.image.ImageManager;
@@ -179,7 +179,7 @@ public class CommentDetailFragment extends ViewPagerFragment implements Notifica
     @Inject ImageManager mImageManager;
     @Inject CommentsStore mCommentsStore;
     @Inject LocalCommentCacheUpdateHandler mLocalCommentCacheUpdateHandler;
-    @Inject UnifiedCommentsCommentEditFeatureConfig mUnifiedCommentsCommentEditFeatureConfig;
+    @Inject UnifiedCommentsCommentEditFeatureFlag mUnifiedCommentsCommentEditFeatureConfig;
 
     private boolean mIsSubmittingReply = false;
     private NotificationsDetailListFragment mNotificationsDetailListFragment;

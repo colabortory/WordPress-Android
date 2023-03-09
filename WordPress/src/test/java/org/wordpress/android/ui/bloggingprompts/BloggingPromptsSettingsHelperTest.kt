@@ -23,8 +23,8 @@ import org.wordpress.android.fluxc.store.BloggingRemindersStore
 import org.wordpress.android.ui.mysite.SelectedSiteRepository
 import org.wordpress.android.ui.prefs.AppPrefsWrapper
 import org.wordpress.android.util.analytics.AnalyticsTrackerWrapper
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureConfig
-import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureFlag
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureFlag
 import java.util.Date
 
 @ExperimentalCoroutinesApi
@@ -39,10 +39,10 @@ class BloggingPromptsSettingsHelperTest : BaseUnitTest() {
     lateinit var appPrefsWrapper: AppPrefsWrapper
 
     @Mock
-    lateinit var bloggingPromptsFeatureConfig: BloggingPromptsFeatureConfig
+    lateinit var bloggingPromptsFeatureConfig: BloggingPromptsFeatureFlag
 
     @Mock
-    lateinit var bloggingPromptsEnhancementsFeatureConfig: BloggingPromptsEnhancementsFeatureConfig
+    lateinit var bloggingPromptsEnhancementsFeatureConfig: BloggingPromptsEnhancementsFeatureFlag
 
     @Mock
     lateinit var analyticsTracker: AnalyticsTrackerWrapper
