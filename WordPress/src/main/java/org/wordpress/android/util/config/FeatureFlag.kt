@@ -30,3 +30,12 @@ open class LocalFeatureFlag(
         return appConfig.isEnabled(this)
     }
 }
+
+open class RemoteFeatureFlag(
+    private val appConfig: AppConfig,
+    remoteField: String
+) : FeatureFlag(appConfig, false, remoteField) {
+    override fun isEnabled(): Boolean {
+        return appConfig.isEnabled(this)
+    }
+}
