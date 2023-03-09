@@ -8,7 +8,7 @@ import org.wordpress.android.fluxc.store.ThemeStore
 import org.wordpress.android.fluxc.store.ThemeStore.FetchStarterDesignsPayload
 import org.wordpress.android.fluxc.store.ThemeStore.OnStarterDesignsFetched
 import org.wordpress.android.ui.sitecreation.theme.SiteDesignRecommendedDimensionProvider
-import org.wordpress.android.util.config.BetaSiteDesignsFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.BetaSiteDesignsFeatureConfig
 import javax.inject.Inject
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume

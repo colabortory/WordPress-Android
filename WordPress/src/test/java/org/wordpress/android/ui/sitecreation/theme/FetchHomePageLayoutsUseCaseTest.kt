@@ -22,7 +22,7 @@ import org.wordpress.android.fluxc.store.ThemeStore.FetchStarterDesignsPayload
 import org.wordpress.android.fluxc.store.ThemeStore.OnStarterDesignsFetched
 import org.wordpress.android.ui.sitecreation.usecases.FetchHomePageLayoutsUseCase
 import org.wordpress.android.ui.sitecreation.usecases.FetchHomePageLayoutsUseCase.GROUP
-import org.wordpress.android.util.config.BetaSiteDesignsFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.BetaSiteDesignsFeatureConfig
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
