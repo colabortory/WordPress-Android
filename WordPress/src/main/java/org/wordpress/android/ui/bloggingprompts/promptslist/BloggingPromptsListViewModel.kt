@@ -11,7 +11,7 @@ import org.wordpress.android.ui.bloggingprompts.promptslist.mapper.BloggingPromp
 import org.wordpress.android.ui.bloggingprompts.promptslist.model.BloggingPromptsListItemModel
 import org.wordpress.android.ui.bloggingprompts.promptslist.usecase.FetchBloggingPromptsListUseCase
 import org.wordpress.android.util.NetworkUtilsWrapper
-import org.wordpress.android.util.config.BloggingPromptsEnhancementsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureConfig
 import org.wordpress.android.viewmodel.ScopedViewModel
 import javax.inject.Inject
 import javax.inject.Named

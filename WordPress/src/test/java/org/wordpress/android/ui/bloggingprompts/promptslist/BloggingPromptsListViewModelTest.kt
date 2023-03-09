@@ -20,7 +20,7 @@ import org.wordpress.android.ui.bloggingprompts.promptslist.usecase.FetchBloggin
 import org.wordpress.android.ui.bloggingprompts.promptslist.usecase.FetchBloggingPromptsListUseCase.Result.Failure
 import org.wordpress.android.ui.bloggingprompts.promptslist.usecase.FetchBloggingPromptsListUseCase.Result.Success
 import org.wordpress.android.util.NetworkUtilsWrapper
-import org.wordpress.android.util.config.BloggingPromptsEnhancementsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureConfig
 import kotlin.test.assertTrue
 
 @ExperimentalCoroutinesApi

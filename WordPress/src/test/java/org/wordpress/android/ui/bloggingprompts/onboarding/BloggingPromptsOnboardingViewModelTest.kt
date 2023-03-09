@@ -35,7 +35,7 @@ import org.wordpress.android.ui.bloggingprompts.onboarding.usecase.SaveFirstBlog
 import org.wordpress.android.ui.mysite.SelectedSiteRepository
 import org.wordpress.android.ui.pages.SnackbarMessageHolder
 import org.wordpress.android.ui.utils.UiString.UiStringRes
-import org.wordpress.android.util.config.BloggingPromptsEnhancementsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureConfig
 import org.wordpress.android.viewmodel.Event
 import java.util.Date
 

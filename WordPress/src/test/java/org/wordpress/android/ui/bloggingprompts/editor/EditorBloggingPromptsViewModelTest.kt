@@ -21,7 +21,7 @@ import org.wordpress.android.ui.bloggingprompts.BloggingPromptsPostTagProvider
 import org.wordpress.android.ui.posts.BloggingPromptsEditorBlockMapper
 import org.wordpress.android.ui.posts.EditorBloggingPromptsViewModel
 import org.wordpress.android.ui.posts.EditorBloggingPromptsViewModel.EditorLoadedPrompt
-import org.wordpress.android.util.config.BloggingPromptsEnhancementsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsEnhancementsFeatureConfig
 import java.util.Date
 
 @ExperimentalCoroutinesApi
