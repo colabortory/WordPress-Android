@@ -6,10 +6,10 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
 
-private const val FILE_NAME = "RemoteFeatureConfigDefaults"
-private const val VARIABLE_NAME = "remoteFeatureConfigDefaults"
+private const val FILE_NAME = "RemoteFeatureFlagDefaults"
+private const val VARIABLE_NAME = "remoteFeatureFlagDefaults"
 
-class RemoteFeatureConfigDefaultsBuilder(private val defaults: Map<String, String>) {
+class RemoteFeatureFlagDefaultsBuilder(private val defaults: Map<String, String>) {
     fun getContent(): FileSpec {
         val map = Map::class.asClassName()
             .parameterizedBy(String::class.asClassName(), Any::class.asClassName())
@@ -22,7 +22,7 @@ class RemoteFeatureConfigDefaultsBuilder(private val defaults: Map<String, Strin
             }
         }
         stringBuilder.append("\n")
-        val remoteConfigDefaults = TypeSpec.objectBuilder("RemoteFeatureConfigDefaults")
+        val remoteConfigDefaults = TypeSpec.objectBuilder("RemoteFeatureFlagDefaults")
             .addProperty(
                 PropertySpec.builder(VARIABLE_NAME, map)
                     .initializer("mapOf($stringBuilder)")

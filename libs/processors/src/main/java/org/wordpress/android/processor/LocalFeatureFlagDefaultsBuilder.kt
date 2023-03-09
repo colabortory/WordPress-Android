@@ -6,7 +6,7 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
 
-class FeaturesInDevelopmentDefaultsBuilder(private val featuresInDevelopment: List<String>) {
+class LocalFeatureFlagDefaultsBuilder(private val featuresInDevelopment: List<String>) {
     fun getContent(): FileSpec {
         val map = List::class.asClassName()
             .parameterizedBy(String::class.asClassName())
@@ -19,14 +19,14 @@ class FeaturesInDevelopmentDefaultsBuilder(private val featuresInDevelopment: Li
             }
         }
         stringBuilder.append("\n")
-        val remoteConfigDefaults = TypeSpec.objectBuilder("FeaturesInDevelopment")
+        val remoteConfigDefaults = TypeSpec.objectBuilder("LocalFeatureFlagDefaults")
             .addProperty(
-                PropertySpec.builder("featuresInDevelopment", map)
+                PropertySpec.builder("localFeatureFlags", map)
                     .initializer("listOf($stringBuilder)")
                     .build()
             )
             .build()
-        return FileSpec.builder("org.wordpress.android.util.config", "FeaturesInDevelopment")
+        return FileSpec.builder("org.wordpress.android.util.config", "LocalFeatureFlagDefaults")
             .addType(remoteConfigDefaults)
             .addComment("Automatically generated file. DO NOT MODIFY")
             .indent("    ")
