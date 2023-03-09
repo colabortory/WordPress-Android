@@ -5,7 +5,7 @@ import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import org.wordpress.android.util.BuildConfigWrapper
-import org.wordpress.android.util.config.JetpackSharedLoginFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.JetpackSharedLoginFeatureConfig
 
 class JetpackSharedLoginFlagTest {
     private val jetpackSharedLoginFeatureConfig: JetpackSharedLoginFeatureConfig = mock()
