@@ -12,7 +12,7 @@ import org.wordpress.android.ui.mysite.SelectedSiteRepository
 import org.wordpress.android.ui.utils.UiString
 import org.wordpress.android.util.analytics.AnalyticsTrackerWrapper
 import org.wordpress.android.util.config.featureflags.remote.JetpackPoweredBottomSheetFeatureConfig
-import org.wordpress.android.util.config.JetpackPoweredFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.JetpackPoweredFeatureConfig
 import javax.inject.Inject
 
 class JetpackBrandingUtils @Inject constructor(
