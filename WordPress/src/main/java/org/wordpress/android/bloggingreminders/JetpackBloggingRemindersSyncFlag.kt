@@ -1,7 +1,7 @@
 package org.wordpress.android.bloggingreminders
 
 import org.wordpress.android.util.BuildConfigWrapper
-import org.wordpress.android.util.config.JetpackBloggingRemindersSyncFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.JetpackBloggingRemindersSyncFeatureConfig
 import javax.inject.Inject
 
 class JetpackBloggingRemindersSyncFlag @Inject constructor(
