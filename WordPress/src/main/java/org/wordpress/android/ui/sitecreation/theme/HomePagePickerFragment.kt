@@ -22,7 +22,7 @@ import org.wordpress.android.ui.sitecreation.theme.DesignPreviewFragment.Compani
 import org.wordpress.android.ui.utils.UiHelpers
 import org.wordpress.android.util.DisplayUtilsWrapper
 import org.wordpress.android.util.ToastUtils
-import org.wordpress.android.util.config.SiteNameFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.SiteNameFeatureConfig
 import org.wordpress.android.util.extensions.setVisible
 import org.wordpress.android.util.image.ImageManager
 import javax.inject.Inject

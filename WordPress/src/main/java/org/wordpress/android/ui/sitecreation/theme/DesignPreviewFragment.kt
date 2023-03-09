@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import org.wordpress.android.R
 import org.wordpress.android.WordPress
 import org.wordpress.android.ui.layoutpicker.LayoutPreviewFragment
-import org.wordpress.android.util.config.SiteNameFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.SiteNameFeatureConfig
 import javax.inject.Inject
 
 /**

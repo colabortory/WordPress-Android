@@ -51,7 +51,7 @@ import org.wordpress.android.ui.sitecreation.verticals.SiteCreationIntentsFragme
 import org.wordpress.android.ui.sitecreation.verticals.SiteCreationIntentsViewModel
 import org.wordpress.android.ui.utils.UiHelpers
 import org.wordpress.android.util.ActivityUtils
-import org.wordpress.android.util.config.SiteNameFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.SiteNameFeatureConfig
 import org.wordpress.android.util.extensions.exhaustive
 import org.wordpress.android.util.wizard.WizardNavigationTarget
 import org.wordpress.android.viewmodel.observeEvent
