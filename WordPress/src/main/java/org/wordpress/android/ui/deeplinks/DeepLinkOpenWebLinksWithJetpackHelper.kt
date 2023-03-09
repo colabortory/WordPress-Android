@@ -8,7 +8,7 @@ import org.wordpress.android.util.BuildConfigWrapper
 import org.wordpress.android.util.DateTimeUtilsWrapper
 import org.wordpress.android.util.FirebaseRemoteConfigWrapper
 import org.wordpress.android.util.PackageManagerWrapper
-import org.wordpress.android.util.config.OpenWebLinksWithJetpackFlowFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.OpenWebLinksWithJetpackFlowFeatureConfig
 import java.util.Date
 import javax.inject.Inject
 

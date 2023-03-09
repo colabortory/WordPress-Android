@@ -111,7 +111,7 @@ import org.wordpress.android.util.SiteUtils
 import org.wordpress.android.util.VolleyUtils
 import org.wordpress.android.util.analytics.AnalyticsUtils
 import org.wordpress.android.util.config.AppConfig
-import org.wordpress.android.util.config.OpenWebLinksWithJetpackFlowFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.OpenWebLinksWithJetpackFlowFeatureConfig
 import org.wordpress.android.util.enqueuePeriodicUploadWorkRequestForAllSites
 import org.wordpress.android.util.experiments.ExPlat
 import org.wordpress.android.util.image.ImageManager
