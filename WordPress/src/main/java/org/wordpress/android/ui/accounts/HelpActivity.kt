@@ -41,7 +41,7 @@ import org.wordpress.android.ui.prefs.AppPrefsWrapper
 import org.wordpress.android.util.AppLog
 import org.wordpress.android.util.AppLog.T.API
 import org.wordpress.android.util.SiteUtils
-import org.wordpress.android.util.config.WordPressSupportForumFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.WordPressSupportForumFeatureConfig
 import org.wordpress.android.util.image.ImageType.AVATAR_WITHOUT_BACKGROUND
 import org.wordpress.android.viewmodel.observeEvent
 import javax.inject.Inject

@@ -77,7 +77,7 @@ import org.wordpress.android.util.ToastUtils;
 import org.wordpress.android.util.WPActivityUtils;
 import org.wordpress.android.util.WPUrlUtils;
 import org.wordpress.android.util.config.featureflags.local.LandingScreenRevampFeatureConfig;
-import org.wordpress.android.util.config.WordPressSupportForumFeatureConfig;
+import org.wordpress.android.util.config.featureflags.remote.WordPressSupportForumFeatureConfig;
 import org.wordpress.android.widgets.WPSnackbar;
 
 import java.util.ArrayList;
