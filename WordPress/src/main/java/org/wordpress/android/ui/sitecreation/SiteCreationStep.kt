@@ -5,7 +5,7 @@ import org.wordpress.android.ui.sitecreation.SiteCreationStep.INTENTS
 import org.wordpress.android.ui.sitecreation.SiteCreationStep.SITE_DESIGNS
 import org.wordpress.android.ui.sitecreation.SiteCreationStep.SITE_NAME
 import org.wordpress.android.ui.sitecreation.SiteCreationStep.SITE_PREVIEW
-import org.wordpress.android.util.config.SiteIntentQuestionFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.SiteIntentQuestionFeatureConfig
 import org.wordpress.android.util.config.SiteNameFeatureConfig
 import org.wordpress.android.util.wizard.WizardStep
 import javax.inject.Inject
