@@ -1,6 +1,8 @@
-package org.wordpress.android.util.config
+package org.wordpress.android.util.config.remotefields
 
 import org.wordpress.android.annotation.RemoteFieldDefaultGenerater
+import org.wordpress.android.util.config.AppConfig
+import org.wordpress.android.util.config.RemoteConfigField
 import javax.inject.Inject
 
 const val BLAZE_NON_DISMISSABLE_HASH_REMOTE_FIELD = "blaze_non_dismissable_hash"

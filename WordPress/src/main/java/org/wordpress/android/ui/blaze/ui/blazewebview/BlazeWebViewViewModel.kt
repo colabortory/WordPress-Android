@@ -25,8 +25,8 @@ import org.wordpress.android.ui.blaze.BlazeWebViewContentUiState
 import org.wordpress.android.ui.blaze.BlazeWebViewHeaderUiState
 import org.wordpress.android.ui.mysite.SelectedSiteRepository
 import org.wordpress.android.util.UriWrapper
-import org.wordpress.android.util.config.BlazeCompletedStepHashConfig
-import org.wordpress.android.util.config.BlazeNonDismissableHashConfig
+import org.wordpress.android.util.config.remotefields.BlazeCompletedStepHashConfig
+import org.wordpress.android.util.config.remotefields.BlazeNonDismissableHashConfig
 import javax.inject.Inject
 
 @HiltViewModel
