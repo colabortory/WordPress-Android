@@ -18,7 +18,7 @@ import org.wordpress.android.models.ReaderPost
 import org.wordpress.android.ui.reader.discover.ReaderPostCardAction.SecondaryAction
 import org.wordpress.android.ui.reader.utils.ReaderUtilsWrapper
 import org.wordpress.android.ui.utils.UiString.UiStringRes
-import org.wordpress.android.util.config.SeenUnseenWithCounterFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.SeenUnseenWithCounterFeatureConfig
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)

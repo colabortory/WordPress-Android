@@ -34,7 +34,7 @@ import org.wordpress.android.ui.reader.subfilter.adapters.SubfilterListAdapter
 import org.wordpress.android.ui.reader.viewmodels.SubfilterPageViewModel
 import org.wordpress.android.ui.stats.refresh.utils.StatsUtils
 import org.wordpress.android.ui.utils.UiHelpers
-import org.wordpress.android.util.config.SeenUnseenWithCounterFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.SeenUnseenWithCounterFeatureConfig
 import org.wordpress.android.widgets.WPTextView
 import java.lang.ref.WeakReference
 import javax.inject.Inject

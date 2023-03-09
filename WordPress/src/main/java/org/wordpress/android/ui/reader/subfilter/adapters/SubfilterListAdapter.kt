@@ -23,7 +23,7 @@ import org.wordpress.android.ui.reader.subfilter.viewholders.SubfilterListItemVi
 import org.wordpress.android.ui.reader.subfilter.viewholders.TagViewHolder
 import org.wordpress.android.ui.stats.refresh.utils.StatsUtils
 import org.wordpress.android.ui.utils.UiHelpers
-import org.wordpress.android.util.config.SeenUnseenWithCounterFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.SeenUnseenWithCounterFeatureConfig
 
 class SubfilterListAdapter(
     val uiHelpers: UiHelpers,

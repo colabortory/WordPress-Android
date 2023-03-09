@@ -21,7 +21,7 @@ import org.wordpress.android.ui.reader.discover.ReaderPostCardActionType.TOGGLE_
 import org.wordpress.android.ui.reader.discover.ReaderPostCardActionType.VISIT_SITE
 import org.wordpress.android.ui.reader.utils.ReaderUtilsWrapper
 import org.wordpress.android.ui.utils.UiString.UiStringRes
-import org.wordpress.android.util.config.SeenUnseenWithCounterFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.SeenUnseenWithCounterFeatureConfig
 import javax.inject.Inject
 import javax.inject.Named
 
