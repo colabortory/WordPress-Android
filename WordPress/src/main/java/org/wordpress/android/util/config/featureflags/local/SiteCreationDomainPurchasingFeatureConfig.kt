@@ -1,9 +1,11 @@
-package org.wordpress.android.util.config
+package org.wordpress.android.util.config.featureflags.local
 
 import org.wordpress.android.BuildConfig
 import org.wordpress.android.annotation.LocalFeatureFlagDefault
 import org.wordpress.android.fluxc.model.experiments.Variation.Control
+import org.wordpress.android.util.config.AppConfig
 import org.wordpress.android.util.config.AppConfig.FeatureState.ManuallyOverriden
+import org.wordpress.android.util.config.FeatureConfig
 import org.wordpress.android.util.experiments.SiteCreationDomainPurchasingExperiment
 import javax.inject.Inject
 

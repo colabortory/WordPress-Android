@@ -3,7 +3,7 @@ package org.wordpress.android.ui.domains
 import org.wordpress.android.analytics.AnalyticsTracker
 import org.wordpress.android.fluxc.model.SiteModel
 import org.wordpress.android.util.analytics.AnalyticsTrackerWrapper
-import org.wordpress.android.util.config.SiteCreationDomainPurchasingFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.SiteCreationDomainPurchasingFeatureConfig
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -18,7 +18,7 @@ import org.wordpress.android.ui.sitecreation.misc.SiteCreationTracker.PROPERTY.T
 import org.wordpress.android.ui.sitecreation.misc.SiteCreationTracker.PROPERTY.VARIATION
 import org.wordpress.android.ui.sitecreation.misc.SiteCreationTracker.PROPERTY.VERTICAL_SLUG
 import org.wordpress.android.util.analytics.AnalyticsTrackerWrapper
-import org.wordpress.android.util.config.SiteCreationDomainPurchasingFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.SiteCreationDomainPurchasingFeatureConfig
 import javax.inject.Inject
 import javax.inject.Singleton
 

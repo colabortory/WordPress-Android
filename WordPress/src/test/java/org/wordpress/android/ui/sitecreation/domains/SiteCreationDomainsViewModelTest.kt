@@ -45,7 +45,7 @@ import org.wordpress.android.ui.sitecreation.usecases.FETCH_DOMAINS_VENDOR_MOBIL
 import org.wordpress.android.ui.sitecreation.usecases.FetchDomainsUseCase
 import org.wordpress.android.ui.utils.UiString.UiStringRes
 import org.wordpress.android.util.NetworkUtilsWrapper
-import org.wordpress.android.util.config.SiteCreationDomainPurchasingFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.SiteCreationDomainPurchasingFeatureConfig
 import kotlin.test.assertIs
 
 private const val MULTI_RESULT_DOMAIN_FETCH_RESULT_SIZE = 20
