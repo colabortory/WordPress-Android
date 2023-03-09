@@ -67,7 +67,7 @@ import org.wordpress.android.util.ToastUtils;
 import org.wordpress.android.util.WPActivityUtils;
 import org.wordpress.android.util.WPPrefUtils;
 import org.wordpress.android.util.analytics.AnalyticsUtils;
-import org.wordpress.android.util.config.MySiteDashboardTabsFeatureConfig;
+import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTabsFeatureConfig;
 import org.wordpress.android.viewmodel.ContextProvider;
 
 import java.util.Collections;

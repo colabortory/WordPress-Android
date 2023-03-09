@@ -160,7 +160,7 @@ import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeat
 import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsListFeatureConfig
 import org.wordpress.android.util.config.featureflags.local.BloggingPromptsSocialFeatureConfig
 import org.wordpress.android.util.config.featureflags.local.LandOnTheEditorFeatureConfig
-import org.wordpress.android.util.config.MySiteDashboardTabsFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTabsFeatureConfig
 import org.wordpress.android.util.config.featureflags.local.QuickStartDynamicCardsFeatureConfig
 import org.wordpress.android.util.publicdata.AppStatus
 import org.wordpress.android.util.publicdata.WordPressPublicData

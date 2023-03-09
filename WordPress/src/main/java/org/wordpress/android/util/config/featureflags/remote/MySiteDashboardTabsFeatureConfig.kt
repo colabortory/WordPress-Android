@@ -1,8 +1,10 @@
-package org.wordpress.android.util.config
+package org.wordpress.android.util.config.featureflags.remote
 
 import org.wordpress.android.BuildConfig
 import org.wordpress.android.annotation.RemoteFeatureFlagDefault
-import org.wordpress.android.util.config.MySiteDashboardTabsFeatureConfig.Companion.MY_SITE_DASHBOARD_TABS
+import org.wordpress.android.util.config.AppConfig
+import org.wordpress.android.util.config.FeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.MySiteDashboardTabsFeatureConfig.Companion.MY_SITE_DASHBOARD_TABS
 import javax.inject.Inject
 
 /**
