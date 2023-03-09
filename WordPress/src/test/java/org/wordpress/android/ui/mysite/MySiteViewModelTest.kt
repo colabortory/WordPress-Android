@@ -158,7 +158,7 @@ import org.wordpress.android.util.analytics.AnalyticsTrackerWrapper
 import org.wordpress.android.util.config.BloggingPromptsEnhancementsFeatureConfig
 import org.wordpress.android.util.config.BloggingPromptsFeatureConfig
 import org.wordpress.android.util.config.BloggingPromptsListFeatureConfig
-import org.wordpress.android.util.config.BloggingPromptsSocialFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.BloggingPromptsSocialFeatureConfig
 import org.wordpress.android.util.config.LandOnTheEditorFeatureConfig
 import org.wordpress.android.util.config.MySiteDashboardTabsFeatureConfig
 import org.wordpress.android.util.config.QuickStartDynamicCardsFeatureConfig
