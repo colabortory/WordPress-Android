@@ -100,7 +100,7 @@ import org.wordpress.android.util.analytics.AnalyticsUtils;
 import org.wordpress.android.util.analytics.AnalyticsUtils.BlockEditorEnabledSource;
 import org.wordpress.android.util.config.featureflags.remote.BloggingPromptsFeatureConfig;
 import org.wordpress.android.util.config.featureflags.remote.BloggingRemindersFeatureConfig;
-import org.wordpress.android.util.config.ManageCategoriesFeatureConfig;
+import org.wordpress.android.util.config.featureflags.remote.ManageCategoriesFeatureConfig;
 import org.wordpress.android.util.extensions.ContextExtensionsKt;
 import org.wordpress.android.util.extensions.ViewExtensionsKt;
 import org.wordpress.android.widgets.WPSnackbar;
