@@ -1,6 +1,8 @@
-package org.wordpress.android.util.config
+package org.wordpress.android.util.config.remotefields
 
 import org.wordpress.android.annotation.RemoteFieldDefaultGenerater
+import org.wordpress.android.util.config.AppConfig
+import org.wordpress.android.util.config.RemoteConfigField
 import javax.inject.Inject
 
 const val JP_DEADLINE_REMOTE_FIELD = "jp_deadline"

@@ -11,10 +11,10 @@ import org.wordpress.android.ui.jetpackoverlay.JetpackFeatureRemovalOverlayUtil.
 import org.wordpress.android.ui.jetpackoverlay.JetpackFeatureRemovalOverlayUtil.JetpackOverlayDismissalType.CONTINUE_BUTTON
 import org.wordpress.android.ui.sitecreation.misc.SiteCreationSource
 import org.wordpress.android.ui.sitecreation.misc.SiteCreationSource.UNSPECIFIED
-import org.wordpress.android.util.config.JPDeadlineConfig
-import org.wordpress.android.util.config.PhaseFourBlogPostLinkConfig
-import org.wordpress.android.util.config.PhaseThreeBlogPostLinkConfig
-import org.wordpress.android.util.config.PhaseTwoBlogPostLinkConfig
+import org.wordpress.android.util.config.remotefields.JPDeadlineConfig
+import org.wordpress.android.util.config.remotefields.PhaseFourBlogPostLinkConfig
+import org.wordpress.android.util.config.remotefields.PhaseThreeBlogPostLinkConfig
+import org.wordpress.android.util.config.remotefields.PhaseTwoBlogPostLinkConfig
 import org.wordpress.android.viewmodel.ScopedViewModel
 import org.wordpress.android.viewmodel.SingleLiveEvent
 import javax.inject.Inject

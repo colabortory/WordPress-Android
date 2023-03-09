@@ -12,7 +12,7 @@ import org.wordpress.android.ui.utils.UiString
 import org.wordpress.android.util.BuildConfigWrapper
 import org.wordpress.android.util.DateTimeUtilsWrapper
 import org.wordpress.android.util.analytics.AnalyticsTrackerWrapper
-import org.wordpress.android.util.config.PhaseThreeBlogPostLinkConfig
+import org.wordpress.android.util.config.remotefields.PhaseThreeBlogPostLinkConfig
 import java.util.Date
 import javax.inject.Inject
 

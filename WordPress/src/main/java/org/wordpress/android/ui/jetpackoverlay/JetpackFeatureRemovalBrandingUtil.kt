@@ -17,7 +17,7 @@ import org.wordpress.android.ui.utils.UiString.UiStringPluralRes
 import org.wordpress.android.ui.utils.UiString.UiStringRes
 import org.wordpress.android.ui.utils.UiString.UiStringResWithParams
 import org.wordpress.android.util.DateTimeUtilsWrapper
-import org.wordpress.android.util.config.JPDeadlineConfig
+import org.wordpress.android.util.config.remotefields.JPDeadlineConfig
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.Date
