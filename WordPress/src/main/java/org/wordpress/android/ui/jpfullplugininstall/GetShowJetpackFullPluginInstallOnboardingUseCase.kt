@@ -2,7 +2,7 @@ package org.wordpress.android.ui.jpfullplugininstall
 
 import org.wordpress.android.fluxc.model.SiteModel
 import org.wordpress.android.ui.prefs.AppPrefsWrapper
-import org.wordpress.android.util.config.JetpackInstallFullPluginFeatureConfig
+import org.wordpress.android.util.config.featureflags.remote.JetpackInstallFullPluginFeatureConfig
 import org.wordpress.android.util.extensions.isJetpackConnectedWithoutFullPlugin
 import javax.inject.Inject
 
