@@ -22,3 +22,11 @@ open class FeatureFlag(
 
     fun featureState() = appConfig.featureState(this)
 }
+
+open class LocalFeatureFlag(
+    private val appConfig: AppConfig,
+):FeatureFlag(appConfig, false, null){
+    override fun isEnabled(): Boolean {
+        return appConfig.isEnabled(this)
+    }
+}
