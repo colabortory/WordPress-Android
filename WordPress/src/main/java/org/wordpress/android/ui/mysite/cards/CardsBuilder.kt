@@ -15,7 +15,7 @@ import org.wordpress.android.ui.mysite.cards.quicklinksribbon.QuickLinkRibbonBui
 import org.wordpress.android.ui.mysite.cards.quickstart.QuickStartCardBuilder
 import org.wordpress.android.ui.utils.ListItemInteraction
 import org.wordpress.android.util.BuildConfigWrapper
-import org.wordpress.android.util.config.QuickStartDynamicCardsFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.QuickStartDynamicCardsFeatureConfig
 import javax.inject.Inject
 
 class CardsBuilder @Inject constructor(
