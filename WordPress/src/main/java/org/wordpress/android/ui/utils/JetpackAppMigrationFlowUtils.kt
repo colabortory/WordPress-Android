@@ -8,7 +8,7 @@ import org.wordpress.android.localcontentmigration.ContentMigrationAnalyticsTrac
 import org.wordpress.android.ui.ActivityLauncher
 import org.wordpress.android.ui.prefs.AppPrefsWrapper
 import org.wordpress.android.util.BuildConfigWrapper
-import org.wordpress.android.util.config.JetpackMigrationFlowFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.JetpackMigrationFlowFeatureConfig
 import org.wordpress.android.util.helpers.Version
 import org.wordpress.android.util.publicdata.AppStatus
 import org.wordpress.android.util.publicdata.WordPressPublicData

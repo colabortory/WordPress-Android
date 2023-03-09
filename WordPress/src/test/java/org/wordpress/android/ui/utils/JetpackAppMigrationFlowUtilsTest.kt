@@ -15,7 +15,7 @@ import org.wordpress.android.localcontentmigration.ContentMigrationAnalyticsTrac
 import org.wordpress.android.localcontentmigration.LocalContentEntityData.Companion.IneligibleReason.*
 import org.wordpress.android.ui.prefs.AppPrefsWrapper
 import org.wordpress.android.util.BuildConfigWrapper
-import org.wordpress.android.util.config.JetpackMigrationFlowFeatureConfig
+import org.wordpress.android.util.config.featureflags.local.JetpackMigrationFlowFeatureConfig
 import org.wordpress.android.util.publicdata.AppStatus
 import org.wordpress.android.util.publicdata.WordPressPublicData
 import org.wordpress.android.viewmodel.ContextProvider
