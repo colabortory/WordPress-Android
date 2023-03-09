@@ -1,13 +1,13 @@
 package org.wordpress.android.util.config
 
 import org.wordpress.android.BuildConfig
-import org.wordpress.android.annotation.FeatureInDevelopment
+import org.wordpress.android.annotation.LocalFeatureFlagDefault
 import javax.inject.Inject
 
 /**
  * Configuration for landing on the editor at the end of the Site Creation flow
  */
-@FeatureInDevelopment
+@LocalFeatureFlagDefault
 class LandOnTheEditorFeatureConfig
 @Inject constructor(appConfig: AppConfig) : FeatureConfig(
     appConfig,

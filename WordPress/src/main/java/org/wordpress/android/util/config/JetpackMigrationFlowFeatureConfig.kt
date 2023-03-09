@@ -1,13 +1,13 @@
 package org.wordpress.android.util.config
 
 import org.wordpress.android.BuildConfig
-import org.wordpress.android.annotation.FeatureInDevelopment
+import org.wordpress.android.annotation.LocalFeatureFlagDefault
 import javax.inject.Inject
 
 /**
  * Configuration of the Jetpack Migration Flow.
  */
-@FeatureInDevelopment
+@LocalFeatureFlagDefault
 class JetpackMigrationFlowFeatureConfig
 @Inject constructor(appConfig: AppConfig) : FeatureConfig(appConfig, BuildConfig.JETPACK_MIGRATION_FLOW) {
     override fun isEnabled(): Boolean {

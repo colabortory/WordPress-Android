@@ -1,12 +1,12 @@
 package org.wordpress.android.util.config
 
 import org.wordpress.android.BuildConfig
-import org.wordpress.android.annotation.FeatureInDevelopment
+import org.wordpress.android.annotation.LocalFeatureFlagDefault
 import javax.inject.Inject
 
 /**
  * Configuration for the landing screen revamp work
  */
-@FeatureInDevelopment
+@LocalFeatureFlagDefault
 class LandingScreenRevampFeatureConfig
 @Inject constructor(appConfig: AppConfig) : FeatureConfig(appConfig, BuildConfig.LANDING_SCREEN_REVAMP)

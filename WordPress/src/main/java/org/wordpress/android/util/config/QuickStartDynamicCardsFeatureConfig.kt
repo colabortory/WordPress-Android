@@ -1,13 +1,13 @@
 package org.wordpress.android.util.config
 
 import org.wordpress.android.BuildConfig
-import org.wordpress.android.annotation.FeatureInDevelopment
+import org.wordpress.android.annotation.LocalFeatureFlagDefault
 import javax.inject.Inject
 
 /**
  * Configuration of the Quick Start Dynamic cards within the My Site improvements
  */
-@FeatureInDevelopment
+@LocalFeatureFlagDefault
 class QuickStartDynamicCardsFeatureConfig
 @Inject constructor(
     appConfig: AppConfig

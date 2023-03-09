@@ -1,10 +1,10 @@
 package org.wordpress.android.util.config
 
 import org.wordpress.android.BuildConfig
-import org.wordpress.android.annotation.FeatureInDevelopment
+import org.wordpress.android.annotation.LocalFeatureFlagDefault
 import javax.inject.Inject
 
-@FeatureInDevelopment
+@LocalFeatureFlagDefault
 class BloggingPromptsSocialFeatureConfig
 @Inject constructor(appConfig: AppConfig) : FeatureConfig(
     appConfig,
