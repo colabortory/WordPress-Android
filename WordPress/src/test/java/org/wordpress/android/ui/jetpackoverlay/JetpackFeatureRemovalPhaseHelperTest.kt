@@ -18,7 +18,7 @@ import org.wordpress.android.ui.jetpackoverlay.JetpackFeatureRemovalPhase.PhaseS
 import org.wordpress.android.ui.jetpackoverlay.JetpackFeatureRemovalSiteCreationPhase.PHASE_ONE
 import org.wordpress.android.ui.jetpackoverlay.JetpackFeatureRemovalSiteCreationPhase.PHASE_TWO
 import org.wordpress.android.util.BuildConfigWrapper
-import org.wordpress.android.util.config.JetpackFeatureRemovalNewUsersConfig
+import org.wordpress.android.util.config.featureflags.remote.JetpackFeatureRemovalNewUsersConfig
 import org.wordpress.android.util.config.JetpackFeatureRemovalPhaseFourConfig
 import org.wordpress.android.util.config.JetpackFeatureRemovalPhaseOneConfig
 import org.wordpress.android.util.config.JetpackFeatureRemovalPhaseThreeConfig
