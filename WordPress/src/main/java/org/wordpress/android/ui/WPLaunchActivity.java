@@ -6,6 +6,7 @@ import android.os.Bundle;
 import org.wordpress.android.R;
 import org.wordpress.android.WordPress;
 import org.wordpress.android.ui.main.WPMainActivity;
+import org.wordpress.android.ui.utils.LoggingUtils;
 import org.wordpress.android.util.ProfilingUtils;
 import org.wordpress.android.util.ToastUtils;
 
@@ -19,7 +20,9 @@ public class WPLaunchActivity extends LocaleAwareActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ProfilingUtils.split("WPLaunchActivity.onCreate");
+        final String label = "WPLaunchActivity.onCreate";
+        ProfilingUtils.split(label);
+        LoggingUtils.logIntent(getIntent(), label);
         launchWPMainActivity();
     }
 
