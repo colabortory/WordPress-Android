@@ -1,36 +1,25 @@
 package org.wordpress.android.ui.sitecreation.domains.compose
 
 import android.content.res.Configuration
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Divider
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.wordpress.android.R.string
 import org.wordpress.android.ui.compose.components.SolidCircle
 import org.wordpress.android.ui.compose.theme.AppColor
 import org.wordpress.android.ui.compose.theme.AppTheme
@@ -43,42 +32,26 @@ import org.wordpress.android.ui.sitecreation.domains.SiteCreationDomainsViewMode
 import org.wordpress.android.ui.sitecreation.domains.SiteCreationDomainsViewModel.ListItemUiState.New.DomainUiState.Variant.Sale
 import org.wordpress.android.ui.sitecreation.domains.SiteCreationDomainsViewModel.ListItemUiState.New.DomainUiState.Variant.Unavailable
 
-private val HighlightBgColor @Composable get() = MaterialTheme.colors.primary.copy(0.1f)
-private val SecondaryTextColor @Composable get() = MaterialTheme.colors.onSurface.copy(0.46f)
+private val SecondaryTextColor @Composable get() = MaterialTheme.colors.onSurface.copy(alpha = 0.46f)
 private val SecondaryFontSize = 13.sp
 private val PrimaryFontSize = 17.sp
-private val StartPadding = 40.dp
-private val TitleBottomPadding = 2.dp
 
 @Composable
 fun DomainItem(uiState: DomainUiState) = with(uiState) {
-    Column(Modifier.background(if (isSelected) HighlightBgColor else Unspecified)) {
+    Column {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .clickable(
-                    interactionSource = remember(::MutableInteractionSource),
-                    indication = rememberRipple(color = HighlightBgColor),
-                    onClick = onClick::invoke,
-                )
+                .clickable { onClick.invoke() }
                 .padding(vertical = Margin.ExtraLarge.value)
                 .padding(end = Margin.ExtraLarge.value)
         ) {
             Box(
                 contentAlignment = Alignment.Center,
-                modifier = Modifier.width(StartPadding)
+                modifier = Modifier.width(Margin.ExtraMediumLarge.value)
             ) {
-                if (isSelected) {
-                    Icon(
-                        imageVector = Icons.Default.Check,
-                        contentDescription = stringResource(string.selected),
-                        tint = MaterialTheme.colors.primary,
-                        modifier = Modifier.size(16.dp),
-                    )
-                } else {
-                    variant?.dotColor?.let {
-                        SolidCircle(size = 8.dp, colorResource(it))
-                    }
+                variant?.dotColor?.let {
+                    SolidCircle(size = 8.dp, colorResource(it))
                 }
             }
             Column(verticalArrangement = Arrangement.spacedBy(2.dp), modifier = Modifier.weight(1f)) {
@@ -88,7 +61,6 @@ fun DomainItem(uiState: DomainUiState) = with(uiState) {
                     fontSize = PrimaryFontSize,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
-                    modifier = Modifier.padding(bottom = TitleBottomPadding)
                 )
                 variant?.run {
                     Text(
@@ -169,7 +141,6 @@ private fun DomainItemPreview() {
                 5 -> Sale
                 else -> null
             },
-            isSelected = it == 5,
             onClick = {}
         )
     }

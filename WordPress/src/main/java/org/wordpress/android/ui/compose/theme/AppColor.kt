@@ -46,7 +46,7 @@ object AppColor {
 
     // Jetpack Greens (Automattic Color Studio)
     @Stable
-    val JetpackGreen30 = Color(0xFF2FB41F)
+    val JetpackGreen40 = Color(0xFF069E08)
 
     @Stable
     val JetpackGreen50 = Color(0xFF008710)
