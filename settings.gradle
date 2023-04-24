@@ -29,6 +29,7 @@ pluginManagement {
         }
         gradlePluginPortal()
         google()
+        mavenCentral() // TODO remove if not needed
     }
     resolutionStrategy {
         eachPlugin {
