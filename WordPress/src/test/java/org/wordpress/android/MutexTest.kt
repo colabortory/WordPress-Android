@@ -1,3 +1,4 @@
+@file:Suppress("UnusedImports")
 package org.wordpress.android
 
 import kotlinx.coroutines.CancellationException
@@ -13,11 +14,13 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.junit.Test
+import org.wordpress.android.ui.uploads.UploadStarter
 
+@OptIn(DelicateCoroutinesApi::class)
+@Suppress("GlobalCoroutineUsage")
 class MutexTest {
-    @OptIn(DelicateCoroutinesApi::class)
     @Test
-    fun testMutex() = runBlocking() {
+    fun testMutex() = runBlocking {
         val handler = CoroutineExceptionHandler { _, exception ->
             println(
                 "CoroutineExceptionHandler got $exception " +
@@ -61,10 +64,17 @@ class MutexUser(private val classId: Int) {
             mutex.withLock {
                 println("$taskName: Mutex lock acquired (isActive=$isActive)")
 
+                /**
+                 * async call to mimic the similar calls in the Upload Starter [UploadStarter.upload]
+                 * The async/await operators are cancellable, so it's a bit different than having blocking code
+                 * or even suspend functions without cancellation checks.
+                 */
 //                async { Thread.sleep(1000L) }.await()
 
-                // use thread sleep because it's blocking and doesn't check coroutine cancellation, so it's close to
-                // what we actually have inside Upload Starter
+                /**
+                 * use thread sleep because it's blocking and doesn't check coroutine cancellation, so it's close to
+                 * what we actually have happening inside [UploadStarter.upload]
+                 */
                 println("$taskName: Sleeping...")
                 Thread.sleep(1000L)
 
