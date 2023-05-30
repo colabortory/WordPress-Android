@@ -53,7 +53,6 @@
                     android:layout_gravity="bottom"
                     android:visibility="gone"
                     app:layout_collapseMode="pin"
-                    style="@style/MyTabLayout"
                     app:tabGravity="fill"
                     app:tabMode="fixed"
                     tools:text="@string/my_site_menu_tab_title" />
