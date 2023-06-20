@@ -9,8 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import org.wordpress.android.R
 import org.wordpress.android.databinding.DebugSettingsFragmentBinding
+import org.wordpress.android.ui.debug.DebugSettingsViewModel.NavigationAction.PreviewFragment
+import org.wordpress.android.ui.debug.previews.PreviewFragmentActivity.Companion.previewFragmentInActivity
 import org.wordpress.android.util.DisplayUtils
 import org.wordpress.android.util.extensions.getSerializableCompat
+import org.wordpress.android.viewmodel.observeEvent
 import org.wordpress.android.widgets.RecyclerItemDecoration
 import javax.inject.Inject
 
@@ -22,41 +25,42 @@ class DebugSettingsFragment : Fragment(R.layout.debug_settings_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(DebugSettingsFragmentBinding.bind(view)) {
-            viewModel = ViewModelProvider(this@DebugSettingsFragment, viewModelFactory)
-                .get(DebugSettingsViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity(), viewModelFactory)[DebugSettingsViewModel::class.java]
+        val adapter = DebugSettingsAdapter().setUpRecyclerView()
 
-            val adapter = DebugSettingsAdapter()
-            setUpRecyclerView(adapter)
-
-            viewModel.uiState.observe(viewLifecycleOwner) {
+        with(viewModel) {
+            uiState.observe(viewLifecycleOwner) {
                 it?.let { uiState ->
                     adapter.submitList(uiState.uiItems)
                 }
             }
-            viewModel.start(getDebugSettingsType())
+            onNavigation.observeEvent(viewLifecycleOwner) {
+                when (it) {
+                    is PreviewFragment -> previewFragmentInActivity(it.name)
+                    else -> Unit
+                }
+            }
+            start(getDebugSettingsType())
         }
     }
 
-    private fun getDebugSettingsType() = arguments?.getSerializableCompat<DebugSettingsType>(
-        DEBUG_SETTINGS_TYPE_KEY
-    ) ?: throw IllegalArgumentException(
+    private fun getDebugSettingsType() = arguments?.getSerializableCompat<DebugSettingsType>(ARG_KEY) ?: error(
         "DebugSettingsType not provided"
     )
 
-    private fun setUpRecyclerView(adapter: DebugSettingsAdapter) {
+    private fun DebugSettingsAdapter.setUpRecyclerView() = also {
         with(DebugSettingsFragmentBinding.bind(requireView())) {
             recyclerView.addItemDecoration(RecyclerItemDecoration(0, DisplayUtils.dpToPx(requireActivity(), 1)))
             recyclerView.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-            recyclerView.adapter = adapter
+            recyclerView.adapter = this@setUpRecyclerView
         }
     }
 
     companion object {
-        private const val DEBUG_SETTINGS_TYPE_KEY = "debug_settings_type_key"
+        private const val ARG_KEY = "debug_settings_type_key"
         fun newInstance(debugSettingsType: DebugSettingsType) = DebugSettingsFragment().apply {
             arguments = Bundle().apply {
-                putSerializable(DEBUG_SETTINGS_TYPE_KEY, debugSettingsType)
+                putSerializable(ARG_KEY, debugSettingsType)
             }
         }
     }

@@ -24,10 +24,12 @@ class PreviewFragmentActivity : FragmentActivity() {
 
     companion object {
         const val KEY = "KEY"
+        const val CODE_PREVIEW = 100
+        val CLASS_PREVIEW = PreviewFragmentActivity::class.java
 
         fun DebugSettingsFragment.previewFragmentInActivity(key: String) {
             startActivity(
-                Intent(requireContext(), this@Companion::class.java.enclosingClass).apply {
+                Intent(requireContext(), PreviewFragmentActivity::class.java).apply {
                     putExtra(KEY, key)
                 }
             )

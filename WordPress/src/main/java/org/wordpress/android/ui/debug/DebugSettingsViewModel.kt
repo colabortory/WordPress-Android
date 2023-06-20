@@ -6,13 +6,14 @@ import kotlinx.coroutines.CoroutineDispatcher
 import org.wordpress.android.modules.BG_THREAD
 import org.wordpress.android.modules.UI_THREAD
 import org.wordpress.android.ui.debug.DebugSettingsViewModel.NavigationAction.DebugCookies
+import org.wordpress.android.ui.debug.DebugSettingsViewModel.NavigationAction.PreviewFragment
+import org.wordpress.android.ui.debug.UiItem.FeatureFlag.LocalFeatureFlag
+import org.wordpress.android.ui.debug.UiItem.FeatureFlag.RemoteFeatureFlag
+import org.wordpress.android.ui.debug.UiItem.Field
 import org.wordpress.android.ui.debug.previews.PREVIEWS
 import org.wordpress.android.ui.jetpackoverlay.JetpackFeatureRemovalPhaseHelper
 import org.wordpress.android.ui.notifications.NotificationManagerWrapper
 import org.wordpress.android.util.DebugUtils
-import org.wordpress.android.ui.debug.UiItem.FeatureFlag.RemoteFeatureFlag
-import org.wordpress.android.ui.debug.UiItem.FeatureFlag.LocalFeatureFlag
-import org.wordpress.android.ui.debug.UiItem.Field
 import org.wordpress.android.util.config.FeatureFlagConfig
 import org.wordpress.android.util.config.FeaturesInDevelopment
 import org.wordpress.android.util.config.ManualFeatureConfig
@@ -75,7 +76,7 @@ class DebugSettingsViewModel
     }
 
     private fun onFeaturePreviewClick(key: String) {
-        _onNavigation.value = Event(NavigationAction.PreviewFragment(key))
+        _onNavigation.value = Event(PreviewFragment(key))
     }
 
     fun onForceShowWeeklyRoundupClick() = launch(bgDispatcher) {
@@ -128,7 +129,7 @@ class DebugSettingsViewModel
         return RemoteFieldConfigDefaults.remoteFieldConfigDefaults.mapNotNull { remoteField ->
             val remoteConfig = remoteConfigFields.find { remoteField.key == it.key }
             remoteConfig?.let {
-                Field(remoteField.key, remoteConfig.value.toString(), remoteConfig.source.toString())
+                Field(remoteField.key, remoteConfig.value, remoteConfig.source.toString())
             }
         }.sortedBy { it.remoteFieldKey }
     }
