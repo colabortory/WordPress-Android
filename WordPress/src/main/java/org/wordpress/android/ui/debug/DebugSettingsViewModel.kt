@@ -97,7 +97,7 @@ class DebugSettingsViewModel
             }
             LocalFeatureFlag(
                 name, value,
-                UiItem.ToggleAction(name, value?.not() ?: true, this::toggleFeature)
+                UiItem.ToggleAction(name, value?.not() ?: true, ::toggleFeature)
             )
         }.sortedBy { it.title }
     }
@@ -118,7 +118,7 @@ class DebugSettingsViewModel
                 featureFlagConfig.flags.find { it.key == key }?.source?.toUiValue()?: "Unknown"
             }
             if (value != null) {
-                RemoteFeatureFlag(key, value, UiItem.ToggleAction(key, !value, this::toggleFeature), source)
+                RemoteFeatureFlag(key, value, UiItem.ToggleAction(key, !value, ::toggleFeature), source)
             } else {
                 null
             }
