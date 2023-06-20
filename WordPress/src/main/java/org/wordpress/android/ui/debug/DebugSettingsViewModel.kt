@@ -3,6 +3,7 @@ package org.wordpress.android.ui.debug
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineDispatcher
+import org.wordpress.android.fluxc.persistence.FeatureFlagConfigDao
 import org.wordpress.android.modules.BG_THREAD
 import org.wordpress.android.modules.UI_THREAD
 import org.wordpress.android.ui.debug.DebugSettingsViewModel.NavigationAction.DebugCookies
@@ -59,8 +60,8 @@ class DebugSettingsViewModel
         val uiItems: MutableList<UiItem> = when (debugSettingsType) {
             DebugSettingsType.REMOTE_FEATURES -> buildRemoteFeatures().map {
                 it.apply {
-                    preview = { onFeaturePreviewClick(title) }.takeIf {
-                        state == UiItem.FeatureFlag.State.ENABLED && PREVIEWS.contains(title)
+                    preview = { onFeaturePreviewClick(this.remoteKey) }.takeIf {
+                        state == UiItem.FeatureFlag.State.ENABLED && PREVIEWS.contains(remoteKey)
                     }
                 }
             }.toMutableList()
@@ -114,7 +115,7 @@ class DebugSettingsViewModel
             val source = if (manualFeatureConfig.hasManualSetup(key)) {
                 "Manual"
             } else {
-                featureFlagConfig.flags.find { it.key == key }?.source?.name ?: "Unknown"
+                featureFlagConfig.flags.find { it.key == key }?.source?.toUiValue()?: "Unknown"
             }
             if (value != null) {
                 RemoteFeatureFlag(key, value, UiItem.ToggleAction(key, !value, this::toggleFeature), source)
@@ -122,6 +123,14 @@ class DebugSettingsViewModel
                 null
             }
         }.sortedBy { it.remoteKey }
+    }
+
+    private fun FeatureFlagConfigDao.FeatureFlagValueSource.toUiValue(): String? {
+        return when (this) {
+            FeatureFlagConfigDao.FeatureFlagValueSource.BUILD_CONFIG -> "Local value"
+            FeatureFlagConfigDao.FeatureFlagValueSource.REMOTE -> "Remote Value"
+            else -> null
+        }
     }
 
     private fun buildRemoteFieldConfigs(): List<Field> {
