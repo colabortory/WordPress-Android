@@ -9,7 +9,9 @@ import org.wordpress.android.ui.mysite.cards.dashboard.CardsTracker
 import org.wordpress.android.ui.prefs.AppPrefsWrapper
 import org.wordpress.android.viewmodel.Event
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class PagesCardViewModelSlice @Inject constructor(
     private val cardsTracker: CardsTracker,
     private val selectedSiteRepository: SelectedSiteRepository,
