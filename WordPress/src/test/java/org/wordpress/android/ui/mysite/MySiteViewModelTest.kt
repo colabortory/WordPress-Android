@@ -107,7 +107,7 @@ import org.wordpress.android.ui.mysite.cards.dashboard.domaintransfer.DomainTran
 import org.wordpress.android.ui.mysite.cards.dashboard.pages.PagesCardViewModelSlice
 import org.wordpress.android.ui.mysite.cards.dashboard.plans.PlansCardUtils
 import org.wordpress.android.ui.mysite.cards.dashboard.posts.PostsCardViewModelSlice
-import org.wordpress.android.ui.mysite.cards.dashboard.todaysstats.TodaysStatsViewModelSlice
+import org.wordpress.android.ui.mysite.cards.dashboard.todaysstats.TodaysStatsCardViewModelSlice
 import org.wordpress.android.ui.mysite.cards.jetpackfeature.JetpackFeatureCardHelper
 import org.wordpress.android.ui.mysite.cards.jetpackfeature.JetpackFeatureCardShownTracker
 import org.wordpress.android.ui.mysite.cards.jpfullplugininstall.JetpackInstallFullPluginCardBuilder
@@ -322,7 +322,7 @@ class MySiteViewModelTest : BaseUnitTest() {
     lateinit var domainTransferCardViewModel: DomainTransferCardViewModel
 
     @Mock
-    lateinit var todaysStatsViewModelSlice: TodaysStatsViewModelSlice
+    lateinit var todaysStatsCardViewModelSlice: TodaysStatsCardViewModelSlice
 
     @Mock
     lateinit var postsCardViewModelSlice: PostsCardViewModelSlice
@@ -494,7 +494,7 @@ class MySiteViewModelTest : BaseUnitTest() {
         whenever(blazeCardViewModelSlice.refresh).thenReturn(refresh)
         whenever(domainTransferCardViewModel.refresh).thenReturn(refresh)
         whenever(pagesCardViewModelSlice.getPagesCardBuilderParams(anyOrNull())).thenReturn(mock())
-        whenever(todaysStatsViewModelSlice.getTodaysStatsBuilderParams(anyOrNull())).thenReturn(mock())
+        whenever(todaysStatsCardViewModelSlice.getTodaysStatsBuilderParams(anyOrNull())).thenReturn(mock())
         whenever(postsCardViewModelSlice.getPostsCardBuilderParams(anyOrNull())).thenReturn(mock())
 
         viewModel = MySiteViewModel(
@@ -553,7 +553,7 @@ class MySiteViewModelTest : BaseUnitTest() {
             blazeCardViewModelSlice,
             domainTransferCardViewModel,
             pagesCardViewModelSlice,
-            todaysStatsViewModelSlice,
+            todaysStatsCardViewModelSlice,
             postsCardViewModelSlice
         )
         uiModels = mutableListOf()

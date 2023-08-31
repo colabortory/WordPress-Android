@@ -90,7 +90,7 @@ import org.wordpress.android.ui.mysite.cards.dashboard.domaintransfer.DomainTran
 import org.wordpress.android.ui.mysite.cards.dashboard.pages.PagesCardViewModelSlice
 import org.wordpress.android.ui.mysite.cards.dashboard.plans.PlansCardUtils
 import org.wordpress.android.ui.mysite.cards.dashboard.posts.PostsCardViewModelSlice
-import org.wordpress.android.ui.mysite.cards.dashboard.todaysstats.TodaysStatsViewModelSlice
+import org.wordpress.android.ui.mysite.cards.dashboard.todaysstats.TodaysStatsCardViewModelSlice
 import org.wordpress.android.ui.mysite.cards.jetpackfeature.JetpackFeatureCardHelper
 import org.wordpress.android.ui.mysite.cards.jetpackfeature.JetpackFeatureCardShownTracker
 import org.wordpress.android.ui.mysite.cards.jpfullplugininstall.JetpackInstallFullPluginCardBuilder
@@ -208,7 +208,7 @@ class MySiteViewModel @Inject constructor(
     private val blazeCardViewModelSlice: BlazeCardViewModelSlice,
     private val domainTransferCardViewModel: DomainTransferCardViewModel,
     private val pagesCardViewModelSlice: PagesCardViewModelSlice,
-    private val todaysStatsViewModelSlice: TodaysStatsViewModelSlice,
+    private val todaysStatsCardViewModelSlice: TodaysStatsCardViewModelSlice,
     private val postsCardViewModelSlice: PostsCardViewModelSlice
 ) : ScopedViewModel(mainDispatcher) {
     private var isDefaultTabSet: Boolean = false
@@ -297,7 +297,7 @@ class MySiteViewModel @Inject constructor(
         blazeCardViewModelSlice.onNavigation,
         pagesCardViewModelSlice.onNavigation,
         domainTransferCardViewModel.onNavigation,
-        todaysStatsViewModelSlice.onNavigation,
+        todaysStatsCardViewModelSlice.onNavigation,
         postsCardViewModelSlice.onNavigation
     )
     val onMediaUpload = _onMediaUpload as LiveData<Event<MediaModel>>
@@ -316,7 +316,7 @@ class MySiteViewModel @Inject constructor(
         merge(
             blazeCardViewModelSlice.refresh,
             pagesCardViewModelSlice.refresh,
-            todaysStatsViewModelSlice.refresh,
+            todaysStatsCardViewModelSlice.refresh,
             postsCardViewModelSlice.refresh
         )
     val domainTransferCardRefresh = domainTransferCardViewModel.refresh
@@ -577,7 +577,7 @@ class MySiteViewModel @Inject constructor(
             DashboardCardsBuilderParams(
                 showErrorCard = cardsUpdate?.showErrorCard == true,
                 onErrorRetryClick = this::onDashboardErrorRetry,
-                todaysStatsCardBuilderParams = todaysStatsViewModelSlice.getTodaysStatsBuilderParams(
+                todaysStatsCardBuilderParams = todaysStatsCardViewModelSlice.getTodaysStatsBuilderParams(
                         cardsUpdate?.cards?.firstOrNull { it is TodaysStatsCardModel } as? TodaysStatsCardModel
                 ),
                 postCardBuilderParams = postsCardViewModelSlice.getPostsCardBuilderParams(

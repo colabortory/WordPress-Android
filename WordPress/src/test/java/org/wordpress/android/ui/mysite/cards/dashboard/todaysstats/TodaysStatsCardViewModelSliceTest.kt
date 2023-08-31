@@ -20,7 +20,7 @@ import org.wordpress.android.ui.prefs.AppPrefsWrapper
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
-class TodaysStatsViewModelSliceTest : BaseUnitTest() {
+class TodaysStatsCardViewModelSliceTest : BaseUnitTest() {
     @Mock
     lateinit var cardsTracker: CardsTracker
 
@@ -33,7 +33,7 @@ class TodaysStatsViewModelSliceTest : BaseUnitTest() {
     @Mock
     lateinit var appPrefsWrapper: AppPrefsWrapper
 
-    private lateinit var todaysStatsViewModelSlice: TodaysStatsViewModelSlice
+    private lateinit var todaysStatsCardViewModelSlice: TodaysStatsCardViewModelSlice
 
     private lateinit var navigationActions: MutableList<SiteNavigationAction>
 
@@ -43,20 +43,20 @@ class TodaysStatsViewModelSliceTest : BaseUnitTest() {
 
     @Before
     fun setUp() {
-        todaysStatsViewModelSlice = TodaysStatsViewModelSlice(
+        todaysStatsCardViewModelSlice = TodaysStatsCardViewModelSlice(
             cardsTracker,
             selectedSiteRepository,
             jetpackFeatureRemovalPhaseHelper,
             appPrefsWrapper
         )
         navigationActions = mutableListOf()
-        todaysStatsViewModelSlice.onNavigation.observeForever { event ->
+        todaysStatsCardViewModelSlice.onNavigation.observeForever { event ->
             event?.getContentIfNotHandled()?.let {
                 navigationActions.add(it)
             }
         }
         refreshEvents = mutableListOf()
-        todaysStatsViewModelSlice.refresh.observeForever { event ->
+        todaysStatsCardViewModelSlice.refresh.observeForever { event ->
             event?.getContentIfNotHandled()?.let {
                 refreshEvents.add(it)
             }
@@ -67,7 +67,7 @@ class TodaysStatsViewModelSliceTest : BaseUnitTest() {
     @Test
     fun `given todays stat card, when card item is clicked, then stats page is opened`() =
         test {
-            val params = todaysStatsViewModelSlice.getTodaysStatsBuilderParams(mock())
+            val params = todaysStatsCardViewModelSlice.getTodaysStatsBuilderParams(mock())
 
             params.onTodaysStatsCardClick()
 
@@ -81,7 +81,7 @@ class TodaysStatsViewModelSliceTest : BaseUnitTest() {
     @Test
     fun `given todays stat card, when get more views url is clicked, then external link is opened`() =
         test {
-            val params = todaysStatsViewModelSlice.getTodaysStatsBuilderParams(mock())
+            val params = todaysStatsCardViewModelSlice.getTodaysStatsBuilderParams(mock())
 
             params.onGetMoreViewsClick()
 
@@ -100,7 +100,7 @@ class TodaysStatsViewModelSliceTest : BaseUnitTest() {
 
     @Test
     fun `given todays stats card, when more menu is accessed, then event is tracked`() = test {
-        val params = todaysStatsViewModelSlice.getTodaysStatsBuilderParams(mock())
+        val params = todaysStatsCardViewModelSlice.getTodaysStatsBuilderParams(mock())
 
         params.moreMenuClickParams.onMoreMenuClick.invoke()
 
@@ -109,7 +109,7 @@ class TodaysStatsViewModelSliceTest : BaseUnitTest() {
 
     @Test
     fun `given todays stats card, when more menu item view stats is accessed, then event is tracked`() = test {
-        val params = todaysStatsViewModelSlice.getTodaysStatsBuilderParams(mock())
+        val params = todaysStatsCardViewModelSlice.getTodaysStatsBuilderParams(mock())
 
         params.moreMenuClickParams.onViewStatsMenuItemClick.invoke()
 
@@ -126,7 +126,7 @@ class TodaysStatsViewModelSliceTest : BaseUnitTest() {
         val siteId = 1L
         whenever(selectedSiteRepository.getSelectedSite()?.siteId).thenReturn(siteId)
 
-        val params = todaysStatsViewModelSlice.getTodaysStatsBuilderParams(mock())
+        val params = todaysStatsCardViewModelSlice.getTodaysStatsBuilderParams(mock())
 
         params.moreMenuClickParams.onHideThisMenuItemClick.invoke()
 
