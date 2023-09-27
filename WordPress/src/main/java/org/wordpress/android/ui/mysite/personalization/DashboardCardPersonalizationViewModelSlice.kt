@@ -1,10 +1,7 @@
 package org.wordpress.android.ui.mysite.personalization
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import org.wordpress.android.R
@@ -18,25 +15,27 @@ import org.wordpress.android.util.analytics.AnalyticsTrackerWrapper
 import javax.inject.Inject
 import javax.inject.Named
 
-class DashboardCardPersonalizationViewModelSlice @Inject constructor(
+interface DashboardCardPersonalizationViewModelSlice {
+    fun start(site: Long)
+    fun onCardToggled(cardType: CardType, enabled: Boolean)
+    val dashboardCardState: MutableLiveData<List<DashboardCardState>>
+}
+
+
+class DashboardCardPersonalizationViewModelSliceImpl @Inject constructor(
     @param:Named(BG_THREAD) private val bgDispatcher: CoroutineDispatcher,
     private val appPrefsWrapper: AppPrefsWrapper,
     private val selectedSiteRepository: SelectedSiteRepository,
     private val bloggingRemindersStore: BloggingRemindersStore,
     private val analyticsTrackerWrapper: AnalyticsTrackerWrapper,
-) {
+):ViewModelSlice(), DashboardCardPersonalizationViewModelSlice {
     private val _uiState = MutableLiveData<List<DashboardCardState>>()
-    val uiState: LiveData<List<DashboardCardState>> = _uiState
 
-    lateinit var scope: CoroutineScope
+    override val dashboardCardState = _uiState
 
-    fun initialize(viewModelScope: CoroutineScope) {
-        this.scope = viewModelScope
-    }
-
-    fun start(siteId: Long) {
+    override fun start(site: Long) {
         scope.launch(bgDispatcher) {
-            _uiState.postValue(getCardStates(siteId))
+            _uiState.postValue(getCardStates(site))
         }
     }
 
@@ -93,7 +92,7 @@ class DashboardCardPersonalizationViewModelSlice @Inject constructor(
         )
     }
 
-    fun onCardToggled(cardType: CardType, enabled: Boolean) {
+    override fun onCardToggled(cardType: CardType, enabled: Boolean) {
         val siteId = selectedSiteRepository.getSelectedSite()!!.siteId
         scope.launch(bgDispatcher) {
             trackCardToggle(cardType, enabled)
@@ -175,9 +174,5 @@ class DashboardCardPersonalizationViewModelSlice @Inject constructor(
         val siteId = selectedSiteRepository.getSelectedSiteLocalId()
         val current = bloggingRemindersStore.bloggingRemindersModel(siteId).firstOrNull() ?: return
         bloggingRemindersStore.updateBloggingReminders(current.copy(isPromptsCardEnabled = isEnabled))
-    }
-
-    fun onCleared() {
-        this.scope.cancel()
     }
 }

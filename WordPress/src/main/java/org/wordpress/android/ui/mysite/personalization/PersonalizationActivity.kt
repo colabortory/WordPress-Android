@@ -88,8 +88,8 @@ class PersonalizationActivity : ComponentActivity() {
 
     @Composable
     fun TabScreen(modifier: Modifier = Modifier) {
-        val dashboardCardStates = viewModel.uiState.observeAsState()
-        val shortcutsStates = viewModel.shortcutsState.collectAsState()
+        val dashboardCardStates = viewModel.dashboardCardState.observeAsState()
+        val shortcutsStates = viewModel.shortCutsState.collectAsState()
 
         var tabIndex by remember { mutableStateOf(0) }
 

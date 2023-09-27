@@ -3,6 +3,7 @@ package org.wordpress.android.ui.mysite.personalization
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import org.wordpress.android.modules.BG_THREAD
 import org.wordpress.android.ui.mysite.SelectedSiteRepository
 import org.wordpress.android.viewmodel.ScopedViewModel
@@ -15,30 +16,43 @@ const val CARD_TYPE_TRACK_PARAM = "type"
 class PersonalizationViewModel @Inject constructor(
     @param:Named(BG_THREAD) private val bgDispatcher: CoroutineDispatcher,
     private val selectedSiteRepository: SelectedSiteRepository,
-    private val shortcutsPersonalizationViewModelSlice: ShortcutsPersonalizationViewModelSlice,
-    private val dashboardCardPersonalizationViewModelSlice: DashboardCardPersonalizationViewModelSlice
-) : ScopedViewModel(bgDispatcher) {
-    val uiState = dashboardCardPersonalizationViewModelSlice.uiState
-    val shortcutsState = shortcutsPersonalizationViewModelSlice.uiState
-
+    private val shortcutsPersonalizationViewModelSliceImpl: ShortcutsPersonalizationViewModelSliceImpl,
+    private val dashboardCardPersonalizationViewModelSliceImpl: DashboardCardPersonalizationViewModelSliceImpl,
+    private val delegateManager: ViewModelSliceDelegateManager
+) : ScopedViewModel(bgDispatcher),
+    ShortcutsPersonalizationViewModelSlice by shortcutsPersonalizationViewModelSliceImpl,
+    DashboardCardPersonalizationViewModelSlice by dashboardCardPersonalizationViewModelSliceImpl
+{
     init {
-        shortcutsPersonalizationViewModelSlice.initialize(viewModelScope)
-        dashboardCardPersonalizationViewModelSlice.initialize(viewModelScope)
+        delegateManager.addDelegate(shortcutsPersonalizationViewModelSliceImpl)
+        delegateManager.addDelegate(dashboardCardPersonalizationViewModelSliceImpl)
+        delegateManager.initialize(viewModelScope)
     }
 
     fun start() {
         val siteId = selectedSiteRepository.getSelectedSite()!!.siteId
-        dashboardCardPersonalizationViewModelSlice.start(siteId)
-        shortcutsPersonalizationViewModelSlice.start(selectedSiteRepository.getSelectedSite()!!)
-    }
-
-    fun onCardToggled(cardType: CardType, enabled: Boolean) {
-        dashboardCardPersonalizationViewModelSlice.onCardToggled(cardType, enabled)
+        start(siteId)
+        getShortcutsPersonalization(selectedSiteRepository.getSelectedSite()!!)
     }
 
     override fun onCleared() {
         super.onCleared()
-        shortcutsPersonalizationViewModelSlice.onCleared()
-        dashboardCardPersonalizationViewModelSlice.onCleared()
+        delegateManager.onCleared()
+    }
+}
+
+class ViewModelSliceDelegateManager @Inject constructor() {
+    private val delegates = mutableListOf<ViewModelSlice>()
+
+    fun addDelegate(delegate: ViewModelSlice) {
+        delegates.add(delegate)
+    }
+
+    fun initialize(viewModelScope: CoroutineScope) {
+        delegates.forEach { it.initialize(viewModelScope) }
+    }
+
+    fun onCleared() {
+        delegates.forEach { it.onCleared() }
     }
 }

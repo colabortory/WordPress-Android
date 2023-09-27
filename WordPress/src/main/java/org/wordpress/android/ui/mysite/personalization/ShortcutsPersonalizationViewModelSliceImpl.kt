@@ -5,6 +5,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import org.wordpress.android.fluxc.model.SiteModel
 import org.wordpress.android.modules.BG_THREAD
 import org.wordpress.android.ui.blaze.BlazeFeatureUtils
@@ -12,28 +13,39 @@ import org.wordpress.android.ui.jetpack.JetpackCapabilitiesUseCase
 import org.wordpress.android.ui.mysite.MySiteCardAndItem
 import org.wordpress.android.ui.mysite.MySiteCardAndItemBuilderParams
 import org.wordpress.android.ui.mysite.items.listitem.SiteItemsBuilder
-import kotlinx.coroutines.launch
 import org.wordpress.android.ui.utils.UiString
 import javax.inject.Inject
 import javax.inject.Named
 
-class ShortcutsPersonalizationViewModelSlice @Inject constructor(
+abstract class ViewModelSlice{
+    lateinit var scope: CoroutineScope
+
+    fun initialize(scope: CoroutineScope){
+        this.scope = scope
+    }
+
+    open fun onCleared(){
+        scope.cancel()
+    }
+}
+
+interface ShortcutsPersonalizationViewModelSlice {
+    fun getShortcutsPersonalization(site: SiteModel)
+
+    val shortCutsState: StateFlow<List<ShortcutsState>>
+}
+
+class ShortcutsPersonalizationViewModelSliceImpl @Inject constructor(
     @param:Named(BG_THREAD) private val bgDispatcher: CoroutineDispatcher,
     private val siteItemsBuilder: SiteItemsBuilder,
     private val jetpackCapabilitiesUseCase: JetpackCapabilitiesUseCase,
     private val blazeFeatureUtils: BlazeFeatureUtils
-) {
-    lateinit var scope: CoroutineScope
-
-    fun initialize(scope: CoroutineScope) {
-        this.scope = scope
-    }
-
+):ViewModelSlice(), ShortcutsPersonalizationViewModelSlice {
     private val _uiState = MutableStateFlow(emptyList<ShortcutsState>())
+    override val shortCutsState: StateFlow<List<ShortcutsState>>
+        get() = _uiState
 
-    val uiState: StateFlow<List<ShortcutsState>> = _uiState
-
-    fun start(site: SiteModel) {
+    override fun getShortcutsPersonalization(site: SiteModel) {
         _uiState.value = convertToShortCutsState(
             items = siteItemsBuilder.build(
                 MySiteCardAndItemBuilderParams.SiteItemsBuilderParams(
@@ -84,8 +96,8 @@ class ShortcutsPersonalizationViewModelSlice @Inject constructor(
     private fun isSiteBlazeEligible(site: SiteModel) =
         blazeFeatureUtils.isSiteBlazeEligible(site)
 
-    fun onCleared() {
-        this.scope.cancel()
+    override fun onCleared() {
+        super.onCleared()
         jetpackCapabilitiesUseCase.clear()
     }
 }
