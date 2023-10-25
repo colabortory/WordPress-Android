@@ -83,13 +83,13 @@ end
 
 #  Returns the next release version of the app in the format `1.2` or `1.2.3` if it is a hotfix
 #
-def next_release_version
+def release_version_next
   # Read the current release version from the version.properties file and parse it into an AppVersion object
   current_version = VERSION_FORMATTER.parse(VERSION_FILE.read_version_name)
   # Calculate the next release version
-  next_release_version = VERSION_CALCULATOR.next_release_version(version: current_version)
+  release_version_next = VERSION_CALCULATOR.next_release_version(version: current_version)
   # Return the formatted release version
-  VERSION_FORMATTER.release_version(next_release_version)
+  VERSION_FORMATTER.release_version(release_version_next)
 end
 
 # Returns the beta version of the app in the format `1.2-rc-1`
