@@ -21,9 +21,9 @@ platform :android do
     message = <<-MESSAGE
 
       Code Freeze:
-      • New release branch from #{DEFAULT_BRANCH}: release/#{next_release_version}
-      • Current release version and build code: #{current_release_version} (#{current_build_code}).
-      • New release version and build code: #{code_freeze_beta_version} (#{next_build_code}).
+      • New release branch from #{DEFAULT_BRANCH}: release/#{release_version_next}
+      • Current release version and build code: #{release_version_current} (#{build_code_current}).
+      • New release version and build code: #{beta_version_code_freeze} (#{build_code_next}).
 
       Do you want to continue?
 
@@ -37,20 +37,20 @@ platform :android do
 
     # Create the release branch
     UI.message 'Creating release branch...'
-    Fastlane::Helper::GitHelper.create_branch("release/#{next_release_version}", from: DEFAULT_BRANCH)
+    Fastlane::Helper::GitHelper.create_branch("release/#{release_version_next}", from: DEFAULT_BRANCH)
     ensure_git_branch(branch: '^release/')
     UI.success "Done! New release branch is: #{git_branch}"
 
     # Bump the version and build code
     UI.message 'Bumping beta version and build code...'
     VERSION_FILE.write_version(
-      version_name: code_freeze_beta_version,
-      version_code: next_build_code
+      version_name: beta_version_code_freeze,
+      version_code: build_code_next
     )
     commit_version_bump
-    UI.success "Done! New Beta Version: #{current_beta_version}. New Build Code: #{current_build_code}"
+    UI.success "Done! New Beta Version: #{beta_version_current}. New Build Code: #{build_code_current}"
 
-    new_version = current_release_version
+    new_version = release_version_current
 
     extract_release_notes_for_version(
       version: new_version,
@@ -92,7 +92,7 @@ platform :android do
     ensure_git_branch(branch: '^release/')
     ensure_git_status_clean
 
-    new_version = current_release_version
+    new_version = release_version_current
 
     UI.important("Completing code freeze for: #{new_version}")
 
@@ -133,18 +133,18 @@ platform :android do
     ensure_git_status_clean
 
     # Check branch
-    unless Fastlane::Helper::GitHelper.checkout_and_pull(release: current_release_version)
-      UI.user_error!("Release branch for version #{current_release_version} doesn't exist.")
+    unless Fastlane::Helper::GitHelper.checkout_and_pull(release: release_version_current)
+      UI.user_error!("Release branch for version #{release_version_current} doesn't exist.")
     end
 
     # Check versions
     message = <<-MESSAGE
 
-      Current beta version: #{current_beta_version}
-      New beta version: #{next_beta_version}
+      Current beta version: #{beta_version_current}
+      New beta version: #{beta_version_next}
 
-      Current build code: #{current_build_code}
-      New build code: #{next_build_code}
+      Current build code: #{build_code_current}
+      New build code: #{build_code_next}
 
     MESSAGE
 
@@ -160,14 +160,14 @@ platform :android do
     # Bump the release version and build code
     UI.message 'Bumping beta version and build code...'
     VERSION_FILE.write_version(
-      version_name: next_beta_version,
-      version_code: next_build_code
+      version_name: beta_version_next,
+      version_code: build_code_next
     )
     commit_version_bump
-    UI.success "Done! New Beta Version: #{current_beta_version}. New Build Code: #{current_build_code}"
+    UI.success "Done! New Beta Version: #{beta_version_current}. New Build Code: #{build_code_current}"
 
-    release_branch = "release/#{current_release_version}"
-    release_version = current_version_name
+    release_branch = "release/#{release_version_current}"
+    release_version = version_name_current
 
     # Create an intermediate branch
     new_beta_branch_name = "new_beta/#{release_version}"
@@ -205,10 +205,10 @@ platform :android do
     # Check versions
     message = <<-MESSAGE
 
-      Current release version: #{current_release_version}
+      Current release version: #{release_version_current}
       New hotfix version: #{new_version}
 
-      Current build code: #{current_build_code}
+      Current build code: #{build_code_current}
       New build code: #{new_build_code}
 
       Branching from tag: #{previous_version}
@@ -237,7 +237,7 @@ platform :android do
       version_code: new_build_code
     )
     commit_version_bump
-    UI.success "Done! New Release Version: #{current_release_version}. New Build Code: #{current_build_code}"
+    UI.success "Done! New Release Version: #{release_version_current}. New Build Code: #{build_code_current}"
 
     push_to_git_remote(tags: false)
   end
@@ -258,13 +258,13 @@ platform :android do
     ensure_git_branch(branch: '^release/')
     ensure_git_status_clean unless is_ci
 
-    UI.important("Triggering hotfix build for version: #{current_release_version}")
+    UI.important("Triggering hotfix build for version: #{release_version_current}")
 
     unless options[:skip_confirm]
       UI.user_error!('Aborted by user request') unless UI.confirm('Do you want to continue?')
     end
 
-    trigger_release_build(branch_to_build: "release/#{current_release_version}")
+    trigger_release_build(branch_to_build: "release/#{release_version_current}")
   end
 
   #####################################################################################
@@ -286,7 +286,7 @@ platform :android do
     ensure_git_status_clean
     ensure_git_branch(branch: '^release/')
 
-    UI.important("Finalizing release: #{current_release_version}")
+    UI.important("Finalizing release: #{release_version_current}")
 
     unless options[:skip_confirm]
       UI.user_error!('Aborted by user request') unless UI.confirm('Do you want to continue?')
@@ -294,7 +294,7 @@ platform :android do
 
     configure_apply(force: is_ci)
 
-    release_branch = "release/#{current_release_version}"
+    release_branch = "release/#{release_version_current}"
 
     # Remove branch protection first, so that we can push the final commits directly to the release branch
     removebranchprotection(repository: GHHELPER_REPO, branch: release_branch)
@@ -306,14 +306,14 @@ platform :android do
     # Bump the release version and build code
     UI.message 'Bumping final release version and build code...'
     VERSION_FILE.write_version(
-      version_name: current_release_version,
-      version_code: next_build_code
+      version_name: release_version_current,
+      version_code: build_code_next
     )
     commit_version_bump
-    UI.success "Done! New Release Version: #{current_release_version}. New Build Code: #{current_build_code}"
+    UI.success "Done! New Release Version: #{release_version_current}. New Build Code: #{build_code_current}"
 
-    version_name = current_release_version
-    build_code = current_build_code
+    version_name = release_version_current
+    build_code = build_code_current
     download_metadata_strings(version: version_name, build_number: build_code)
 
     push_to_git_remote(tags: false)
@@ -417,7 +417,7 @@ platform :android do
   #####################################################################################
   lane :create_gh_release do |options|
     apps = options[:app].nil? ? ['wordpress', 'jetpack'] : [get_app_name_option!(options)]
-    versions = options[:version_name].nil? ? [current_version_name] : [options[:version_name]]
+    versions = options[:version_name].nil? ? [version_name_current] : [options[:version_name]]
 
     download_signed_apks_from_google_play(app: options[:app])
 

@@ -18,11 +18,11 @@ platform :android do
     unless options[:skip_prechecks]
       ensure_git_branch(branch: '^release/') unless is_ci
 
-      UI.user_error!("Can't build a final release out of this branch because it's configured as a beta release!") if current_version_name.include? '-rc-'
+      UI.user_error!("Can't build a final release out of this branch because it's configured as a beta release!") if version_name_current.include? '-rc-'
 
       ensure_git_status_clean unless is_ci
 
-      UI.important("Building version #{current_release_version} (#{current_build_code}) for upload to Release Channel")
+      UI.important("Building version #{release_version_current} (#{build_code_current}) for upload to Release Channel")
 
       unless options[:skip_confirm]
         UI.user_error!('Aborted by user request') unless UI.confirm('Do you want to continue?')
@@ -33,8 +33,8 @@ platform :android do
 
     # Create the file names
     app = get_app_name_option!(options)
-    version_name = current_version_name
-    build_bundle(app: app, version_name: version_name, build_code: current_build_code, flavor: 'Vanilla', buildType: 'Release')
+    version_name = version_name_current
+    build_bundle(app: app, version_name: version_name, build_code: build_code_current, flavor: 'Vanilla', buildType: 'Release')
 
     upload_build_to_play_store(app: app, version_name: version_name, track: 'production')
 
@@ -61,7 +61,7 @@ platform :android do
 
       ensure_git_status_clean unless is_ci
 
-      UI.important("Building version #{current_version_name} (#{current_build_code}) for upload to Beta Channel")
+      UI.important("Building version #{version_name_current} (#{build_code_current}) for upload to Beta Channel")
 
       unless options[:skip_confirm]
         UI.user_error!('Aborted by user request') unless UI.confirm('Do you want to continue?')
@@ -94,7 +94,7 @@ platform :android do
 
       ensure_git_status_clean unless is_ci
 
-      UI.important("Building version #{current_version_name} (#{current_build_code}) for upload to Beta Channel")
+      UI.important("Building version #{version_name_current} (#{build_code_current}) for upload to Beta Channel")
 
       unless options[:skip_confirm]
         UI.user_error!('Aborted by user request') unless UI.confirm('Do you want to continue?')
@@ -105,8 +105,8 @@ platform :android do
 
     # Create the file names
     app = get_app_name_option!(options)
-    version_name = current_version_name
-    build_bundle(app: app, version_name: version_name, build_code: current_build_code, flavor: 'Vanilla', buildType: 'Release')
+    version_name = version_name_current
+    build_bundle(app: app, version_name: version_name, build_code: build_code_current, flavor: 'Vanilla', buildType: 'Release')
 
     upload_build_to_play_store(app: app, version_name: version_name, track: 'beta') if options[:upload_to_play_store]
 
@@ -186,7 +186,7 @@ platform :android do
   lane :download_signed_apks_from_google_play do |options|
     # If no `app:` is specified, call this for both WordPress and Jetpack
     apps = options[:app].nil? ? %i[wordpress jetpack] : Array(options[:app]&.downcase&.to_sym)
-    build_code = options[:build_code] || current_build_code
+    build_code = options[:build_code] || build_code_current
 
     apps.each do |app|
       package_name = APP_SPECIFIC_VALUES[app.to_sym][:package_name]
@@ -194,7 +194,7 @@ platform :android do
       download_universal_apk_from_google_play(
           package_name: package_name,
           version_code: build_code,
-          destination: signed_apk_path(app, current_version_name),
+          destination: signed_apk_path(app, version_name_current),
           json_key: UPLOAD_TO_PLAY_STORE_JSON_KEY
       )
     end
