@@ -41,6 +41,7 @@ import org.wordpress.android.ui.posts.PostListType.TRASHED
 import org.wordpress.android.ui.prefs.AppPrefsWrapper
 import org.wordpress.android.ui.uploads.UploadActionUseCase
 import org.wordpress.android.ui.uploads.UploadStarter
+import org.wordpress.android.ui.utils.UiString
 import org.wordpress.android.ui.utils.UiString.UiStringRes
 import org.wordpress.android.util.AppLog
 import org.wordpress.android.util.NetworkUtilsWrapper
@@ -54,6 +55,8 @@ import org.wordpress.android.viewmodel.helpers.ToastMessageHolder
 import org.wordpress.android.viewmodel.posts.PostFetcher
 import org.wordpress.android.viewmodel.posts.PostListItemIdentifier.LocalPostId
 import org.wordpress.android.viewmodel.posts.PostListViewModelConnector
+import rs.wordpress.wp_api.Library
+import uniffi.wp_api.WpAuthentication
 import javax.inject.Inject
 import javax.inject.Named
 import kotlin.coroutines.CoroutineContext
@@ -290,6 +293,21 @@ class PostListMainViewModel @Inject constructor(
                 savePostToDbUseCase.savePostToDb(editPostRepository, site)
             })
         }
+
+        fetchPostListFromRust()
+    }
+
+    private fun fetchPostListFromRust() {
+        // This is an empty test site that'll be destroyed in a few days. This authentication
+        // token is only temporarily shared to collaborate and will be discarded within a day.
+        val rustLibrary = Library("https://stupendous-poetry-koala.jurassic.ninja", WpAuthentication("ZGVtbzo2cjFTIHhySlogN2k0RSBXM0J0IEs1dUMgUGN5Yg=="))
+        launch {
+            val firstPostTitle = rustLibrary.makePostListRequest().postList!!.first().title!!.raw
+            withContext(mainDispatcher) {
+                _snackBarMessage.value =
+                    SnackbarMessageHolder(message = UiString.UiStringText("Fetched first post title from Rust: $firstPostTitle"))
+            }
+        }
     }
 
     override fun onCleared() {
@@ -381,6 +399,7 @@ class PostListMainViewModel @Inject constructor(
             mutableMapOf(TRACKS_SELECTED_TAB to currentPage.toString() as Any)
         )
     }
+
 
     fun showTargetPost(targetPostId: Int) {
         val postModel = postStore.getPostByLocalPostId(targetPostId)

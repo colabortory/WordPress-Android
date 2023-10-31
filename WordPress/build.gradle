@@ -36,6 +36,7 @@ repositories {
             includeGroup "org.wordpress.fluxc"
             includeGroup "org.wordpress.wellsql"
             includeGroup "org.wordpress.gutenberg-mobile"
+            includeGroup "rs.wordpress"
             includeGroupByRegex "org.wordpress.react-native-libraries.*"
             includeGroup "com.automattic"
             includeGroup "com.automattic.stories"
@@ -342,6 +343,8 @@ kapt {
 }
 
 dependencies {
+    implementation 'rs.wordpress:wp_api:trunk-e0af8e4b7ad36852136b097ab28e6c2061f9f61f'
+
     implementation 'androidx.webkit:webkit:1.10.0'
     implementation "androidx.navigation:navigation-compose:$androidxComposeNavigationVersion"
     compileOnly project(path: ':libs:annotations')
