@@ -61,6 +61,7 @@ import org.wordpress.android.ui.photopicker.MediaPickerConstants
 import org.wordpress.android.ui.photopicker.MediaPickerLauncher
 import org.wordpress.android.ui.photopicker.PhotoPickerActivity
 import org.wordpress.android.ui.prefs.AppPrefsWrapper
+import org.wordpress.android.ui.qrcodemediaupload.QRMediaUploadScanner
 import org.wordpress.android.ui.utils.UiHelpers
 import org.wordpress.android.ui.utils.UiString.UiStringText
 import org.wordpress.android.util.AppLog
@@ -143,6 +144,9 @@ class MeFragment : Fragment(R.layout.me_fragment), OnScrollToTopListener {
 
     @Inject
     lateinit var domainManagementFeatureConfig: DomainManagementFeatureConfig
+
+    @Inject
+    lateinit var qrMediaUploadScanner: QRMediaUploadScanner
 
     private val viewModel: MeViewModel by viewModels()
 
@@ -310,7 +314,7 @@ class MeFragment : Fragment(R.layout.me_fragment), OnScrollToTopListener {
         }
 
         viewModel.showScanMediaUploadCode.observeEvent(viewLifecycleOwner) {
-            ActivityLauncher.startQRMediaUploadFlow(requireContext())
+            qrMediaUploadScanner.start(requireContext())
         }
 
         viewModel.showJetpackPoweredBottomSheet.observeEvent(viewLifecycleOwner) {

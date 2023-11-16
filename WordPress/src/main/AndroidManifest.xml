@@ -786,12 +786,6 @@
             android:label="@string/qrcode_auth_flow"
             android:theme="@style/WordPress.NoActionBar"/>
 
-        <!-- QR Code Media Upload Flow -->
-        <activity
-            android:name=".ui.qrcodemediaupload.QRMediaUploadActivity"
-            android:label="@string/scan_media_upload_code"
-            android:theme="@style/WordPress.NoActionBar"/>
-
         <!-- Blogging Prompts -->
         <activity
             android:name=".ui.bloggingprompts.promptslist.BloggingPromptsListActivity"

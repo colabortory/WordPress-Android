@@ -54,7 +54,6 @@ import org.wordpress.android.ui.bloggingprompts.promptslist.BloggingPromptsListA
 import org.wordpress.android.ui.comments.unified.UnifiedCommentsActivity;
 import org.wordpress.android.ui.comments.unified.UnifiedCommentsDetailsActivity;
 import org.wordpress.android.ui.debug.cookies.DebugCookiesActivity;
-import org.wordpress.android.ui.deeplinks.handlers.QRCodeMediaUploadLinkHandler;
 import org.wordpress.android.ui.domains.DomainRegistrationActivity;
 import org.wordpress.android.ui.domains.DomainRegistrationActivity.DomainRegistrationPurpose;
 import org.wordpress.android.ui.domains.DomainsDashboardActivity;
@@ -108,7 +107,6 @@ import org.wordpress.android.ui.prefs.categories.list.CategoriesListActivity;
 import org.wordpress.android.ui.prefs.notifications.NotificationsSettingsActivity;
 import org.wordpress.android.ui.publicize.PublicizeListActivity;
 import org.wordpress.android.ui.qrcodeauth.QRCodeAuthActivity;
-import org.wordpress.android.ui.qrcodemediaupload.QRMediaUploadActivity;
 import org.wordpress.android.ui.reader.ReaderActivityLauncher;
 import org.wordpress.android.ui.reader.ReaderConstants;
 import org.wordpress.android.ui.sitecreation.SiteCreationActivity;
@@ -1855,14 +1853,6 @@ public class ActivityLauncher {
 
     public static void startFastMediaUploadFlow(@NonNull Context context, @NonNull String uri) {
         context.startActivity(new Intent(context, FastMediaUploadActivity.class));
-    }
-
-    public static void startQRMediaUploadFlow(@NonNull Context context) {
-        QRMediaUploadActivity.start(context); // TODO
-    }
-
-    public static void startQRMediaUploadFlowInNewStack(@NonNull Context context, @NonNull String uri) {
-        startQRCodeAuthFlowInNewStack(context, uri); // TODO
     }
 
     public static void showLoginPrologue(@NonNull Context context) {
