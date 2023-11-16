@@ -113,7 +113,7 @@ public class ReaderPost {
         final String content = JSONUtils.getString(json, "content");
         post.mText = content;
         final ReadEstimatedTime readEstimatedTime = new ReadEstimatedTime();
-        post.mReadEstimatedTime = readEstimatedTime.inMinutes(content); // TODO: check this better
+        post.setReadEstimatedTime(readEstimatedTime.inSeconds(content)); // TODO: check this better
         post.mTitle = JSONUtils.getStringDecoded(json, "title");
         post.mFormat = JSONUtils.getString(json, "format");
         post.mUrl = JSONUtils.getString(json, "URL");
@@ -788,6 +788,14 @@ public class ReaderPost {
 
     public Integer getReadEstimatedTime() {
         return mReadEstimatedTime;
+    }
+
+    public int getReadEstimatedTimeInMinutes() {
+        final Integer readEstimatedTime = getReadEstimatedTime();
+        if (readEstimatedTime != null) {
+            return readEstimatedTime / 60;
+        }
+        return -1;
     }
 
     public void setReadEstimatedTime(final Integer readEstimatedTime) {
