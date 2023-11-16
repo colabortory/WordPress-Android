@@ -509,11 +509,11 @@ class MySiteViewModel @Inject constructor(
         val readerStatsCard = readerStatsCardViewModelSlice.getCard()
 
         return mutableListOf<MySiteCardAndItem>().apply {
-            readerStatsCard?.let { add(it) }
             infoItem?.let { add(infoItem) }
             migrationSuccessCard?.let { add(migrationSuccessCard) }
             jetpackInstallFullPluginCard?.let { add(jetpackInstallFullPluginCard) }
             quickLinks?.let { add(quickLinks) }
+            readerStatsCard?.let { add(it) }
             addAll(cardsResult)
             noCardsMessage?.let { add(noCardsMessage) }
             personalizeCard?.let { add(personalizeCard) }
