@@ -21,6 +21,20 @@
         app:layout_constraintEnd_toStartOf="@id/header_follow_button"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <org.wordpress.android.widgets.WPTextView
+        android:id="@+id/text_estimated_time"
+        style="@style/ReaderTextView.Post.Estimated"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:drawablePadding="@dimen/margin_small"
+        android:gravity="center_vertical"
+        app:drawableStartCompat="@drawable/ic_timer_16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_blog_section"
+        tools:text="3 minutes" />
+
     <org.wordpress.android.ui.reader.views.ReaderFollowButton
         android:id="@+id/header_follow_button"
         style="@style/Reader.Follow.Button.New"
@@ -31,20 +45,6 @@
         app:layout_constraintTop_toTopOf="@id/layout_blog_section"
         app:layout_constraintBottom_toBottomOf="@id/layout_blog_section"
         tools:visibility="visible" />
-
-    <org.wordpress.android.widgets.WPTextView
-        android:id="@+id/text_estimated_time"
-        android:layout_width="0dp"
-        style="@style/ReaderTextView.Post.Estimated"
-        android:layout_marginTop="@dimen/margin_medium"
-        tools:text="3 minutes"
-        android:drawablePadding="@dimen/margin_small"
-        android:gravity="center_vertical"
-        app:drawableStartCompat="@drawable/ic_timer_16dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_blog_section" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_title"

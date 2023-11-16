@@ -19,6 +19,7 @@ import org.wordpress.android.util.extensions.getDrawableResIdFromAttribute
 import org.wordpress.android.util.extensions.setVisible
 import org.wordpress.android.util.image.ImageManager
 import org.wordpress.android.util.image.ImageType
+import org.wordpress.android.widgets.WPTextView
 import javax.inject.Inject
 
 /**
@@ -72,6 +73,10 @@ class ReaderPostDetailHeaderView @JvmOverloads constructor(
 
         updateAvatars(uiState.blogSectionUiState)
         updateBlogSectionClick(uiState.blogSectionUiState)
+
+        if (binding is ReaderPostDetailHeaderBinding.ImprovementsEnabled) {
+            binding.readEstimatedTime.text = uiState.blogSectionUiState.readEstimatedTime
+        }
     }
 
     private fun ReaderPostDetailHeaderBinding.updateBlogSectionClick(
@@ -174,6 +179,8 @@ class ReaderPostDetailHeaderView @JvmOverloads constructor(
                 get() = binding.headerFollowButton
             override val blogSectionRoot: ViewGroup
                 get() = binding.layoutBlogSection.root
+            val readEstimatedTime: WPTextView
+                get() = binding.textEstimatedTime
 
             override fun setAuthorAndDate(authorName: String?, dateLine: String) = with(binding.layoutBlogSection) {
                 uiHelpers.setTextOrHide(blogSectionTextAuthor, authorName)

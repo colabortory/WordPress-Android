@@ -229,7 +229,7 @@ class ReaderPostUiStateBuilder @Inject constructor(
             interactionSection = buildInteractionSection(post),
             title = buildTitle(post, forceForPhoto = true, allowEmptyTitle = true),
             excerpt = buildExcerpt(post, forceForPhoto = true),
-            readEstimatedTime.inMinutesFormatted(post.text),
+            readEstimatedTime = readEstimatedTime.inMinutesFormatted(post.text),
             featuredImageUrl = buildFeaturedImageUrl(post, photonWidth, photonHeight),
             featuredImageCornerRadius = UIDimenRes(R.dimen.reader_featured_image_corner_radius_new),
             fullVideoUrl = buildFullVideoUrl(post),
@@ -333,7 +333,8 @@ class ReaderPostUiStateBuilder @Inject constructor(
                 post.postAvatar,
                 R.dimen.avatar_sz_medium
             ),
-            blogSectionClickData = buildOnBlogSectionClicked(onBlogSectionClicked, postListType)
+            blogSectionClickData = buildOnBlogSectionClicked(onBlogSectionClicked, postListType),
+            readEstimatedTime = readEstimatedTime.inMinutesFormatted(post.text),
         )
     }
 
@@ -356,6 +357,7 @@ class ReaderPostUiStateBuilder @Inject constructor(
                 R.dimen.avatar_sz_medium
             ),
             onClicked = onBlogSectionClicked.takeIf { postListType != ReaderPostListType.BLOG_PREVIEW },
+            readEstimatedTime = readEstimatedTime.inMinutesFormatted(post.text),
         )
     }
 
