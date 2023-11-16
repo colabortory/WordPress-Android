@@ -22,6 +22,7 @@ import org.wordpress.android.ui.mysite.MySiteCardAndItem.Card.PersonalizeCardMod
 import org.wordpress.android.ui.mysite.MySiteCardAndItem.Card.PostCard
 import org.wordpress.android.ui.mysite.MySiteCardAndItem.Card.QuickLinksItem
 import org.wordpress.android.ui.mysite.MySiteCardAndItem.Card.QuickStartCard
+import org.wordpress.android.ui.mysite.MySiteCardAndItem.Card.ReaderStatsCard
 import org.wordpress.android.ui.mysite.MySiteCardAndItem.Card.TodaysStatsCard.TodaysStatsCardWithData
 import org.wordpress.android.ui.mysite.MySiteCardAndItem.Item.CategoryEmptyHeaderItem
 import org.wordpress.android.ui.mysite.MySiteCardAndItem.Item.CategoryHeaderItem
@@ -49,6 +50,7 @@ import org.wordpress.android.ui.mysite.cards.nocards.NoCardsMessageViewHolder
 import org.wordpress.android.ui.mysite.cards.personalize.PersonalizeCardViewHolder
 import org.wordpress.android.ui.mysite.cards.quicklinksitem.QuickLinkRibbonViewHolder
 import org.wordpress.android.ui.mysite.cards.quickstart.QuickStartCardViewHolder
+import org.wordpress.android.ui.mysite.cards.readerstats.ReaderStatsCardViewHolder
 import org.wordpress.android.ui.mysite.items.categoryheader.MySiteCategoryItemEmptyViewHolder
 import org.wordpress.android.ui.mysite.items.categoryheader.MySiteCategoryItemViewHolder
 import org.wordpress.android.ui.mysite.items.infoitem.MySiteInfoItemViewHolder
@@ -120,6 +122,7 @@ class MySiteAdapter(
             )
             MySiteCardAndItem.Type.NO_CARDS_MESSAGE.ordinal -> NoCardsMessageViewHolder(parent)
             MySiteCardAndItem.Type.PERSONALIZE_CARD.ordinal -> PersonalizeCardViewHolder(parent)
+            MySiteCardAndItem.Type.READER_STATS_CARD.ordinal -> ReaderStatsCardViewHolder(parent)
             else -> throw IllegalArgumentException("Unexpected view type")
         }
     }
@@ -152,6 +155,7 @@ class MySiteAdapter(
             is JetpackInstallFullPluginCardViewHolder -> holder.bind(getItem(position) as JetpackInstallFullPluginCard)
             is NoCardsMessageViewHolder -> holder.bind(getItem(position) as MySiteCardAndItem.Card.NoCardsMessage)
             is PersonalizeCardViewHolder -> holder.bind(getItem(position) as PersonalizeCardModel)
+            is ReaderStatsCardViewHolder -> holder.bind(getItem(position) as ReaderStatsCard)
         }
     }
 

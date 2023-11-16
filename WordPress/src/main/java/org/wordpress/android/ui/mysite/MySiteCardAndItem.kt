@@ -4,6 +4,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
+import org.wordpress.android.R
 import org.wordpress.android.fluxc.store.QuickStartStore.QuickStartTaskType
 import org.wordpress.android.ui.avatars.TrainOfAvatarsItem
 import org.wordpress.android.ui.mysite.MySiteCardAndItem.Type.CATEGORY_EMPTY_HEADER_ITEM
@@ -58,6 +59,7 @@ sealed class MySiteCardAndItem(open val type: Type, open val activeQuickStartIte
         JETPACK_INSTALL_FULL_PLUGIN_CARD,
         NO_CARDS_MESSAGE,
         PERSONALIZE_CARD,
+        READER_STATS_CARD,
     }
 
     data class SiteInfoHeaderCard(
@@ -370,6 +372,44 @@ sealed class MySiteCardAndItem(open val type: Type, open val activeQuickStartIte
             val onHideMenuItemClick: ListItemInteraction,
             val onMoreMenuClick: ListItemInteraction,
         ) : Card(type = Type.DASHBOARD_PLANS_CARD)
+
+        data class ReaderStatsCard(
+            val thisWeekTime: UiString,
+            val lastWeekTime: UiString?,
+            val thisWeekAchievement: Achievement,
+            val mostReadSite: MostReadSite,
+        ) : Card(type = Type.READER_STATS_CARD) {
+            sealed class Achievement(
+                val text: UiString,
+                @DrawableRes val iconRes: Int?,
+                val achievementType: String,
+            ) {
+                data object WeekTop10 : Achievement(
+                    text = UiString.UiStringText("Top 10%"),
+                    iconRes = R.drawable.ic_star_outline_white_24dp,
+                    achievementType = "week_top_10"
+                )
+
+                data object WeekTop5 : Achievement(
+                    text = UiString.UiStringText("Top 5%"),
+                    iconRes = R.drawable.ic_star_outline_white_24dp,
+                    achievementType = "week_top_5"
+                )
+
+                data object SiteTopFan : Achievement(
+                    text = UiString.UiStringText("Top Fan"),
+                    iconRes = null,
+                    achievementType = "site_top_fan"
+                )
+            }
+
+            data class MostReadSite(
+                val blogAvatarUrl: String?,
+                val blogName: UiString,
+                val blogUrl: UiString,
+                val achievement: Achievement,
+            )
+        }
 
         data class NoCardsMessage(val title: UiString, val message: UiString)  : Card(Type.NO_CARDS_MESSAGE)
         data class PersonalizeCardModel(val onClick: () -> Unit) : Card(Type.PERSONALIZE_CARD)

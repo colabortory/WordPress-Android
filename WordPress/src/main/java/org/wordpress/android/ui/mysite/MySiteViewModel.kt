@@ -81,6 +81,7 @@ import org.wordpress.android.ui.mysite.cards.quickstart.QuickStartCardBuilder
 import org.wordpress.android.ui.mysite.cards.quickstart.QuickStartCardType
 import org.wordpress.android.ui.mysite.cards.quickstart.QuickStartRepository
 import org.wordpress.android.ui.mysite.cards.quickstart.QuickStartRepository.QuickStartCategory
+import org.wordpress.android.ui.mysite.cards.readerstats.ReaderStatsCardViewModelSlice
 import org.wordpress.android.ui.mysite.cards.siteinfo.SiteInfoHeaderCardBuilder
 import org.wordpress.android.ui.mysite.cards.siteinfo.SiteInfoHeaderCardViewModelSlice
 import org.wordpress.android.ui.mysite.items.infoitem.MySiteInfoItemBuilder
@@ -167,6 +168,7 @@ class MySiteViewModel @Inject constructor(
     private val noCardsMessageViewModelSlice: NoCardsMessageViewModelSlice,
     private val siteInfoHeaderCardViewModelSlice: SiteInfoHeaderCardViewModelSlice,
     private val quickLinksItemViewModelSlice: QuickLinksItemViewModelSlice,
+    private val readerStatsCardViewModelSlice: ReaderStatsCardViewModelSlice,
 ) : ScopedViewModel(mainDispatcher) {
     private val _onSnackbarMessage = MutableLiveData<Event<SnackbarMessageHolder>>()
     private val _onNavigation = MutableLiveData<Event<SiteNavigationAction>>()
@@ -317,6 +319,7 @@ class MySiteViewModel @Inject constructor(
         siteInfoHeaderCardViewModelSlice.initialize(viewModelScope)
         quickLinksItemViewModelSlice.initialization(viewModelScope)
         quickLinksItemViewModelSlice.start()
+        readerStatsCardViewModelSlice.initialize(viewModelScope)
     }
 
     @Suppress("LongParameterList")
@@ -503,7 +506,10 @@ class MySiteViewModel @Inject constructor(
 
         val noCardsMessage = noCardsMessageViewModelSlice.buildNoCardsMessage(cardsResult)
 
+        val readerStatsCard = readerStatsCardViewModelSlice.getCard()
+
         return mutableListOf<MySiteCardAndItem>().apply {
+            readerStatsCard?.let { add(it) }
             infoItem?.let { add(infoItem) }
             migrationSuccessCard?.let { add(migrationSuccessCard) }
             jetpackInstallFullPluginCard?.let { add(jetpackInstallFullPluginCard) }
