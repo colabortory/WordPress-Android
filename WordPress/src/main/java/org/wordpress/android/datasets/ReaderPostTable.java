@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import org.greenrobot.eventbus.EventBus;
 import org.wordpress.android.R;
 import org.wordpress.android.WordPress;
+import org.wordpress.android.models.ReaderBlogStat;
 import org.wordpress.android.models.ReaderCardType;
 import org.wordpress.android.models.ReaderPost;
 import org.wordpress.android.models.ReaderPostList;
@@ -28,7 +29,9 @@ import org.wordpress.android.ui.reader.utils.ReaderUtils;
 import org.wordpress.android.util.AppLog;
 import org.wordpress.android.util.SqlUtils;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
@@ -1358,5 +1361,62 @@ public class ReaderPostTable {
 
     private static ReaderBlogIdPostIdList getBookmarkedPostIds() {
         return getBlogIdPostIdsWithTagType(ReaderTagType.BOOKMARKED, 99999);
+    }
+
+    @NonNull
+    private static String subQueryReadTime() {
+        // sql for getting max reading_time_spent from tbl_posts grouped by post_id and blog_id
+        return "SELECT post_id, blog_id, MAX(reading_time_spent) AS read_time, date_published, "
+               + "blog_name, blog_url, blog_image_url, post_avatar "
+               + "FROM tbl_posts "
+               + "GROUP BY post_id, blog_id ORDER BY read_time DESC";
+    }
+
+    public static long getWeekPostReadingTime() {
+        String sql = "SELECT SUM(read_time) FROM (" + subQueryReadTime() + ") "
+                     + "WHERE date_published > datetime('now', '-7 days')";
+        return SqlUtils.longForQuery(ReaderDatabase.getReadableDb(), sql, null);
+    }
+
+    @NonNull
+    public static List<ReaderBlogStat> getWeekTopReadBlogs(int limit) {
+        String sql = "SELECT blog_id, blog_name, blog_url, blog_image_url, post_avatar, SUM(read_time) AS read_time "
+        + "FROM (" + subQueryReadTime() + ") "
+        + "WHERE date_published > datetime('now', '-7 days') AND read_time > 0 "
+        + "GROUP BY blog_id "
+        + "ORDER BY read_time DESC "
+        + "LIMIT " + limit;
+
+        Cursor cursor = ReaderDatabase.getReadableDb().rawQuery(sql, null);
+        try {
+            return getReaderBlogStatListFromCursor(cursor);
+        } finally {
+            SqlUtils.closeCursor(cursor);
+        }
+    }
+
+    @NonNull
+    private static List<ReaderBlogStat> getReaderBlogStatListFromCursor(@Nullable Cursor cursor) {
+        List<ReaderBlogStat> blogStats = new ArrayList<>();
+
+        try {
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    ReaderBlogStat blogStat = new ReaderBlogStat(
+                            cursor.getLong(cursor.getColumnIndexOrThrow("blog_id")),
+                            cursor.getString(cursor.getColumnIndexOrThrow("blog_name")),
+                            cursor.getString(cursor.getColumnIndexOrThrow("blog_url")),
+                            cursor.getString(cursor.getColumnIndexOrThrow("blog_image_url")),
+                            cursor.getString(cursor.getColumnIndexOrThrow("post_avatar")),
+                            cursor.getLong(cursor.getColumnIndexOrThrow("read_time"))
+                    );
+                    blogStats.add(blogStat);
+                } while (cursor.moveToNext());
+            }
+        } catch (IllegalStateException e) {
+            AppLog.e(AppLog.T.READER, e);
+        }
+
+        return blogStats;
     }
 }
