@@ -31,4 +31,5 @@ enum class NotificationType {
     CREATE_SITE,
     WEEKLY_ROUNDUP,
     BLOGGING_PROMPTS_ONBOARDING,
+    READER_SAVED_POSTS,
 }
