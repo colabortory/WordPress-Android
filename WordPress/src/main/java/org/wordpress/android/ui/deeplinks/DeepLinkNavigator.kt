@@ -17,6 +17,7 @@ import org.wordpress.android.ui.deeplinks.DeepLinkNavigator.NavigateAction.OpenN
 import org.wordpress.android.ui.deeplinks.DeepLinkNavigator.NavigateAction.OpenPages
 import org.wordpress.android.ui.deeplinks.DeepLinkNavigator.NavigateAction.OpenPagesForSite
 import org.wordpress.android.ui.deeplinks.DeepLinkNavigator.NavigateAction.OpenQRCodeAuthFlow
+import org.wordpress.android.ui.deeplinks.DeepLinkNavigator.NavigateAction.OpenQRMediaUploadFlow
 import org.wordpress.android.ui.deeplinks.DeepLinkNavigator.NavigateAction.OpenReader
 import org.wordpress.android.ui.deeplinks.DeepLinkNavigator.NavigateAction.OpenStats
 import org.wordpress.android.ui.deeplinks.DeepLinkNavigator.NavigateAction.OpenStatsForSite
@@ -77,6 +78,7 @@ class DeepLinkNavigator
             is OpenPagesForSite -> ActivityLauncher.viewPagesInNewStack(activity, navigateAction.site)
             OpenPages -> ActivityLauncher.viewPagesInNewStack(activity)
             is OpenQRCodeAuthFlow -> ActivityLauncher.startQRCodeAuthFlowInNewStack(activity, navigateAction.uri)
+            is OpenQRMediaUploadFlow -> ActivityLauncher.startQRMediaUploadFlowInNewStack(activity, navigateAction.uri)
             OpenMySite -> ActivityLauncher.viewMySiteInNewStack(activity)
             OpenLoginPrologue -> ActivityLauncher.showLoginPrologue(activity)
             is OpenJetpackForDeepLink ->
@@ -110,6 +112,8 @@ class DeepLinkNavigator
         data class OpenPagesForSite(val site: SiteModel) : NavigateAction()
         object OpenPages : NavigateAction()
         data class OpenQRCodeAuthFlow(val uri: String) : NavigateAction()
+        data class OpenQRMediaUploadFlow(val uri: String) : NavigateAction()
+
         object OpenMySite : NavigateAction()
         object OpenLoginPrologue : NavigateAction()
         data class OpenJetpackForDeepLink(val action: String?, val uri: UriWrapper) : NavigateAction()

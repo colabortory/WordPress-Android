@@ -16,6 +16,7 @@ class DeepLinkHandlers
     pagesLinkHandler: PagesLinkHandler,
     notificationsLinkHandler: NotificationsLinkHandler,
     qrCodeAuthLinkHandler: QRCodeAuthLinkHandler,
+    mediaUploadLinkHandler: QRCodeMediaUploadLinkHandler,
     homeLinkHandler: HomeLinkHandler
 ) {
     private val handlers = listOf(
@@ -26,6 +27,7 @@ class DeepLinkHandlers
         pagesLinkHandler,
         notificationsLinkHandler,
         qrCodeAuthLinkHandler,
+        mediaUploadLinkHandler,
         homeLinkHandler
     )
 
