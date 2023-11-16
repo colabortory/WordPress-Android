@@ -78,7 +78,7 @@ class DeepLinkNavigator
             is OpenPagesForSite -> ActivityLauncher.viewPagesInNewStack(activity, navigateAction.site)
             OpenPages -> ActivityLauncher.viewPagesInNewStack(activity)
             is OpenQRCodeAuthFlow -> ActivityLauncher.startQRCodeAuthFlowInNewStack(activity, navigateAction.uri)
-            is OpenQRMediaUploadFlow -> ActivityLauncher.startQRMediaUploadFlowInNewStack(activity, navigateAction.uri)
+            is OpenQRMediaUploadFlow -> ActivityLauncher.startFastMediaUploadFlow(activity, navigateAction.uri)
             OpenMySite -> ActivityLauncher.viewMySiteInNewStack(activity)
             OpenLoginPrologue -> ActivityLauncher.showLoginPrologue(activity)
             is OpenJetpackForDeepLink ->

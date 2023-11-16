@@ -215,7 +215,7 @@ class MeFragment : Fragment(R.layout.me_fragment), OnScrollToTopListener {
         }
 
         rowScanMediaUploadCode.setOnClickListener {
-            viewModel.showScanLoginCode()
+            viewModel.showScanMediaUploadCode()
         }
 
         initRecommendUiState()
@@ -310,7 +310,7 @@ class MeFragment : Fragment(R.layout.me_fragment), OnScrollToTopListener {
         }
 
         viewModel.showScanMediaUploadCode.observeEvent(viewLifecycleOwner) {
-            ActivityLauncher.startQRMediaUploadFlow(requireContext())
+            ActivityLauncher.startFastMediaUploadFlow(requireContext(), "")
         }
 
         viewModel.showJetpackPoweredBottomSheet.observeEvent(viewLifecycleOwner) {

@@ -81,6 +81,7 @@ import org.wordpress.android.ui.main.WPMainActivity;
 import org.wordpress.android.ui.main.jetpack.migration.JetpackMigrationActivity;
 import org.wordpress.android.ui.media.MediaBrowserActivity;
 import org.wordpress.android.ui.media.MediaBrowserType;
+import org.wordpress.android.ui.mediauploads.FastMediaUploadActivity;
 import org.wordpress.android.ui.pages.PageParentActivity;
 import org.wordpress.android.ui.pages.PagesActivity;
 import org.wordpress.android.ui.people.PeopleManagementActivity;
@@ -1848,6 +1849,10 @@ public class ActivityLauncher {
         taskStackBuilder.addNextIntent(qrcodeAuthFlowIntent);
 
         taskStackBuilder.startActivities();
+    }
+
+    public static void startFastMediaUploadFlow(@NonNull Context context, @NonNull String uri) {
+        context.startActivity(new Intent(context, FastMediaUploadActivity.class));
     }
 
     public static void startQRMediaUploadFlow(@NonNull Context context) {
