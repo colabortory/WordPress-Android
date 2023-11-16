@@ -23,6 +23,7 @@ import org.wordpress.android.ui.reader.ReaderConstants;
 import org.wordpress.android.ui.reader.actions.ReaderActions;
 import org.wordpress.android.ui.reader.models.ReaderBlogIdPostId;
 import org.wordpress.android.ui.reader.models.ReaderBlogIdPostIdList;
+import org.wordpress.android.ui.reader.reminders.ReadEstimatedTime;
 import org.wordpress.android.ui.reader.repository.ReaderRepositoryEvent.ReaderPostTableActionEnded;
 import org.wordpress.android.ui.reader.utils.ReaderUtils;
 import org.wordpress.android.util.AppLog;
@@ -1168,7 +1169,11 @@ public class ReaderPostTable {
         // text column is skipped when retrieving multiple rows
         int idxText = c.getColumnIndex("text");
         if (idxText > -1) {
-            post.setText(c.getString(idxText));
+            final String text = c.getString(idxText);
+            post.setText(text);
+
+            final ReadEstimatedTime readEstimatedTime = new ReadEstimatedTime();
+            post.setReadEstimatedTime(readEstimatedTime.wordsPerMinute(text));
         }
 
         post.postId = c.getLong(c.getColumnIndexOrThrow("post_id"));

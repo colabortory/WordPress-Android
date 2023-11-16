@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.wordpress.android.ui.Organization;
 import org.wordpress.android.ui.reader.ReaderConstants;
 import org.wordpress.android.ui.reader.models.ReaderBlogIdPostId;
+import org.wordpress.android.ui.reader.reminders.ReadEstimatedTime;
 import org.wordpress.android.ui.reader.utils.ReaderIframeScanner;
 import org.wordpress.android.ui.reader.utils.ReaderImageScanner;
 import org.wordpress.android.ui.reader.utils.ReaderUtils;
@@ -84,6 +85,8 @@ public class ReaderPost {
     private String mRailcarJson;
     private ReaderCardType mCardType = ReaderCardType.DEFAULT;
 
+    private Integer mReadEstimatedTime;
+
     public static ReaderPost fromJson(JSONObject json) {
         if (json == null) {
             throw new IllegalArgumentException("null json post");
@@ -105,7 +108,10 @@ public class ReaderPost {
         // remove HTML from the excerpt
         post.mExcerpt = HtmlUtils.fastStripHtml(JSONUtils.getString(json, "excerpt")).trim();
 
-        post.mText = JSONUtils.getString(json, "content");
+        final String content = JSONUtils.getString(json, "content");
+        post.mText = content;
+        final ReadEstimatedTime readEstimatedTime = new ReadEstimatedTime();
+        post.mReadEstimatedTime = readEstimatedTime.wordsPerMinute(content);
         post.mTitle = JSONUtils.getStringDecoded(json, "title");
         post.mFormat = JSONUtils.getString(json, "format");
         post.mUrl = JSONUtils.getString(json, "URL");
@@ -776,6 +782,14 @@ public class ReaderPost {
             }
         }
         return mFeaturedImageForDisplay;
+    }
+
+    public Integer getReadEstimatedTime() {
+        return mReadEstimatedTime;
+    }
+
+    public void setReadEstimatedTime(final Integer readEstimatedTime) {
+        mReadEstimatedTime = readEstimatedTime;
     }
 
     /*
