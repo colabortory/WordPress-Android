@@ -58,11 +58,11 @@ class ReaderTracker @Inject constructor(
             if (isRunning(type)) {
                 AppLog.d(AppLog.T.MAIN, "ReaderTracker: stopped $type")
                 trackerInfo.startDate?.let { startDate ->
-                    val accumulatedTime = trackerInfo.accumulatedTime +
-                            DateTimeUtils.secondsBetween(dateProvider.getCurrentDate(), startDate)
+                    val postReadingTime = DateTimeUtils.secondsBetween(dateProvider.getCurrentDate(), startDate)
+                    val accumulatedTime = trackerInfo.accumulatedTime + postReadingTime
                     // let reset the startDate to null
                     trackers[type] = ReaderTrackerInfo(accumulatedTime = accumulatedTime)
-                    updatePostReadingTime(type, blogId, postId, accumulatedTime)
+                    updatePostReadingTime(type, blogId, postId, postReadingTime)
                 } ?: AppLog.e(AppLog.T.READER, "ReaderTracker > stop found a null startDate")
             }
         }
@@ -72,13 +72,13 @@ class ReaderTracker @Inject constructor(
         type: ReaderTrackerType,
         blogId: Long,
         postId: Long,
-        accumulatedTime: Int
+        postReadingTime: Int
     ) {
         if (type == ReaderTrackerType.PAGED_POST) {
             readerPostTableWrapper.updatePostReadingTime(
                 blogId,
                 postId,
-                accumulatedTime
+                postReadingTime
             )
         }
     }
