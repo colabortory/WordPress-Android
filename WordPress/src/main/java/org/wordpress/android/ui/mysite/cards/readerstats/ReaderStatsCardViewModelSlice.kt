@@ -8,6 +8,7 @@ import org.wordpress.android.ui.utils.UiString
 import javax.inject.Inject
 import javax.inject.Named
 
+@Suppress("unused")
 class ReaderStatsCardViewModelSlice @Inject constructor(
     @param:Named(BG_THREAD) private val bgDispatcher: CoroutineDispatcher,
 ) {
@@ -17,6 +18,7 @@ class ReaderStatsCardViewModelSlice @Inject constructor(
         this.scope = scope
     }
 
+    @Suppress("MagicNumber")
     fun getCard(): ReaderStatsCard? {
         // TODO thomashorta use real data
         return ReaderStatsCard(
