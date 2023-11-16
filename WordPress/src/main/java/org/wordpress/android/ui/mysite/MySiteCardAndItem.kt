@@ -377,6 +377,8 @@ sealed class MySiteCardAndItem(open val type: Type, open val activeQuickStartIte
             val thisWeekTime: UiString,
             val thisWeekAchievement: Achievement,
             val mostReadSites: List<MostReadSite>,
+            val onSiteClick: (Long) -> Unit,
+            val onShareClick: () -> Unit,
         ) : Card(type = Type.READER_STATS_CARD) {
             sealed class Achievement(
                 val text: UiString,
@@ -397,6 +399,7 @@ sealed class MySiteCardAndItem(open val type: Type, open val activeQuickStartIte
             }
 
             data class MostReadSite(
+                val blogId: Long,
                 val blogAvatarUrl: String?,
                 val blogName: UiString,
                 val blogUrl: UiString,

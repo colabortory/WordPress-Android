@@ -1,6 +1,7 @@
 package org.wordpress.android.ui.mysite.cards.readerstats
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import org.wordpress.android.R
 import org.wordpress.android.ui.compose.components.card.UnelevatedCard
+import org.wordpress.android.ui.compose.styles.DashboardCardTypography
 import org.wordpress.android.ui.compose.utils.uiStringText
 import org.wordpress.android.ui.utils.UiString
 import org.wordpress.android.ui.mysite.MySiteCardAndItem.Card.ReaderStatsCard as ReaderStatsCardModel
@@ -44,7 +46,7 @@ fun ReaderStatsCard(
     UnelevatedCard(modifier) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
@@ -54,7 +56,18 @@ fun ReaderStatsCard(
                 achievement = model.thisWeekAchievement,
             )
 
-            MostReadSitesSection(model.mostReadSites)
+            MostReadSitesSection(
+                model.mostReadSites,
+                onSiteClick = model.onSiteClick
+            )
+
+            Text(
+                text = "Share with friends",
+                style = DashboardCardTypography.footerCTA,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .clickable(onClick = model.onShareClick)
+            )
         }
     }
 }
@@ -124,6 +137,7 @@ private fun WeeklyStatSection(
 @Composable
 private fun MostReadSitesSection(
     mostReadSites: List<ReaderStatsCardModel.MostReadSite>,
+    onSiteClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -141,7 +155,11 @@ private fun MostReadSitesSection(
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             mostReadSites.take(3).forEach { mostReadSite ->
-                MostReadSiteItem(mostReadSite, modifier = Modifier.weight(1f))
+                MostReadSiteItem(
+                    mostReadSite,
+                    onClick = { onSiteClick(mostReadSite.blogId) },
+                    modifier = Modifier.weight(1f)
+                )
             }
         }
     }
@@ -150,12 +168,14 @@ private fun MostReadSitesSection(
 @Composable
 private fun MostReadSiteItem(
     mostReadSite: ReaderStatsCardModel.MostReadSite,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier,
+        modifier = modifier
+            .clickable(onClick = onClick),
     ) {
         AsyncImage(
             model = mostReadSite.blogAvatarUrl,
