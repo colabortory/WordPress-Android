@@ -62,15 +62,24 @@ class ReaderTracker @Inject constructor(
                             DateTimeUtils.secondsBetween(dateProvider.getCurrentDate(), startDate)
                     // let reset the startDate to null
                     trackers[type] = ReaderTrackerInfo(accumulatedTime = accumulatedTime)
-                    if (type == ReaderTrackerType.PAGED_POST) {
-                        readerPostTableWrapper.updatePostReadingTime(
-                            blogId,
-                            postId,
-                            accumulatedTime
-                        )
-                    }
+                    updatePostReadingTime(type, blogId, postId, accumulatedTime)
                 } ?: AppLog.e(AppLog.T.READER, "ReaderTracker > stop found a null startDate")
             }
+        }
+    }
+
+    private fun updatePostReadingTime(
+        type: ReaderTrackerType,
+        blogId: Long,
+        postId: Long,
+        accumulatedTime: Int
+    ) {
+        if (type == ReaderTrackerType.PAGED_POST) {
+            readerPostTableWrapper.updatePostReadingTime(
+                blogId,
+                postId,
+                accumulatedTime
+            )
         }
     }
 
