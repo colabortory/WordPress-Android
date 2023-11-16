@@ -310,7 +310,7 @@ class MeFragment : Fragment(R.layout.me_fragment), OnScrollToTopListener {
         }
 
         viewModel.showScanMediaUploadCode.observeEvent(viewLifecycleOwner) {
-            ActivityLauncher.startFastMediaUploadFlow(requireContext(), "")
+            ActivityLauncher.startQRMediaUploadFlow(requireContext())
         }
 
         viewModel.showJetpackPoweredBottomSheet.observeEvent(viewLifecycleOwner) {

@@ -2444,6 +2444,9 @@
     <string name="me_btn_scan_login_code">Scan Login Code</string>
     <string name="me_btn_scan_media_upload_code">Scan Media Upload Code</string>
 
+    <!-- QRCode Media Upload Flow -->
+    <string name="scan_media_upload_code">Scan Media Upload Code</string>
+
     <!--TabBar Accessibility Labels-->
     <string name="tabbar_accessibility_label_my_site">My Site. View your site and manage it, including stats.</string>
     <string name="tabbar_accessibility_label_reader">Reader. Follow content from other sites.</string>
