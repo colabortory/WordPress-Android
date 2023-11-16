@@ -214,6 +214,10 @@ class MeFragment : Fragment(R.layout.me_fragment), OnScrollToTopListener {
             viewModel.showUnifiedAbout()
         }
 
+        rowScanMediaUploadCode.setOnClickListener {
+            viewModel.showScanLoginCode()
+        }
+
         initRecommendUiState()
 
         rowLogout.setOnClickListener {
@@ -303,6 +307,10 @@ class MeFragment : Fragment(R.layout.me_fragment), OnScrollToTopListener {
 
         viewModel.showScanLoginCode.observeEvent(viewLifecycleOwner) {
             ActivityLauncher.startQRCodeAuthFlow(requireContext())
+        }
+
+        viewModel.showScanMediaUploadCode.observeEvent(viewLifecycleOwner) {
+            ActivityLauncher.startQRMediaUploadFlow(requireContext())
         }
 
         viewModel.showJetpackPoweredBottomSheet.observeEvent(viewLifecycleOwner) {

@@ -49,6 +49,9 @@ class MeViewModel
     private val _showScanLoginCode = MutableLiveData<Event<Boolean>>()
     val showScanLoginCode: LiveData<Event<Boolean>> = _showScanLoginCode
 
+    private val _showScanMediaUploadCode = MutableLiveData<Event<Boolean>>()
+    val showScanMediaUploadCode: LiveData<Event<Boolean>> = _showScanMediaUploadCode
+
     private val _showJetpackPoweredBottomSheet = MutableLiveData<Event<Boolean>>()
     val showJetpackPoweredBottomSheet: LiveData<Event<Boolean>> = _showJetpackPoweredBottomSheet
 
@@ -95,6 +98,10 @@ class MeViewModel
 
     fun showScanLoginCode() {
         _showScanLoginCode.value = Event(true)
+    }
+
+    fun showScanMediaUploadCode() {
+        _showScanMediaUploadCode.value = Event(true)
     }
 
     fun showJetpackPoweredBottomSheet() {

@@ -1850,6 +1850,10 @@ public class ActivityLauncher {
         taskStackBuilder.startActivities();
     }
 
+    public static void startQRMediaUploadFlow(@NonNull Context context) {
+        QRCodeAuthActivity.start(context); // TODO
+    }
+
     public static void showLoginPrologue(@NonNull Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
