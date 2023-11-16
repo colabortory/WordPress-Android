@@ -14,7 +14,8 @@ data class ReaderBlogSectionUiState(
     val authorAvatarUrl: String?,
     val isAuthorAvatarVisible: Boolean,
     val blavatarType: ImageType,
-    val blogSectionClickData: ReaderBlogSectionClickData?
+    val blogSectionClickData: ReaderBlogSectionClickData?,
+    val readEstimatedTime: String,
 ) {
     data class ReaderBlogSectionClickData(
         val onBlogSectionClicked: ((Long, Long) -> Unit)?,

@@ -86,6 +86,8 @@ class ReaderPostNewViewHolder(
         }
 
         state.onItemRendered.invoke(uiState)
+
+        textEstimatedTime.text = state.readEstimatedTime
     }
 
     private fun updateInteractionCountsSection(state: ReaderPostNewUiState) = with(binding) {

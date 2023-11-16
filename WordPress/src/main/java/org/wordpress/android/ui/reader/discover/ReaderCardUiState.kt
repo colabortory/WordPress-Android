@@ -9,6 +9,7 @@ import org.wordpress.android.ui.reader.discover.ReaderPostCardAction.PrimaryActi
 import org.wordpress.android.ui.reader.discover.ReaderPostCardActionType.SPACER_NO_ACTION
 import org.wordpress.android.ui.reader.discover.interests.TagUiState
 import org.wordpress.android.ui.reader.models.ReaderImageList
+import org.wordpress.android.ui.reader.reminders.ReadEstimatedTime
 import org.wordpress.android.ui.reader.views.uistates.ReaderBlogSectionUiState
 import org.wordpress.android.ui.utils.UiDimen
 import org.wordpress.android.ui.utils.UiString
@@ -71,6 +72,7 @@ sealed class ReaderCardUiState {
         val interactionSection: InteractionSectionData,
         val title: UiString?,
         val excerpt: String?,
+        val readEstimatedTime: String,
         val featuredImageUrl: String?,
         val featuredImageCornerRadius: UiDimen,
         val fullVideoUrl: String?,
@@ -97,6 +99,7 @@ sealed class ReaderCardUiState {
             val authorAvatarUrl: String?,
             val isAuthorAvatarVisible: Boolean,
             val blavatarType: ImageType,
+            val readEstimatedTime: String,
             val onClicked: ((Long, Long) -> Unit)?,
         )
 

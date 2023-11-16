@@ -1181,7 +1181,7 @@ public class ReaderPostTable {
             post.setText(text);
 
             final ReadEstimatedTime readEstimatedTime = new ReadEstimatedTime();
-            post.setReadEstimatedTime(readEstimatedTime.wordsPerMinute(text));
+            post.setReadEstimatedTime(readEstimatedTime.inMinutes(text));
         }
 
         post.postId = c.getLong(c.getColumnIndexOrThrow("post_id"));
