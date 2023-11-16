@@ -798,6 +798,7 @@ class ReaderDiscoverViewModelTest : BaseUnitTest() {
                 post.numReplies,
             ),
             excerpt = "",
+            readEstimatedTime = "3 minutes",
             title = mock(),
             featuredImageUrl = "",
             featuredImageCornerRadius = mock(),

@@ -71,6 +71,7 @@ sealed class ReaderCardUiState {
         val interactionSection: InteractionSectionData,
         val title: UiString?,
         val excerpt: String?,
+        val readEstimatedTime: String,
         val featuredImageUrl: String?,
         val featuredImageCornerRadius: UiDimen,
         val fullVideoUrl: String?,

@@ -40,6 +40,7 @@ import org.wordpress.android.ui.reader.discover.ReaderPostCardAction.SecondaryAc
 import org.wordpress.android.ui.reader.discover.ReaderPostCardActionType.BOOKMARK
 import org.wordpress.android.ui.reader.discover.ReaderPostCardActionType.LIKE
 import org.wordpress.android.ui.reader.discover.ReaderPostCardActionType.REBLOG
+import org.wordpress.android.ui.reader.reminders.ReadEstimatedTime
 import org.wordpress.android.ui.reader.utils.ReaderImageScannerProvider
 import org.wordpress.android.ui.reader.utils.ReaderUtilsWrapper
 import org.wordpress.android.ui.reader.views.uistates.ReaderBlogSectionUiState
@@ -71,6 +72,7 @@ class ReaderPostUiStateBuilder @Inject constructor(
     private val readerImageScannerProvider: ReaderImageScannerProvider,
     private val readerUtilsWrapper: ReaderUtilsWrapper,
     private val readerPostTagsUiStateBuilder: ReaderPostTagsUiStateBuilder,
+    private val readEstimatedTime: ReadEstimatedTime,
     @Named(BG_THREAD) private val bgDispatcher: CoroutineDispatcher
 ) {
     @Suppress("LongParameterList")
@@ -227,6 +229,7 @@ class ReaderPostUiStateBuilder @Inject constructor(
             interactionSection = buildInteractionSection(post),
             title = buildTitle(post, forceForPhoto = true, allowEmptyTitle = true),
             excerpt = buildExcerpt(post, forceForPhoto = true),
+            readEstimatedTime.inMinutesFormatted(post.text),
             featuredImageUrl = buildFeaturedImageUrl(post, photonWidth, photonHeight),
             featuredImageCornerRadius = UIDimenRes(R.dimen.reader_featured_image_corner_radius_new),
             fullVideoUrl = buildFullVideoUrl(post),

@@ -111,7 +111,7 @@ public class ReaderPost {
         final String content = JSONUtils.getString(json, "content");
         post.mText = content;
         final ReadEstimatedTime readEstimatedTime = new ReadEstimatedTime();
-        post.mReadEstimatedTime = readEstimatedTime.wordsPerMinute(content);
+        post.mReadEstimatedTime = readEstimatedTime.inMinutes(content);
         post.mTitle = JSONUtils.getStringDecoded(json, "title");
         post.mFormat = JSONUtils.getString(json, "format");
         post.mUrl = JSONUtils.getString(json, "URL");
