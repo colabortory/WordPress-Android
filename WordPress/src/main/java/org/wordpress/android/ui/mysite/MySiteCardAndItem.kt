@@ -375,9 +375,8 @@ sealed class MySiteCardAndItem(open val type: Type, open val activeQuickStartIte
 
         data class ReaderStatsCard(
             val thisWeekTime: UiString,
-            val lastWeekTime: UiString?,
             val thisWeekAchievement: Achievement,
-            val mostReadSite: MostReadSite,
+            val mostReadSites: List<MostReadSite>,
         ) : Card(type = Type.READER_STATS_CARD) {
             sealed class Achievement(
                 val text: UiString,
@@ -385,21 +384,15 @@ sealed class MySiteCardAndItem(open val type: Type, open val activeQuickStartIte
                 val achievementType: String,
             ) {
                 data object WeekTop10 : Achievement(
-                    text = UiString.UiStringText("Top 10%"),
+                    text = UiString.UiStringText("You're in the Top 10% of readers!"),
                     iconRes = R.drawable.ic_star_outline_white_24dp,
                     achievementType = "week_top_10"
                 )
 
                 data object WeekTop5 : Achievement(
-                    text = UiString.UiStringText("Top 5%"),
+                    text = UiString.UiStringText("You're in the Top 5% of readers!"),
                     iconRes = R.drawable.ic_star_outline_white_24dp,
                     achievementType = "week_top_5"
-                )
-
-                data object SiteTopFan : Achievement(
-                    text = UiString.UiStringText("Top Fan"),
-                    iconRes = null,
-                    achievementType = "site_top_fan"
                 )
             }
 
@@ -407,7 +400,6 @@ sealed class MySiteCardAndItem(open val type: Type, open val activeQuickStartIte
                 val blogAvatarUrl: String?,
                 val blogName: UiString,
                 val blogUrl: UiString,
-                val achievement: Achievement,
             )
         }
 

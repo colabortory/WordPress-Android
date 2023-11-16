@@ -10,13 +10,13 @@ import org.wordpress.android.ui.mysite.MySiteCardAndItem
 import org.wordpress.android.ui.mysite.MySiteCardAndItemViewHolder
 import org.wordpress.android.util.extensions.viewBinding
 
-@Suppress("UNUSED_PARAMETER")
 class ReaderStatsCardViewHolder(parent: ViewGroup) :
     MySiteCardAndItemViewHolder<ReaderStatsCardBinding>(parent.viewBinding(ReaderStatsCardBinding::inflate)) {
     fun bind(cardModel: MySiteCardAndItem.Card.ReaderStatsCard) = with(binding) {
         readerStatsCard.setContent {
             AppTheme {
                 ReaderStatsCard(
+                    model = cardModel,
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()

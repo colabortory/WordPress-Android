@@ -21,15 +21,14 @@ class ReaderStatsCardViewModelSlice @Inject constructor(
         // TODO thomashorta use real data
         return ReaderStatsCard(
             thisWeekTime = UiString.UiStringText("47 mins"),
-            lastWeekTime = UiString.UiStringText("22 mins"),
             thisWeekAchievement = ReaderStatsCard.Achievement.WeekTop10,
-            mostReadSite = ReaderStatsCard.MostReadSite(
-                blogAvatarUrl = null,
-                blogName = UiString.UiStringText("Culinary Wanderlust"),
-                blogUrl = UiString.UiStringText("culinarywanderlust.wordpress.com"),
-                achievement = ReaderStatsCard.Achievement.SiteTopFan,
+            mostReadSites = listOf(
+                ReaderStatsCard.MostReadSite(
+                    blogAvatarUrl = null,
+                    blogName = UiString.UiStringText("Culinary Wanderlust"),
+                    blogUrl = UiString.UiStringText("culinarywanderlust.wordpress.com"),
+                )
             )
-
         )
     }
 }
