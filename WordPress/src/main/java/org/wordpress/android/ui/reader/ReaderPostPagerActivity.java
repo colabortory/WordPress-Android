@@ -654,7 +654,7 @@ public class ReaderPostPagerActivity extends LocaleAwareActivity {
     protected void onPause() {
         super.onPause();
         AppLog.d(T.READER, "TRACK READER ReaderPostPagerActivity > STOP Count");
-        mReaderTracker.stop(ReaderTrackerType.PAGED_POST);
+        mReaderTracker.stop(ReaderTrackerType.PAGED_POST, mBlogId, mPostId);
         EventBus.getDefault().unregister(this);
         mDispatcher.unregister(this);
     }

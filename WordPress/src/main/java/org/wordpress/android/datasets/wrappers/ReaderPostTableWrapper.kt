@@ -32,4 +32,7 @@ class ReaderPostTableWrapper @Inject constructor() {
 
     fun addOrUpdatePosts(readerTag: ReaderTag, posts: ReaderPostList) =
         ReaderPostTable.addOrUpdatePosts(readerTag, posts)
+
+    fun updatePostReadingTime(blogId: Long, postId: Long, readingTime: Int) =
+        ReaderPostTable.updatePostReadingTime(blogId, postId, readingTime)
 }

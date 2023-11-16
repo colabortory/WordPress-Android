@@ -94,7 +94,9 @@ public class ReaderPostTable {
             + "is_seen," // 50
             + "is_seen_supported," // 51
             + "author_blog_id," // 52
-            + "author_blog_url"; // 53
+            + "author_blog_url," // 53
+            + "reading_time_est," // 54
+            + "reading_time_spent"; // 55
 
     // used when querying multiple rows and skipping text column
     private static final String COLUMN_NAMES_NO_TEXT =
@@ -149,7 +151,9 @@ public class ReaderPostTable {
             + "is_seen," // 49
             + "is_seen_supported," // 50
             + "author_blog_id," // 51
-            + "author_blog_url"; // 52
+            + "author_blog_url," // 52
+            + "reading_time_est," // 53
+            + "reading_time_spent"; // 54
 
     protected static void createTables(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE tbl_posts ("
@@ -206,6 +210,8 @@ public class ReaderPostTable {
                    + " is_seen_supported INTEGER DEFAULT 0,"
                    + " author_blog_id INTEGER DEFAULT 0,"
                    + " author_blog_url TEXT,"
+                   + " reading_time_est INTEGER DEFAULT 0,"
+                   + " reading_time_spent INTEGER DEFAULT 0,"
                    + " PRIMARY KEY (pseudo_id, tag_name, tag_type)"
                    + ")");
 
@@ -895,7 +901,7 @@ public class ReaderPostTable {
                 + COLUMN_NAMES
                 + ") VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17,?18,?19,?20,?21,?22,?23,?24,"
                 + "?25,?26,?27,?28,?29,?30,?31,?32,?33,?34,?35,?36,?37,?38,?39,?40,?41,?42,?43,?44, ?45, ?46, ?47,"
-                + "?48,?49,?50,?51,?52,?53)");
+                + "?48,?49,?50,?51,?52,?53,?54,?55)");
 
         db.beginTransaction();
         try {
@@ -965,6 +971,8 @@ public class ReaderPostTable {
                 stmtPosts.bindLong(51, SqlUtils.boolToSql(post.isSeenSupported));
                 stmtPosts.bindLong(52, post.authorBlogId);
                 stmtPosts.bindString(53, post.getAuthorBlogUrl());
+                stmtPosts.bindLong(54, post.getReadEstimatedTime());
+                stmtPosts.bindLong(55, post.getReadSpentTime());
                 stmtPosts.execute();
             }
 
@@ -1321,6 +1329,24 @@ public class ReaderPostTable {
             } finally {
                 db.endTransaction();
             }
+        }
+    }
+
+
+    // super hacky to poc for now; we should create a dedicated table with a relation on blog/post ids
+    public static void updatePostReadingTime(long blogId, long postId, int readingTime) {
+        SQLiteDatabase db = ReaderDatabase.getWritableDb();
+
+        db.beginTransaction();
+        try {
+            String sql = "UPDATE tbl_posts SET reading_time_spent=reading_time_spent+? WHERE post_id=? and blog_id=?";
+            db.execSQL(sql, new String[]{
+                    Long.toString(readingTime),
+                    Long.toString(postId),
+                    Long.toString(blogId)});
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
         }
     }
 

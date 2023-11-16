@@ -29,7 +29,7 @@ import java.util.Locale;
  */
 public class ReaderDatabase extends SQLiteOpenHelper {
     protected static final String DB_NAME = "wpreader.db";
-    private static final int DB_VERSION = 155;
+    private static final int DB_VERSION = 156;
     private static final int DB_LAST_VERSION_WITHOUT_MIGRATION_SCRIPT = 136; // do not change this value
 
     /*
@@ -118,6 +118,7 @@ public class ReaderDatabase extends SQLiteOpenHelper {
      * 153 - added author_email to tbl_comments
      * 154 - added tbl_blocked_authors table
      * 155 - added tbl_blocked_blogs table
+     * 156 - added reading time fields to tbl_posts
      */
 
     /*
@@ -272,6 +273,9 @@ public class ReaderDatabase extends SQLiteOpenHelper {
                 currentVersion++;
             case 154:
                 ReaderBlockedBlogTable.createTables(db);
+                currentVersion++;
+            case 155:
+                ReaderPostTable.reset(db);
                 currentVersion++;
         }
         if (currentVersion != newVersion) {
