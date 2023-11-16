@@ -5,4 +5,4 @@ class ReadEstimatedTime {
         fullText.trim().split("\\s+".toRegex()).size / AVERAGE_WORDS_PER_MINUTE
 }
 
-private const val AVERAGE_WORDS_PER_MINUTE = 183
+private const val AVERAGE_WORDS_PER_MINUTE = 238
