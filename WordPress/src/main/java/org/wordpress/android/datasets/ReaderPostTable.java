@@ -1179,9 +1179,6 @@ public class ReaderPostTable {
         if (idxText > -1) {
             final String text = c.getString(idxText);
             post.setText(text);
-
-            final ReadEstimatedTime readEstimatedTime = new ReadEstimatedTime();
-            post.setReadEstimatedTime(readEstimatedTime.inMinutes(text));
         }
 
         post.postId = c.getLong(c.getColumnIndexOrThrow("post_id"));
@@ -1249,6 +1246,9 @@ public class ReaderPostTable {
         post.organizationId = c.getInt(c.getColumnIndexOrThrow("organization_id"));
         post.authorBlogId = c.getLong(c.getColumnIndexOrThrow("author_blog_id"));
         post.setAuthorBlogUrl(c.getString(c.getColumnIndexOrThrow("author_blog_url")));
+
+        post.setReadEstimatedTime(c.getInt(c.getColumnIndexOrThrow("reading_time_est")));
+        post.setReadSpentTime(c.getInt(c.getColumnIndexOrThrow("reading_time_spent")));
 
         return post;
     }
