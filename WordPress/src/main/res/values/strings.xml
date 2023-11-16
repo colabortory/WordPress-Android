@@ -4786,6 +4786,11 @@ translators: %s: Select control option value e.g: "Auto, 25%". -->
     <string name="personalization_screen_next_steps_card_description">Learn how to make the most of your site with the app.</string>
     <string name="personalization_screen_shortcuts_add_or_remove_shortcut_button">Add or Remove shortcuts</string>
 
+    <!-- Fast Media Upload Screen -->
+    <string name ="fast_media_upload_screen_title">Jetpack Media\nUploader</string>
+    <string name ="fast_media_upload_screen_subtitle">From your media library\nstraigh to web.</string>
+    <string name ="fast_media_upload_screen_upload_button">Upload media</string>
+
     <string name="my_site_dashboard_no_cards_message_title">All cards are hidden</string>
     <string name="my_site_dashboard_no_cards_message_description">Tap the personalise button to show more cards.</string>
 

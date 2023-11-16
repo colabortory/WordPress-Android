@@ -1,8 +1,6 @@
 package org.wordpress.android.ui.mediauploads
 
-import android.app.Activity
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -12,14 +10,12 @@ import kotlinx.coroutines.flow.onEach
 import org.wordpress.android.fluxc.store.SiteStore
 import org.wordpress.android.ui.ActivityLauncher
 import org.wordpress.android.ui.domains.management.M3Theme
-import org.wordpress.android.ui.media.MediaBrowserActivity
 import org.wordpress.android.ui.media.MediaBrowserType
 import org.wordpress.android.ui.mediauploads.FastMediaUploadViewModel.ActionEvent.CloseScreen
 import org.wordpress.android.ui.mediauploads.FastMediaUploadViewModel.ActionEvent.OpenMediaPicker
 import org.wordpress.android.ui.mediauploads.composable.FastMediaUploadScreen
 import org.wordpress.android.ui.mysite.SelectedSiteRepository
 import org.wordpress.android.ui.photopicker.MediaPickerLauncher
-import org.wordpress.android.util.AppLog
 import org.wordpress.android.util.extensions.setContent
 import javax.inject.Inject
 
@@ -31,17 +27,6 @@ class FastMediaUploadActivity : AppCompatActivity() {
     lateinit var siteStore: SiteStore
 
     private val viewModel: FastMediaUploadViewModel by viewModels()
-
-    private val resultLauncher = registerForActivityResult(StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val key = MediaBrowserActivity.RESULT_IDS
-            val data = result.data ?: return@registerForActivityResult
-            if (data.hasExtra(key)) {
-                val mediaIds: LongArray = data.getLongArrayExtra(key) ?: return@registerForActivityResult
-                AppLog.d(AppLog.T.MEDIA, mediaIds.joinToString(","))
-            }
-        }
-    }
 
     @Inject
     lateinit var mediaPickerLauncher: MediaPickerLauncher
