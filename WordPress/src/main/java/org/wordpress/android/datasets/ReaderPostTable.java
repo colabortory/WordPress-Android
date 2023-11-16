@@ -971,7 +971,7 @@ public class ReaderPostTable {
                 stmtPosts.bindLong(52, post.authorBlogId);
                 stmtPosts.bindString(53, post.getAuthorBlogUrl());
                 stmtPosts.bindLong(54, post.getReadEstimatedTime());
-                stmtPosts.bindLong(55, post.getReadSpentTime());
+                stmtPosts.bindLong(55, getPostReadSpentTime(post.blogId, post.postId));
                 stmtPosts.execute();
             }
 
@@ -981,6 +981,12 @@ public class ReaderPostTable {
             db.endTransaction();
             SqlUtils.closeStatement(stmtPosts);
         }
+    }
+
+    private static long getPostReadSpentTime(long blogId, long postId) {
+        return SqlUtils.longForQuery(ReaderDatabase.getReadableDb(),
+                "SELECT MAX(reading_time_spent) from tbl_posts WHERE blog_id=? and post_id=?",
+                new String[]{Long.toString(blogId), Long.toString(postId)});
     }
 
     public static ReaderPostList getPostsWithTag(ReaderTag tag, int maxPosts, boolean excludeTextColumn) {
@@ -1338,8 +1344,9 @@ public class ReaderPostTable {
 
         db.beginTransaction();
         try {
-            String sql = "UPDATE tbl_posts SET reading_time_spent=reading_time_spent+? WHERE post_id=? and blog_id=?";
+            String sql = "UPDATE tbl_posts SET reading_time_spent=?+? WHERE post_id=? and blog_id=?";
             db.execSQL(sql, new String[]{
+                    Long.toString(getPostReadSpentTime(blogId, postId)),
                     Long.toString(readingTime),
                     Long.toString(postId),
                     Long.toString(blogId)});
