@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.wordpress.android.fluxc.store.AccountStore
 import org.wordpress.android.fluxc.store.SiteStore
-import org.wordpress.android.ui.ActivityLauncher
 import org.wordpress.android.ui.domains.management.M3Theme
 import org.wordpress.android.ui.media.MediaBrowserType
 import org.wordpress.android.ui.mediauploads.FastMediaUploadViewModel.ActionEvent.CloseScreen
@@ -67,7 +66,7 @@ class FastMediaUploadActivity : AppCompatActivity() {
                 AppLog.d(AppLog.T.MEDIA, "FastMediaUploadActivity(site=$siteIdArg, post=$postIdArg")
 
                 site?.let {
-                    ActivityLauncher.viewMediaPickerForResult(this, site, MediaBrowserType.WP_STORIES_MEDIA_PICKER)
+                    mediaPickerLauncher.showPhotoPickerForResult(this, MediaBrowserType.GUTENBERG_IMAGE_PICKER, site, 0)
                 }
             }
         }

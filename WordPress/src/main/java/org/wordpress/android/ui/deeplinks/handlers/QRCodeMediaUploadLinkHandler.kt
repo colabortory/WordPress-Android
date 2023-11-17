@@ -2,10 +2,14 @@ package org.wordpress.android.ui.deeplinks.handlers
 
 import org.wordpress.android.ui.deeplinks.DeepLinkNavigator.NavigateAction
 import org.wordpress.android.ui.deeplinks.DeepLinkNavigator.NavigateAction.OpenQRMediaUploadFlow
+import org.wordpress.android.ui.qrcodemediaupload.QRMediaUploadScanner
 import org.wordpress.android.util.UriWrapper
 import javax.inject.Inject
 
 class QRCodeMediaUploadLinkHandler @Inject constructor() : DeepLinkHandler {
+    @Inject
+    lateinit var qrMediaUploadScanner: QRMediaUploadScanner
+
     /**
      * Returns true if the URI looks like `TODO`
      */
@@ -16,7 +20,10 @@ class QRCodeMediaUploadLinkHandler @Inject constructor() : DeepLinkHandler {
     }
 
     override fun buildNavigateAction(uri: UriWrapper): NavigateAction {
-        return OpenQRMediaUploadFlow(uri.toString())
+        val result = qrMediaUploadScanner.process(uri.toString())
+        val siteId = result.first
+        val postId = result.second
+        return OpenQRMediaUploadFlow(siteId, postId)
     }
 
     override fun stripUrl(uri: UriWrapper): String {

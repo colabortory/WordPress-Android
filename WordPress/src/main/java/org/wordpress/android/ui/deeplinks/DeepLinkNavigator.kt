@@ -78,7 +78,9 @@ class DeepLinkNavigator
             is OpenPagesForSite -> ActivityLauncher.viewPagesInNewStack(activity, navigateAction.site)
             OpenPages -> ActivityLauncher.viewPagesInNewStack(activity)
             is OpenQRCodeAuthFlow -> ActivityLauncher.startQRCodeAuthFlowInNewStack(activity, navigateAction.uri)
-            is OpenQRMediaUploadFlow -> ActivityLauncher.startFastMediaUploadFlow(activity, navigateAction.uri)
+            is OpenQRMediaUploadFlow -> ActivityLauncher.startFastMediaUploadFlow(activity, navigateAction.siteId,
+                navigateAction.postId
+            )
             OpenMySite -> ActivityLauncher.viewMySiteInNewStack(activity)
             OpenLoginPrologue -> ActivityLauncher.showLoginPrologue(activity)
             is OpenJetpackForDeepLink ->
@@ -112,7 +114,7 @@ class DeepLinkNavigator
         data class OpenPagesForSite(val site: SiteModel) : NavigateAction()
         object OpenPages : NavigateAction()
         data class OpenQRCodeAuthFlow(val uri: String) : NavigateAction()
-        data class OpenQRMediaUploadFlow(val uri: String) : NavigateAction()
+        data class OpenQRMediaUploadFlow(val siteId: String, val postId: String) : NavigateAction()
 
         object OpenMySite : NavigateAction()
         object OpenLoginPrologue : NavigateAction()

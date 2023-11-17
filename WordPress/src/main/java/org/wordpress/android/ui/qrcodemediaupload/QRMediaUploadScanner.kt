@@ -17,25 +17,34 @@ class QRMediaUploadScanner @Inject constructor() {
         scanner.startScan()
             .addOnSuccessListener { barcode ->
                 AppLog.d(AppLog.T.MEDIA, "QR media upload code scanned successfully: ${barcode.rawValue}")
-                barcode.rawValue?.let {
-                    val params = extractQueryParams(it)
-                    if (!isValid(params)) {
-                        onError(Exception("Invalid QR code"))
-                        return@addOnSuccessListener
-                    }
-                    val dataParams = extractDataJsonParameters(params[DATA_KEY])
-                    val siteId = dataParams[SITE_ID_KEY]
-                    val postId = dataParams[POST_ID_KEY]
-                    if (siteId.isNullOrEmpty() || postId.isNullOrEmpty()) {
-                        onError(Exception("Invalid QR code"))
-                        return@addOnSuccessListener
-                    }
+                process(barcode.rawValue) { siteId, postId ->
                     ActivityLauncher.startFastMediaUploadFlow(context, siteId, postId)
                 }
             }
             .addOnFailureListener {
                 onError(it)
             }
+    }
+
+    @Suppress("ReturnCount")
+    fun process(
+        scannedUrl: String?,
+        success: (siteId: String, postId: String) -> Unit = { _, _ -> }
+    ): Pair<String, String> {
+        val params = extractQueryParams(scannedUrl)
+        if (!isValid(params)) {
+            onError(Exception("Invalid QR code"))
+            return Pair("", "") // TODO handle error
+        }
+        val dataParams = extractDataJsonParameters(params[DATA_KEY])
+        val siteId = dataParams[SITE_ID_KEY]
+        val postId = dataParams[POST_ID_KEY]
+        if (siteId.isNullOrEmpty() || postId.isNullOrEmpty()) {
+            onError(Exception("Invalid QR code"))
+            return Pair("", "") // TODO handle error
+        }
+        success(siteId, postId)
+        return Pair(siteId, postId)
     }
 
     private fun onError(exception: Exception) {
