@@ -2,9 +2,7 @@ package org.wordpress.android.ui.reader.notification
 
 import android.app.PendingIntent
 import android.content.Context
-import org.wordpress.android.push.NotificationType.BLOGGING_PROMPTS_ONBOARDING
 import org.wordpress.android.ui.ActivityLauncher
-import org.wordpress.android.ui.jetpackoverlay.JetpackFeatureRemovalPhaseHelper
 import org.wordpress.android.ui.notifications.DismissNotificationReceiver
 import org.wordpress.android.workers.notification.local.LocalNotificationHandler
 import javax.inject.Inject
@@ -18,14 +16,9 @@ class ReaderSavedPostsNotificationHandler @Inject constructor(
     }
 
     override fun buildFirstActionPendingIntent(context: Context, notificationId: Int): PendingIntent {
-        val intent = ActivityLauncher.createMainActivityAndShowBloggingPromptsOnboardingActivityIntent(
-            context, BLOGGING_PROMPTS_ONBOARDING, notificationId
-        )
+        val intent = ActivityLauncher.viewSavedPostsListInReaderIntent(context)
         return PendingIntent.getActivity(
-            context,
-            notificationId + 1,
-            intent,
-            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            context, notificationId + 1, intent, PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
     }
 

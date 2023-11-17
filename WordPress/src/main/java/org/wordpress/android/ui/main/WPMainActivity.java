@@ -122,6 +122,7 @@ import org.wordpress.android.ui.prefs.privacy.banner.PrivacyBannerFragment;
 import org.wordpress.android.ui.quickstart.QuickStartMySitePrompts;
 import org.wordpress.android.ui.quickstart.QuickStartTracker;
 import org.wordpress.android.ui.reader.ReaderFragment;
+import org.wordpress.android.ui.reader.notification.ReaderSavedPostsNotificationScheduler;
 import org.wordpress.android.ui.reader.services.update.ReaderUpdateLogic.UpdateTask;
 import org.wordpress.android.ui.reader.services.update.ReaderUpdateServiceStarter;
 import org.wordpress.android.ui.reader.tracker.ReaderTracker;
@@ -265,6 +266,7 @@ public class WPMainActivity extends LocaleAwareActivity implements
     @Inject QuickStartUtilsWrapper mQuickStartUtilsWrapper;
     @Inject AnalyticsTrackerWrapper mAnalyticsTrackerWrapper;
     @Inject CreateSiteNotificationScheduler mCreateSiteNotificationScheduler;
+    @Inject ReaderSavedPostsNotificationScheduler mReaderSavedPostsNotificationScheduler;
     @Inject WeeklyRoundupScheduler mWeeklyRoundupScheduler;
     @Inject QuickStartTracker mQuickStartTracker;
     @Inject JetpackAppMigrationFlowUtils mJetpackAppMigrationFlowUtils;
@@ -640,6 +642,7 @@ public class WPMainActivity extends LocaleAwareActivity implements
     private void scheduleLocalNotifications() {
         mCreateSiteNotificationScheduler.scheduleCreateSiteNotificationIfNeeded();
         mWeeklyRoundupScheduler.scheduleIfNeeded();
+        mReaderSavedPostsNotificationScheduler.scheduleReaderSavedPostsNotificationIfNeeded();
     }
 
     @Override

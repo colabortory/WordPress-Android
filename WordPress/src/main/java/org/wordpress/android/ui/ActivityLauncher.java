@@ -576,13 +576,17 @@ public class ActivityLauncher {
         return mainActivityIntent;
     }
 
-    public static void viewSavedPostsListInReader(Context context) {
+    public static void viewSavedPostsListInReader(final Context context) {
+        context.startActivity(viewSavedPostsListInReaderIntent(context));
+    }
+
+    public static Intent viewSavedPostsListInReaderIntent(@NonNull final Context context) {
         ReaderPostTable.purgeUnbookmarkedPostsWithBookmarkTag();
         Intent intent = new Intent(context, WPMainActivity.class);
         intent.putExtra(WPMainActivity.ARG_OPEN_PAGE, WPMainActivity.ARG_READER);
         intent.putExtra(WPMainActivity.ARG_READER_BOOKMARK_TAB, true);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        context.startActivity(intent);
+        return intent;
     }
 
     public static void viewBlogStats(Context context, SiteModel site) {

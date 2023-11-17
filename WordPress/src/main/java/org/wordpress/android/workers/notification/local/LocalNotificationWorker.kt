@@ -23,7 +23,7 @@ class LocalNotificationWorker(
         val id = inputData.getInt(ID, -1)
         val type = Type.fromTag(inputData.getString(TYPE))
 
-        if (id == -1 || type == null) return Result.failure()
+        if (id == -1) return Result.failure()
 
         val localNotificationHandler = localNotificationHandlerFactory.buildLocalNotificationHandler(type)
         if (localNotificationHandler.shouldShowNotification()) {
@@ -62,16 +62,16 @@ class LocalNotificationWorker(
         }
     }
 
-    private fun getFirstActionPendingIntent(notificationId: Int): PendingIntent? {
+    private fun getFirstActionPendingIntent(notificationId: Int): PendingIntent {
         val type = Type.fromTag(inputData.getString(TYPE))
-        val handler = type?.let { localNotificationHandlerFactory.buildLocalNotificationHandler(it) }
-        return handler?.buildFirstActionPendingIntent(context, notificationId)
+        val handler = type.let { localNotificationHandlerFactory.buildLocalNotificationHandler(it) }
+        return handler.buildFirstActionPendingIntent(context, notificationId)
     }
 
     private fun getSecondActionPendingIntent(notificationId: Int): PendingIntent? {
         val type = Type.fromTag(inputData.getString(TYPE))
-        val handler = type?.let { localNotificationHandlerFactory.buildLocalNotificationHandler(it) }
-        return handler?.buildSecondActionPendingIntent(context, notificationId)
+        val handler = type.let { localNotificationHandlerFactory.buildLocalNotificationHandler(it) }
+        return handler.buildSecondActionPendingIntent(context, notificationId)
     }
 
     class Factory(

@@ -4800,4 +4800,10 @@ translators: %s: Select control option value e.g: "Auto, 25%". -->
     <string name="login_text_security_key" tools:ignore="UnusedResources" a8c-src-lib="login">Use a security key</string>
     <string name="login_error_security_key" tools:ignore="UnusedResources" a8c-src-lib="login">There was some trouble with the Security key login</string>
     <string name="notification_security_key_needed" tools:ignore="UnusedResources" a8c-src-lib="login">Please provide your security key to continue.</string>
+
+    <!-- Reader saved posts notification -->
+    <string name="reader_saved_posts_notification_title">Continue where you left off</string>
+    <string name="reader_saved_posts_notification_text">How about reading some of your saved posts? Tap to open Reader.</string>
+    <string name="reader_saved_posts_notification_action">Open Reader</string>
+    <string name="reader_saved_posts_notification_dismiss">Dismiss</string>
 </resources>
