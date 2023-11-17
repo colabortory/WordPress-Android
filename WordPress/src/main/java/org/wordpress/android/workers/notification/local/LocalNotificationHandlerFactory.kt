@@ -2,21 +2,25 @@ package org.wordpress.android.workers.notification.local
 
 import android.app.PendingIntent
 import android.content.Context
+import org.wordpress.android.ui.reader.notification.ReaderSavedPostsNotificationHandler
 import org.wordpress.android.workers.notification.bloggingprompts.BloggingPromptsOnboardingNotificationHandler
 import org.wordpress.android.workers.notification.createsite.CreateSiteNotificationHandler
 import org.wordpress.android.workers.notification.local.LocalNotification.Type
 import org.wordpress.android.workers.notification.local.LocalNotification.Type.BLOGGING_PROMPTS_ONBOARDING
 import org.wordpress.android.workers.notification.local.LocalNotification.Type.CREATE_SITE
+import org.wordpress.android.workers.notification.local.LocalNotification.Type.READER_SAVED_POSTS
 import javax.inject.Inject
 
 class LocalNotificationHandlerFactory @Inject constructor(
     private val createSiteNotificationHandler: CreateSiteNotificationHandler,
-    private val bloggingPromptsOnboardingNotificationHandler: BloggingPromptsOnboardingNotificationHandler
+    private val bloggingPromptsOnboardingNotificationHandler: BloggingPromptsOnboardingNotificationHandler,
+    private val readerSavedPostsNotificationHandler: ReaderSavedPostsNotificationHandler,
 ) {
     fun buildLocalNotificationHandler(type: Type): LocalNotificationHandler {
         return when (type) {
             CREATE_SITE -> createSiteNotificationHandler
             BLOGGING_PROMPTS_ONBOARDING -> bloggingPromptsOnboardingNotificationHandler
+            READER_SAVED_POSTS -> readerSavedPostsNotificationHandler
         }
     }
 }

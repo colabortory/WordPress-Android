@@ -3,6 +3,7 @@ package org.wordpress.android.workers.notification.local
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import org.wordpress.android.push.NotificationPushIds
+import java.lang.IllegalArgumentException
 import java.util.concurrent.TimeUnit
 
 data class LocalNotification(
@@ -22,14 +23,16 @@ data class LocalNotification(
 
     enum class Type(val tag: String) {
         CREATE_SITE("create_site"),
-        BLOGGING_PROMPTS_ONBOARDING("blogging_prompts_onboarding");
+        BLOGGING_PROMPTS_ONBOARDING("blogging_prompts_onboarding"),
+        READER_SAVED_POSTS("reader_saved_posts");
 
         companion object {
-            fun fromTag(tag: String?): Type? {
+            fun fromTag(tag: String?): Type {
                 return when (tag) {
                     CREATE_SITE.tag -> CREATE_SITE
                     BLOGGING_PROMPTS_ONBOARDING.tag -> BLOGGING_PROMPTS_ONBOARDING
-                    else -> null
+                    READER_SAVED_POSTS.tag -> READER_SAVED_POSTS
+                    else -> throw IllegalArgumentException("Tag type not found.")
                 }
             }
         }

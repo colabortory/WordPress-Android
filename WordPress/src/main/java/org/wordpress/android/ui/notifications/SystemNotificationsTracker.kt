@@ -23,6 +23,7 @@ import org.wordpress.android.push.NotificationType.POST_PUBLISHED
 import org.wordpress.android.push.NotificationType.POST_UPLOAD_ERROR
 import org.wordpress.android.push.NotificationType.POST_UPLOAD_SUCCESS
 import org.wordpress.android.push.NotificationType.QUICK_START_REMINDER
+import org.wordpress.android.push.NotificationType.READER_SAVED_POSTS
 import org.wordpress.android.push.NotificationType.REBLOG
 import org.wordpress.android.push.NotificationType.STORY_FRAME_SAVE_ERROR
 import org.wordpress.android.push.NotificationType.STORY_FRAME_SAVE_SUCCESS
@@ -116,6 +117,7 @@ class SystemNotificationsTracker
             CREATE_SITE -> CREATE_SITE_TYPE_VALUE
             WEEKLY_ROUNDUP -> WEEKLY_ROUNDUP_TYPE_VALUE
             BLOGGING_PROMPTS_ONBOARDING -> BLOGGING_PROMPTS_ONBOARDING_VALUE
+            READER_SAVED_POSTS -> READER_SAVED_POSTS_VALUE
         }
     }
 
@@ -152,5 +154,6 @@ class SystemNotificationsTracker
         private const val CREATE_SITE_TYPE_VALUE = "create_site"
         private const val WEEKLY_ROUNDUP_TYPE_VALUE = "weekly_roundup"
         private const val BLOGGING_PROMPTS_ONBOARDING_VALUE = "blogging_prompts_onboarding"
+        private const val READER_SAVED_POSTS_VALUE = "reader_saved_posts"
     }
 }
