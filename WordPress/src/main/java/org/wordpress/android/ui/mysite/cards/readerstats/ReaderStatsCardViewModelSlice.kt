@@ -21,8 +21,12 @@ class ReaderStatsCardViewModelSlice @Inject constructor(
 
     @Suppress("MagicNumber")
     fun getCard(): ReaderStatsCard? {
+        val readTime = ReaderPostTable.getWeekPostReadingTime()
+
+        if (readTime > MIN_TIME_TO_SHOW_CARD) return null
+
         return ReaderStatsCard(
-            thisWeekTime = UiString.UiStringText(getWeekReadTime()),
+            thisWeekTime = UiString.UiStringText(formatReadTime(readTime)),
             thisWeekAchievement = ReaderStatsCard.Achievement.WeekTop10,
             onSiteClick = ::openSite,
             onShareClick = ::shareStats,
@@ -30,9 +34,8 @@ class ReaderStatsCardViewModelSlice @Inject constructor(
         )
     }
 
-    private fun getWeekReadTime(): String {
-        val readTimeSec = ReaderPostTable.getWeekPostReadingTime()
-        val readTimeMin = readTimeSec / MIN_IN_SEC
+    private fun formatReadTime(readTimeSec: Long): String {
+        val readTimeMin = readTimeSec / MINUTE_IN_SEC
         return "$readTimeMin " + ("min".takeIf { readTimeMin == 1L } ?: "mins")
     }
 
@@ -60,6 +63,7 @@ class ReaderStatsCardViewModelSlice @Inject constructor(
     }
 
     companion object {
-        private const val MIN_IN_SEC = 60L
+        private const val MINUTE_IN_SEC = 60L
+        private const val MIN_TIME_TO_SHOW_CARD = 5 * MINUTE_IN_SEC
     }
 }
