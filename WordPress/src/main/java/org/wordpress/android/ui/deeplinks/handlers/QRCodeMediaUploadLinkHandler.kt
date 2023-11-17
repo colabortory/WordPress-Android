@@ -10,7 +10,7 @@ class QRCodeMediaUploadLinkHandler @Inject constructor() : DeepLinkHandler {
      * Returns true if the URI looks like `TODO`
      */
     override fun shouldHandleUrl(uri: UriWrapper): Boolean {
-        // https://apps.wordpress.com/get/?campaign=qr-code-media?token=XXXX&data=XXXXX...etc // TODO
+        // https://apps.wordpress.com/get?campaign=qr-code-media&data={post_id:POST_ID,site_id:WPCOM_BLOG_ID}
         return uri.host == HOST_APPS_WORDPRESS_COM &&
                 uri.pathSegments.firstOrNull() == GET_PATH
     }

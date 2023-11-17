@@ -174,6 +174,8 @@ import static org.wordpress.android.viewmodel.activitylog.ActivityLogDetailViewM
 import static org.wordpress.android.viewmodel.activitylog.ActivityLogDetailViewModelKt.ACTIVITY_LOG_IS_DASHBOARD_CARD_ENTRY_KEY;
 import static org.wordpress.android.viewmodel.activitylog.ActivityLogDetailViewModelKt.ACTIVITY_LOG_IS_RESTORE_HIDDEN_KEY;
 import static org.wordpress.android.viewmodel.activitylog.ActivityLogViewModelKt.ACTIVITY_LOG_REWINDABLE_ONLY_KEY;
+import static org.wordpress.android.ui.mediauploads.FastMediaUploadActivity.SITE_ID_KEY;
+import static org.wordpress.android.ui.mediauploads.FastMediaUploadActivity.POST_ID_KEY;
 
 public class ActivityLauncher {
     public static final String SOURCE_TRACK_EVENT_PROPERTY_KEY = "source";
@@ -1851,8 +1853,13 @@ public class ActivityLauncher {
         taskStackBuilder.startActivities();
     }
 
-    public static void startFastMediaUploadFlow(@NonNull Context context, @NonNull String uri) {
-        context.startActivity(new Intent(context, FastMediaUploadActivity.class));
+    public static void startFastMediaUploadFlow(@NonNull Context context,
+                                                @NonNull String siteId,
+                                                @NonNull String postId) {
+        Intent intent = new Intent(context, FastMediaUploadActivity.class);
+        intent.putExtra(SITE_ID_KEY, siteId);
+        intent.putExtra(POST_ID_KEY, postId);
+        context.startActivity(intent);
     }
 
     public static void showLoginPrologue(@NonNull Context context) {
