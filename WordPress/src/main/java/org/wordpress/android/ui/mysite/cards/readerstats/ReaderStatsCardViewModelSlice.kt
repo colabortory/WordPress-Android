@@ -2,6 +2,7 @@ package org.wordpress.android.ui.mysite.cards.readerstats
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
+import org.wordpress.android.datasets.ReaderPostTable
 import org.wordpress.android.modules.BG_THREAD
 import org.wordpress.android.ui.mysite.MySiteCardAndItem.Card.ReaderStatsCard
 import org.wordpress.android.ui.utils.UiString
@@ -20,21 +21,36 @@ class ReaderStatsCardViewModelSlice @Inject constructor(
 
     @Suppress("MagicNumber")
     fun getCard(): ReaderStatsCard? {
-        // TODO thomashorta use real data
+        val readTime = ReaderPostTable.getWeekPostReadingTime()
+
+        if (readTime > MIN_TIME_TO_SHOW_CARD) return null
+
         return ReaderStatsCard(
-            thisWeekTime = UiString.UiStringText("47 mins"),
+            thisWeekTime = UiString.UiStringText(formatReadTime(readTime)),
             thisWeekAchievement = ReaderStatsCard.Achievement.WeekTop10,
             onSiteClick = ::openSite,
             onShareClick = ::shareStats,
-            mostReadSites = List(3) {
+            mostReadSites = getWeekMostReadSites(),
+        )
+    }
+
+    private fun formatReadTime(readTimeSec: Long): String {
+        val readTimeMin = readTimeSec / MINUTE_IN_SEC
+        return "$readTimeMin " + ("min".takeIf { readTimeMin == 1L } ?: "mins")
+    }
+
+    @Suppress("MagicNumber")
+    private fun getWeekMostReadSites(): List<ReaderStatsCard.MostReadSite> {
+        val topReadBlogs = ReaderPostTable.getWeekTopReadBlogs(3)
+        return topReadBlogs
+            .map {
                 ReaderStatsCard.MostReadSite(
-                    blogId = 1234L,
-                    blogAvatarUrl = "https://live.staticflickr.com/2746/4456420503_508cf4b0d2_b.jpg",
-                    blogName = UiString.UiStringText("Culinary Wanderlust"),
-                    blogUrl = UiString.UiStringText("culinarywanderlust.wordpress.com"),
+                    blogId = it.blogId,
+                    blogAvatarUrl = it.blogImageUrl ?: it.authorAvatar,
+                    blogName = UiString.UiStringText(it.blogName.orEmpty()),
+                    blogUrl = UiString.UiStringText(it.blogUrl.orEmpty()),
                 )
             }
-        )
     }
 
     @Suppress("UNUSED_PARAMETER")
@@ -44,5 +60,10 @@ class ReaderStatsCardViewModelSlice @Inject constructor(
 
     fun shareStats() {
         // TODO thomashorta
+    }
+
+    companion object {
+        private const val MINUTE_IN_SEC = 60L
+        private const val MIN_TIME_TO_SHOW_CARD = 5 * MINUTE_IN_SEC
     }
 }
