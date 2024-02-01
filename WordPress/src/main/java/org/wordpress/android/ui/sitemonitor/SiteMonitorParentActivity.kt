@@ -10,6 +10,7 @@ import android.webkit.WebView
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Button
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
@@ -35,9 +38,8 @@ import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -47,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.wordpress.android.R
 import org.wordpress.android.WordPress
 import org.wordpress.android.fluxc.model.SiteModel
@@ -168,12 +171,15 @@ class SiteMonitorParentActivity : AppCompatActivity(), SiteMonitorWebViewClient.
         )
     }
 
+    @OptIn(ExperimentalFoundationApi::class)
     @Composable
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     fun SiteMonitorHeader(initialTab: Int, modifier: Modifier = Modifier) {
-        var tabIndex by remember { mutableStateOf(initialTab) }
-
+        //var tabIndex by remember { mutableStateOf(initialTab) }
         val tabs = SiteMonitorTabItem.entries
+
+        val pagerState = rememberPagerState(initialPage = initialTab) { tabs.size }
+        val coroutineScope = rememberCoroutineScope()
 
         LaunchedEffect(true) {
             siteMonitorUtils.trackTabLoaded(tabs[initialTab].siteMonitorType)
@@ -181,13 +187,13 @@ class SiteMonitorParentActivity : AppCompatActivity(), SiteMonitorWebViewClient.
 
         Column(modifier = modifier.fillMaxWidth()) {
             TabRow(
-                selectedTabIndex = tabIndex,
+                selectedTabIndex = pagerState.currentPage,
                 containerColor = MaterialTheme.colors.surface,
                 contentColor = MaterialTheme.colors.onSurface,
                 indicator = { tabPositions ->
                     // Customizing the indicator color and style
                     TabRowDefaults.Indicator(
-                        Modifier.tabIndicatorOffset(tabPositions[tabIndex]),
+                        Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
                         color = MaterialTheme.colors.onSurface,
                         height = 2.0.dp
                     )
@@ -204,18 +210,24 @@ class SiteMonitorParentActivity : AppCompatActivity(), SiteMonitorWebViewClient.
                                 )
                             }
                         },
-                        selected = tabIndex == index,
+                        selected = pagerState.currentPage == index,
                         onClick = {
                             siteMonitorUtils.trackTabLoaded(tabs[index].siteMonitorType)
-                            tabIndex = index
+                            //tabIndex = index
+                            //pagerState.currentPage = index
+                            coroutineScope.launch { pagerState.animateScrollToPage(index) }
                         },
                     )
                 }
             }
-            when (tabIndex) {
-                0 -> SiteMonitorTabContent(SiteMonitorType.METRICS)
-                1 -> SiteMonitorTabContent(SiteMonitorType.PHP_LOGS)
-                2 -> SiteMonitorTabContent(SiteMonitorType.WEB_SERVER_LOGS)
+            HorizontalPager(
+                state = pagerState
+            ) {
+                when (pagerState.currentPage) {
+                    0 -> SiteMonitorTabContent(SiteMonitorType.METRICS)
+                    1 -> SiteMonitorTabContent(SiteMonitorType.PHP_LOGS)
+                    2 -> SiteMonitorTabContent(SiteMonitorType.WEB_SERVER_LOGS)
+                }
             }
         }
     }
@@ -324,12 +336,12 @@ class SiteMonitorParentActivity : AppCompatActivity(), SiteMonitorWebViewClient.
                 .pullRefresh(pullRefreshState)
         ) {
             LazyColumn(modifier = Modifier.fillMaxHeight()) {
-                item {
-                    AndroidView(
-                        factory = { webView },
-                        update = { webView = it },
-                        modifier = Modifier.fillMaxWidth()
-                    )
+                    item {
+                     AndroidView(
+                            factory = { webView },
+                            update = { webView = it },
+                            modifier = Modifier.fillMaxWidth()
+                     )
                 }
             }
             PullRefreshIndicator(
