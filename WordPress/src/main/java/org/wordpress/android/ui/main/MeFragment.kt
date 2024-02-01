@@ -14,14 +14,18 @@ import android.text.TextUtils
 import android.view.View
 import android.view.View.OnClickListener
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.gravatar.GravatarApi
 import com.gravatar.GravatarApi.GravatarUploadListener
+import com.gravatar.ui.GravatarBottomSheet
 import com.yalantis.ucrop.UCrop
 import com.yalantis.ucrop.UCrop.Options
 import com.yalantis.ucrop.UCropActivity
@@ -150,6 +154,8 @@ class MeFragment : Fragment(R.layout.me_fragment), OnScrollToTopListener {
 
     private val viewModel: MeViewModel by viewModels()
 
+    private var bottomSheetIsVisible = MutableLiveData(false)
+
     private val shouldShowDomainButton
         get() = BuildConfig.IS_JETPACK_APP && domainManagementFeatureConfig.isEnabled() && accountStore.hasAccessToken()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -165,6 +171,20 @@ class MeFragment : Fragment(R.layout.me_fragment), OnScrollToTopListener {
         binding = MeFragmentBinding.bind(view).apply {
             setupViews()
             setupObservers(savedInstanceState)
+            setupGravatarBottomSheet()
+        }
+    }
+
+    private fun MeFragmentBinding.setupGravatarBottomSheet() {
+        composeView.setContent {
+            val openBottomSheet by bottomSheetIsVisible.observeAsState(false)
+            GravatarBottomSheet(openBottomSheet = openBottomSheet,
+                onBottomSheetDismiss = { bottomSheetIsVisible.postValue(false) },
+                onContinueClicked = {
+                    bottomSheetIsVisible.postValue(false)
+                    AnalyticsTracker.track(ME_GRAVATAR_TAPPED)
+                    showPhotoPickerForGravatar()
+                })
         }
     }
 
@@ -187,8 +207,7 @@ class MeFragment : Fragment(R.layout.me_fragment), OnScrollToTopListener {
         addJetpackBadgeIfNeeded()
 
         val showPickerListener = OnClickListener {
-            AnalyticsTracker.track(ME_GRAVATAR_TAPPED)
-            showPhotoPickerForGravatar()
+            bottomSheetIsVisible.postValue(true)
         }
         avatarContainer.setOnClickListener(showPickerListener)
         rowMyProfile.setOnClickListener {
