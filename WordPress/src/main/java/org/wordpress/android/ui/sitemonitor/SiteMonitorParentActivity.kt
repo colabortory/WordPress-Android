@@ -10,6 +10,7 @@ import android.webkit.WebView
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,12 +19,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Button
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.CircularProgressIndicator
@@ -168,6 +170,7 @@ class SiteMonitorParentActivity : AppCompatActivity(), SiteMonitorWebViewClient.
         )
     }
 
+    @OptIn(ExperimentalFoundationApi::class)
     @Composable
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     fun SiteMonitorHeader(initialTab: Int, modifier: Modifier = Modifier) {
@@ -175,8 +178,20 @@ class SiteMonitorParentActivity : AppCompatActivity(), SiteMonitorWebViewClient.
 
         val tabs = SiteMonitorTabItem.entries
 
+        val pagerState = rememberPagerState(initialPage = initialTab, pageCount = { tabs.size })
+
         LaunchedEffect(true) {
             siteMonitorUtils.trackTabLoaded(tabs[initialTab].siteMonitorType)
+        }
+
+        // to animate to a page when the user clicks on a tab
+        LaunchedEffect(tabIndex) {
+            pagerState.animateScrollToPage(tabIndex)
+        }
+
+        // to update the tab selection on the tab row when the user swipes to the next tab
+        LaunchedEffect(pagerState.currentPage) {
+            tabIndex = pagerState.currentPage
         }
 
         Column(modifier = modifier.fillMaxWidth()) {
@@ -212,10 +227,17 @@ class SiteMonitorParentActivity : AppCompatActivity(), SiteMonitorWebViewClient.
                     )
                 }
             }
-            when (tabIndex) {
-                0 -> SiteMonitorTabContent(SiteMonitorType.METRICS)
-                1 -> SiteMonitorTabContent(SiteMonitorType.PHP_LOGS)
-                2 -> SiteMonitorTabContent(SiteMonitorType.WEB_SERVER_LOGS)
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .weight(1f)
+            ) {
+                when (tabIndex) {
+                    0 -> SiteMonitorTabContent(SiteMonitorType.METRICS)
+                    1 -> SiteMonitorTabContent(SiteMonitorType.PHP_LOGS)
+                    2 -> SiteMonitorTabContent(SiteMonitorType.WEB_SERVER_LOGS)
+                }
             }
         }
     }
@@ -330,12 +352,6 @@ class SiteMonitorParentActivity : AppCompatActivity(), SiteMonitorWebViewClient.
                     )
                 }
             }
-            PullRefreshIndicator(
-                refreshing = refreshState.value,
-                state = pullRefreshState,
-                modifier = Modifier.align(Alignment.TopCenter),
-                contentColor = MaterialTheme.colors.primaryVariant,
-            )
         }
     }
 
