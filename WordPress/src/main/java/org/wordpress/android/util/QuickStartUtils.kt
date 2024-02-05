@@ -62,22 +62,31 @@ object QuickStartUtils {
         val spanTagEnd = activityContext.getString(R.string.quick_start_span_end)
         var formattedMessage = activityContext.getString(messageId, spanTagOpen, spanTagEnd)
 
-        val startOfHighlight = formattedMessage.indexOf(spanTagOpen)
+        // Use an html version of the message to get the start and end of the highlighted area otherwise the
+        // are will have offsets because of HTML tags like <b> or <i> from the original string resource that will
+        // be eventually removed when we convert the string to Spannable
+        var tempHtmlFormattedMessage = HtmlCompat.fromHtml(formattedMessage, HtmlCompat.FROM_HTML_MODE_COMPACT)
+            .toString()
+
+        val startOfHighlight = tempHtmlFormattedMessage.indexOf(spanTagOpen)
 
         // remove the <span> tag
-        formattedMessage = formattedMessage.replaceFirst(spanTagOpen, "")
+        tempHtmlFormattedMessage = tempHtmlFormattedMessage.replaceFirst(spanTagOpen, "")
         /**
          * Some string resources contain whitespaces before and after the placeholder tags.
          * For example: `Tap %1$s Customize %2$s to start` becomes `Tap <span> Customize </span> to start`.
          * However, when we remove "<span>" the string ends up having two whitespaces.
          */
-        formattedMessage = formattedMessage.replaceFirst("  ", " ")
+        tempHtmlFormattedMessage = tempHtmlFormattedMessage.replaceFirst("  ", " ")
 
-        val endOfHighlight = formattedMessage.indexOf(spanTagEnd)
+        val endOfHighlight = tempHtmlFormattedMessage.indexOf(spanTagEnd)
 
-        // remove the </span> tag
-        formattedMessage = formattedMessage.replaceFirst(spanTagEnd, "")
-        formattedMessage = formattedMessage.replaceFirst("  ", " ")
+        // remove all span tags from the original formattedMessage
+        formattedMessage = formattedMessage.replace(spanTagOpen, "")
+        formattedMessage = formattedMessage.replace(spanTagEnd, "")
+
+        // remove any remaining double whitespaces
+        formattedMessage = formattedMessage.replace("  ", " ")
 
         val mutableSpannedMessage = SpannableStringBuilder(
             HtmlCompat.fromHtml(formattedMessage, HtmlCompat.FROM_HTML_MODE_COMPACT)
