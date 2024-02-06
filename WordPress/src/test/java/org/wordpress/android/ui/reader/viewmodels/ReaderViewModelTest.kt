@@ -38,7 +38,6 @@ import org.wordpress.android.ui.reader.utils.DateProvider
 import org.wordpress.android.ui.reader.viewmodels.ReaderViewModel.QuickStartReaderPrompt
 import org.wordpress.android.ui.reader.viewmodels.ReaderViewModel.ReaderUiState
 import org.wordpress.android.ui.reader.viewmodels.ReaderViewModel.ReaderUiState.ContentUiState
-import org.wordpress.android.ui.reader.viewmodels.ReaderViewModel.TopBarUiState
 import org.wordpress.android.util.JetpackBrandingUtils
 import org.wordpress.android.util.SnackbarSequencer
 import org.wordpress.android.viewmodel.Event
@@ -120,7 +119,7 @@ class ReaderViewModelTest : BaseUnitTest() {
         // Arrange
         whenever(appPrefsWrapper.readerTagsUpdatedTimestamp).thenReturn(-1)
         // Act
-        triggerContentDisplay()
+        triggerReaderTabContentDisplay()
         // Assert
         assertThat(viewModel.updateTags.value?.getContentIfNotHandled()).isNotNull
     }
@@ -130,7 +129,7 @@ class ReaderViewModelTest : BaseUnitTest() {
         // Arrange
         whenever(appPrefsWrapper.readerTagsUpdatedTimestamp).thenReturn(DUMMY_CURRENT_TIME - UPDATE_TAGS_THRESHOLD + 1)
         // Act
-        triggerContentDisplay()
+        triggerReaderTabContentDisplay()
         // Assert
         assertThat(viewModel.updateTags.value?.getContentIfNotHandled()).isNull()
     }
@@ -140,7 +139,7 @@ class ReaderViewModelTest : BaseUnitTest() {
         // Arrange
         whenever(appPrefsWrapper.readerTagsUpdatedTimestamp).thenReturn(DUMMY_CURRENT_TIME - UPDATE_TAGS_THRESHOLD - 1)
         // Act
-        triggerContentDisplay()
+        triggerReaderTabContentDisplay()
         // Assert
         assertThat(viewModel.updateTags.value?.getContentIfNotHandled()).isNotNull
     }
@@ -154,7 +153,7 @@ class ReaderViewModelTest : BaseUnitTest() {
         }
         whenever(loadReaderTabsUseCase.loadTabs()).thenReturn(ReaderTagList())
         // Act
-        triggerContentDisplay()
+        triggerReaderTabContentDisplay()
         // Assert
         assertThat(state).isNull()
     }
@@ -167,7 +166,7 @@ class ReaderViewModelTest : BaseUnitTest() {
             state = it
         }
         // Act
-        triggerContentDisplay()
+        triggerReaderTabContentDisplay()
         // Assert
         assertThat(state).isInstanceOf(ContentUiState::class.java)
     }
@@ -283,30 +282,74 @@ class ReaderViewModelTest : BaseUnitTest() {
     @Test
     fun `Search is disabled for self-hosted login`() = testWithNonEmptyTags {
         // Arrange
-        var state: TopBarUiState? = null
-        viewModel.topBarUiState.observeForever {
+        var state: ReaderUiState? = null
+        viewModel.uiState.observeForever {
             state = it
         }
         // Act
-        triggerContentDisplay(hasAccessToken = false)
+        triggerReaderTabContentDisplay(hasAccessToken = false)
 
         // Assert
-        assertThat(state!!.isSearchActionVisible).isFalse
+        assertThat(state!!.searchMenuItemUiState.isVisible).isFalse
     }
 
     @Test
     fun `Search is enabled for dot com login`() = testWithNonEmptyTags {
         // Arrange
         whenever(accountStore.hasAccessToken()).thenReturn(true)
-        var state: TopBarUiState? = null
-        viewModel.topBarUiState.observeForever {
+        var state: ReaderUiState? = null
+        viewModel.uiState.observeForever {
             state = it
         }
         // Act
-        triggerContentDisplay()
+        triggerReaderTabContentDisplay()
 
         // Assert
-        assertThat(state!!.isSearchActionVisible).isTrue
+        assertThat(state!!.searchMenuItemUiState.isVisible).isTrue
+    }
+
+    @Test
+    fun `OnSettingsActionClicked emits showSettings event`() {
+        // Arrange
+        whenever(accountStore.hasAccessToken()).thenReturn(true)
+        var event: Event<Unit>? = null
+        viewModel.showSettings.observeForever {
+            event = it
+        }
+        // Act
+        viewModel.onSettingsActionClicked()
+
+        // Assert
+        assertThat(event).isNotNull
+    }
+
+    @Test
+    fun `Settings menu is disabled for self-hosted login`() = testWithNonEmptyTags {
+        // Arrange
+        var state: ReaderUiState? = null
+        viewModel.uiState.observeForever {
+            state = it
+        }
+        // Act
+        triggerReaderTabContentDisplay(hasAccessToken = false)
+
+        // Assert
+        assertThat(state!!.settingsMenuItemUiState.isVisible).isFalse
+    }
+
+    @Test
+    fun `Settings menu is enabled for dot com login`() = testWithNonEmptyTags {
+        // Arrange
+        whenever(accountStore.hasAccessToken()).thenReturn(true)
+        var state: ReaderUiState? = null
+        viewModel.uiState.observeForever {
+            state = it
+        }
+        // Act
+        triggerReaderTabContentDisplay()
+
+        // Assert
+        assertThat(state!!.settingsMenuItemUiState.isVisible).isTrue
     }
 
     @Test
@@ -317,7 +360,7 @@ class ReaderViewModelTest : BaseUnitTest() {
             uiStates.add(it)
         }
         // Act
-        triggerContentDisplay()
+        triggerReaderTabContentDisplay()
         // Assert
         assertThat(uiStates.size).isEqualTo(1)
         assertThat(uiStates[0]).isInstanceOf(ContentUiState::class.java)
@@ -332,7 +375,7 @@ class ReaderViewModelTest : BaseUnitTest() {
             uiStates.add(it)
         }
         // Act
-        triggerContentDisplay()
+        triggerReaderTabContentDisplay()
         // Assert
         assertThat(uiStates.size).isEqualTo(1)
         assertThat(uiStates[0]).isInstanceOf(ContentUiState::class.java)
@@ -397,49 +440,59 @@ class ReaderViewModelTest : BaseUnitTest() {
     }
 
     @Test
-    fun `given reader selected, when qs event follow site, then qs task started and completed`() {
+    fun `given discover selected with settings available, when qs event follow site, then discover tab step started`() {
         val tagList = createNonMockedNonEmptyReaderTagList()
         testWithNonMockedNonEmptyTags(tagList) {
-            whenever(selectedSiteRepository.getSelectedSite()).thenReturn(mock())
-            whenever(quickStartRepository.isPendingTask(QuickStartNewSiteTask.FOLLOW_SITE)).thenReturn(true)
-
             val observers = initObservers()
-            triggerContentDisplay(hasAccessToken = true)
+            triggerReaderTabContentDisplay(selectedTabReaderTag = tagList[1], hasAccessToken = true)
 
             viewModel.onQuickStartEventReceived(QuickStartEvent(QuickStartNewSiteTask.FOLLOW_SITE))
 
-            assertQsFollowSiteTaskStarted(observers, isSettingsSupported = true)
-            assertQsFollowSiteTaskCompleted()
+            assertQsFollowSiteDiscoverTabStepStarted(observers, isSettingsSupported = true)
         }
     }
 
     @Test
-    fun `given reader selected no settings available, when qs event follow site, then qs task started and completed`() {
+    fun `given discover selected no settings available, when qs event follow site, then discover tab step started`() {
         val tagList = createNonMockedNonEmptyReaderTagList()
         testWithNonMockedNonEmptyTags(tagList) {
-            whenever(selectedSiteRepository.getSelectedSite()).thenReturn(mock())
-            whenever(quickStartRepository.isPendingTask(QuickStartNewSiteTask.FOLLOW_SITE)).thenReturn(true)
-
             val observers = initObservers()
-            triggerContentDisplay(hasAccessToken = false)
+            triggerReaderTabContentDisplay(selectedTabReaderTag = tagList[1], hasAccessToken = false)
 
             viewModel.onQuickStartEventReceived(QuickStartEvent(QuickStartNewSiteTask.FOLLOW_SITE))
 
-            assertQsFollowSiteTaskStarted(observers, isSettingsSupported = false)
-            assertQsFollowSiteTaskCompleted()
+            assertQsFollowSiteDiscoverTabStepStarted(observers, isSettingsSupported = false)
         }
     }
 
     @Test
-    fun `given reader selected, when quick start event not follow site, then qs task not started`() {
+    fun `given discover tab selected, when quick start event not follow site, then qs discover tab step not started`() {
         val tagList = createNonMockedNonEmptyReaderTagList()
         testWithNonMockedNonEmptyTags(tagList) {
             val observers = initObservers()
-            triggerContentDisplay()
+            triggerReaderTabContentDisplay(selectedTabReaderTag = tagList[1])
 
             viewModel.onQuickStartEventReceived(QuickStartEvent(QuickStartNewSiteTask.CHECK_STATS))
 
-            assertQsFollowSiteTaskNotStarted(observers)
+            assertQsFollowSiteDiscoverTabStepNotStarted(observers)
+        }
+    }
+
+    /* QUICK START - SETTING MENU CLICK */
+
+    @Test
+    fun `given pending follow site qs task, when settings menu clicked, then qs follow site task is completed`() {
+        val tagList = createNonMockedNonEmptyReaderTagList()
+        testWithNonMockedNonEmptyTags(tagList) {
+            whenever(accountStore.hasAccessToken()).thenReturn(true)
+            whenever(selectedSiteRepository.getSelectedSite()).thenReturn(mock())
+            whenever(quickStartRepository.isPendingTask(QuickStartNewSiteTask.FOLLOW_SITE)).thenReturn(true)
+            val observers = initObservers()
+            triggerReaderTabContentDisplay(selectedTabReaderTag = tagList[1])
+
+            viewModel.onSettingsActionClicked()
+
+            assertQsFollowSiteTaskCompleted(observers)
         }
     }
 
@@ -496,32 +549,40 @@ class ReaderViewModelTest : BaseUnitTest() {
         assertThat(showJetpackOverlayEvent.last().peekContent()).isTrue
     }
 
-    private fun assertQsFollowSiteTaskStarted(
+    private fun assertQsFollowSiteDiscoverTabStepStarted(
         observers: Observers,
         isSettingsSupported: Boolean = true
     ) {
         with(observers) {
             assertThat(quickStartReaderPrompts.last().peekContent().shortMessagePrompt).isEqualTo(
                 if (isSettingsSupported) {
-                    R.string.quick_start_dialog_follow_sites_message_short_discover_and_subscriptions
+                    R.string.quick_start_dialog_follow_sites_message_short_discover_and_settings
                 } else {
                     R.string.quick_start_dialog_follow_sites_message_short_discover
                 }
             )
+            assertThat(uiStates.last().findSettingsMenuQsFocusPoint()).isEqualTo(isSettingsSupported)
         }
     }
 
-    private fun assertQsFollowSiteTaskNotStarted(
+    private fun assertQsFollowSiteDiscoverTabStepNotStarted(
         observers: Observers
     ) {
         with(observers) {
             assertThat(quickStartReaderPrompts).isEmpty()
+            assertThat(uiStates.last().findSettingsMenuQsFocusPoint()).isEqualTo(false)
         }
     }
 
-    private fun assertQsFollowSiteTaskCompleted() {
+    private fun assertQsFollowSiteTaskCompleted(
+        observers: Observers
+    ) {
         verify(quickStartRepository).completeTask(QuickStartNewSiteTask.FOLLOW_SITE)
+        assertThat(observers.uiStates.last().findSettingsMenuQsFocusPoint()).isEqualTo(false)
     }
+
+    private fun ReaderUiState.findSettingsMenuQsFocusPoint() =
+        (this as? ContentUiState)?.settingsMenuItemUiState?.showQuickStartFocusPoint ?: false
 
     private fun initObservers(): Observers {
         val uiStates = mutableListOf<ReaderUiState>()
@@ -549,9 +610,11 @@ class ReaderViewModelTest : BaseUnitTest() {
         val tabNavigationEvents: List<TabNavigation>
     )
 
-    private fun triggerContentDisplay(
+    private fun triggerReaderTabContentDisplay(
+        selectedTabReaderTag: ReaderTag? = null,
         hasAccessToken: Boolean = true
     ) {
+        whenever(appPrefsWrapper.getReaderTag()).thenReturn(selectedTabReaderTag)
         whenever(accountStore.hasAccessToken()).thenReturn(hasAccessToken)
         viewModel.start()
     }

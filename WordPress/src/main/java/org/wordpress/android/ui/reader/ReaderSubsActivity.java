@@ -87,8 +87,6 @@ public class ReaderSubsActivity extends LocaleAwareActivity
     public static final int TAB_IDX_FOLLOWED_TAGS = 0;
     public static final int TAB_IDX_FOLLOWED_BLOGS = 1;
 
-    public static final String RESULT_SHOULD_REFRESH_SUBSCRIPTIONS = "should_refresh_subscriptions";
-
     @Inject AccountStore mAccountStore;
     @Inject ReaderTracker mReaderTracker;
 
@@ -100,8 +98,10 @@ public class ReaderSubsActivity extends LocaleAwareActivity
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+                if (!TextUtils.isEmpty(mLastAddedTagName)) {
+                    EventBus.getDefault().postSticky(new ReaderEvents.TagAdded(mLastAddedTagName));
+                }
                 mReaderTracker.track(Stat.READER_MANAGE_VIEW_DISMISSED);
-                setResult();
                 CompatExtensionsKt.onBackPressedCompat(getOnBackPressedDispatcher(), this);
             }
         };
@@ -169,20 +169,6 @@ public class ReaderSubsActivity extends LocaleAwareActivity
         });
 
         mReaderTracker.track(Stat.READER_MANAGE_VIEW_DISPLAYED);
-    }
-
-    private void setResult() {
-        final Intent data = new Intent();
-        boolean shouldRefreshSubscriptions = false;
-        if (mPageAdapter != null) {
-            final ReaderTagFragment readerTagFragment = mPageAdapter.getReaderTagFragment();
-            final ReaderBlogFragment readerBlogFragment = mPageAdapter.getReaderBlogFragment();
-            if (readerTagFragment != null && readerBlogFragment != null) {
-                shouldRefreshSubscriptions = readerTagFragment.hasChangedSelectedTags();
-            }
-        }
-        data.putExtra(RESULT_SHOULD_REFRESH_SUBSCRIPTIONS, shouldRefreshSubscriptions);
-        setResult(RESULT_OK, data);
     }
 
     @Override
@@ -578,30 +564,12 @@ public class ReaderSubsActivity extends LocaleAwareActivity
         }
 
         private void refreshFollowedTagFragment() {
-            final ReaderTagFragment fragment = getReaderTagFragment();
-            if (fragment != null) {
-                fragment.refresh();
-            }
-        }
-
-        @Nullable
-        private ReaderTagFragment getReaderTagFragment() {
-            for (final Fragment fragment : mFragments) {
+            for (Fragment fragment : mFragments) {
                 if (fragment instanceof ReaderTagFragment) {
-                    return (ReaderTagFragment) fragment;
+                    ReaderTagFragment tagFragment = (ReaderTagFragment) fragment;
+                    tagFragment.refresh();
                 }
             }
-            return null;
-        }
-
-        @Nullable
-        private ReaderBlogFragment getReaderBlogFragment() {
-            for (final Fragment fragment : mFragments) {
-                if (fragment instanceof ReaderBlogFragment) {
-                    return (ReaderBlogFragment) fragment;
-                }
-            }
-            return null;
         }
 
         private void refreshBlogFragments(ReaderBlogType blogType) {

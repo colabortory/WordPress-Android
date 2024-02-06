@@ -20,8 +20,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -216,7 +214,6 @@ public class ReaderPostListFragment extends ViewPagerFragment
     private int mSearchTabsPos = NO_POSITION;
     private boolean mIsFilterableScreen;
     private boolean mIsFiltered = false;
-    private ActivityResultLauncher<Intent> mReaderSubsActivityResultLauncher;
     @NonNull private HashSet<UpdateAction> mCurrentUpdateActions = new HashSet<>();
     /*
      * called by post adapter to load older posts when user scrolls to the last post
@@ -655,11 +652,9 @@ public class ReaderPostListFragment extends ViewPagerFragment
         mSubFilterViewModel.getBottomSheetAction().observe(getViewLifecycleOwner(), event -> {
             event.applyIfNotHandled(action -> {
                 if (action instanceof OpenSubsAtPage) {
-                    mReaderSubsActivityResultLauncher.launch(
-                            ReaderActivityLauncher.createIntentShowReaderSubs(
-                                    requireActivity(),
-                                    ((OpenSubsAtPage) action).getTabIndex()
-                            )
+                    ReaderActivityLauncher.showReaderSubs(
+                            requireActivity(),
+                            ((OpenSubsAtPage) action).getTabIndex()
                     );
                 } else if (action instanceof OpenLoginPage) {
                     wpMainActivityViewModel.onOpenLoginPage();
@@ -851,25 +846,6 @@ public class ReaderPostListFragment extends ViewPagerFragment
         if (context instanceof BottomNavController) {
             mBottomNavController = (BottomNavController) context;
         }
-
-        initReaderSubsActivityResultLauncher();
-    }
-
-    private void initReaderSubsActivityResultLauncher() {
-        mReaderSubsActivityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        final Intent data = result.getData();
-                        if (data != null) {
-                            final boolean shouldRefreshSubscriptions =
-                                    data.getBooleanExtra(ReaderSubsActivity.RESULT_SHOULD_REFRESH_SUBSCRIPTIONS, false);
-                            if (shouldRefreshSubscriptions) {
-                                mSubFilterViewModel.loadSubFilters();
-                            }
-                        }
-                    }
-                });
     }
 
     @Override
