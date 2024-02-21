@@ -185,7 +185,7 @@ class NotificationsListFragmentPage : ViewPagerFragment(R.layout.notifications_l
     override fun onResume() {
         super.onResume()
         binding?.hideNewNotificationsBar()
-        EventBus.getDefault().post(NotificationsUnseenStatus(false))
+        notesAdapter.reloadLocalNotes()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -252,7 +252,6 @@ class NotificationsListFragmentPage : ViewPagerFragment(R.layout.notifications_l
 
     private fun NotificationsListFragmentPageBinding.clearPendingNotificationsItemsOnUI() {
         hideNewNotificationsBar()
-        EventBus.getDefault().post(NotificationsUnseenStatus(false))
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 NotificationsActions.updateNotesSeenTimestamp()
@@ -420,7 +419,9 @@ class NotificationsListFragmentPage : ViewPagerFragment(R.layout.notifications_l
             if (note != null) {
                 note.localStatus = status.toString()
                 NotificationsTable.saveNote(note)
-                EventBus.getDefault().post(NotificationReadStatusChanged())
+                NotificationsTable.getLatestNotes().firstOrNull { it.isUnread }.let {
+                    EventBus.getDefault().post(NotificationReadStatusChanged(it != null))
+                }
             }
         }
     }
@@ -469,22 +470,11 @@ class NotificationsListFragmentPage : ViewPagerFragment(R.layout.notifications_l
         }
     }
 
-    @Subscribe(sticky = true, threadMode = MAIN)
-    fun onEventMainThread(event: NotificationReadStatusChanged) {
-        if (!isAdded) {
-            return
-        }
-        if (event.hasUnseenNotes) {
-            binding?.showNewUnseenNotificationsUI()
-        }
-    }
-
     @Subscribe(threadMode = MAIN)
     fun onEventMainThread(event: NotificationsRefreshCompleted) {
         if (!isAdded) {
             return
         }
-        swipeToRefreshHelper?.isRefreshing = false
         notesAdapter.addAll(event.notes)
     }
 
@@ -497,7 +487,7 @@ class NotificationsListFragmentPage : ViewPagerFragment(R.layout.notifications_l
     }
 
     @Subscribe(threadMode = MAIN)
-    fun onEventMainThread(event: NotificationsUnseenStatus) {
+    fun onEventMainThread(event: NotificationReadStatusChanged) {
         if (!isAdded) {
             return
         }

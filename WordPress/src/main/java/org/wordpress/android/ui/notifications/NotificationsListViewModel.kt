@@ -86,7 +86,7 @@ class NotificationsListViewModel @Inject constructor(
                 it
             }.takeIf { it.isNotEmpty() }?.let {
                 NotificationsTable.saveNotes(it, false)
-                EventBus.getDefault().post(NotificationReadStatusChanged())
+                EventBus.getDefault().post(NotificationReadStatusChanged(false))
             }
     }
 

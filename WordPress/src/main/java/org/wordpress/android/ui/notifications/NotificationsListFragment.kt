@@ -49,14 +49,15 @@ import org.wordpress.android.ui.jetpackoverlay.JetpackFeatureRemovalOverlayUtil.
 import org.wordpress.android.ui.main.WPMainActivity
 import org.wordpress.android.ui.main.WPMainNavigationView.PageType
 import org.wordpress.android.ui.mysite.jetpackbadge.JetpackPoweredBottomSheetFragment
-import org.wordpress.android.ui.notifications.NotificationEvents.NotificationsUnseenStatus
 import org.wordpress.android.ui.notifications.NotificationsListFragment.Companion.TabPosition.All
 import org.wordpress.android.ui.notifications.NotificationsListFragmentPage.Companion.KEY_TAB_POSITION
 import org.wordpress.android.ui.notifications.adapters.Filter
+import org.wordpress.android.ui.notifications.services.NotificationsUpdateServiceStarter
 import org.wordpress.android.ui.notifications.services.NotificationsUpdateServiceStarter.IS_TAPPED_ON_NOTIFICATION
 import org.wordpress.android.ui.stats.StatsConnectJetpackActivity
 import org.wordpress.android.ui.utils.UiHelpers
 import org.wordpress.android.util.JetpackBrandingUtils
+import org.wordpress.android.util.NetworkUtils
 import org.wordpress.android.util.PermissionUtils
 import org.wordpress.android.util.WPPermissionUtils
 import org.wordpress.android.util.WPPermissionUtils.NOTIFICATIONS_PERMISSION_REQUEST_CODE
@@ -155,7 +156,6 @@ class NotificationsListFragment : Fragment(R.layout.notifications_list_fragment)
 
     override fun onResume() {
         super.onResume()
-        EventBus.getDefault().post(NotificationsUnseenStatus(false))
         binding?.apply {
             if (!accountStore.hasAccessToken()) {
                 showConnectJetpackView()
@@ -166,6 +166,7 @@ class NotificationsListFragment : Fragment(R.layout.notifications_list_fragment)
                 connectJetpack.visibility = View.GONE
                 tabLayout.visibility = View.VISIBLE
                 viewPager.visibility = View.VISIBLE
+                fetchRemoteNotes()
             }
             setSelectedTab(lastTabPosition)
             setNotificationPermissionWarning()

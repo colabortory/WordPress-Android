@@ -9,9 +9,6 @@ import java.util.List;
 public class NotificationEvents {
     public static class NotificationReadStatusChanged {
         public final boolean hasUnseenNotes;
-        NotificationReadStatusChanged() {
-            this.hasUnseenNotes = false;
-        }
         public NotificationReadStatusChanged(boolean hasUnseenNotes) {
             this.hasUnseenNotes = hasUnseenNotes;
         }

@@ -1,5 +1,7 @@
 package org.wordpress.android.ui.notifications.utils;
 
+import androidx.annotation.Nullable;
+
 import com.android.volley.VolleyError;
 import com.wordpress.rest.RestRequest;
 
@@ -36,7 +38,8 @@ public class NotificationsActions {
                     @Override
                     public void onResponse(JSONObject response) {
                         // Assuming that we've marked the most recent notification as seen. (Beware, seen != read).
-                        EventBus.getDefault().post(new NotificationEvents.NotificationsUnseenStatus(false));
+                        Note unreadNote = getFirstUnreadNote();
+                        EventBus.getDefault().post(new NotificationEvents.NotificationReadStatusChanged(unreadNote != null));
                     }
                 },
                 new RestRequest.ErrorListener() {
@@ -96,9 +99,10 @@ public class NotificationsActions {
                         try {
                             List<Note> notes = NotificationsActions.parseNotes(response);
                             if (notes.size() > 0) {
-                                NotificationsTable.saveNote(notes.get(0));
+                                NotificationsTable.saveNote(notes.get(0)); // the notes size should be 1
+                                Note unreadNote = getFirstUnreadNote();
                                 EventBus.getDefault()
-                                        .post(new NotificationReadStatusChanged(notes.get(0).isUnread()));
+                                        .post(new NotificationReadStatusChanged(unreadNote != null));
                             } else {
                                 AppLog.e(AppLog.T.NOTIFS, "Success, but no note!!!???");
                             }
@@ -119,5 +123,11 @@ public class NotificationsActions {
                         }
                     }
                 });
+    }
+
+    @Nullable
+    private static Note getFirstUnreadNote() {
+        return NotificationsTable.getLatestNotes().stream()
+                .filter(Note::isUnread).findFirst().orElse(null);
     }
 }

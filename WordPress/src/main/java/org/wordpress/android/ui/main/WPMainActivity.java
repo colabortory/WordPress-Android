@@ -1672,12 +1672,6 @@ public class WPMainActivity extends LocaleAwareActivity implements
 
     @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventMainThread(NotificationEvents.NotificationsUnseenStatus event) {
-        if (mBottomNav != null) mBottomNav.showNoteBadge(event.hasUnseenNotes);
-    }
-
-    @SuppressWarnings("unused")
-    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(ConnectionChangeReceiver.ConnectionChangeEvent event) {
         updateConnectionBar(event.isConnected());
     }
