@@ -27,7 +27,7 @@ import org.wordpress.android.datasets.NotificationsTable;
 import org.wordpress.android.fluxc.model.CommentStatus;
 import org.wordpress.android.models.Note;
 import org.wordpress.android.ui.main.WPMainActivity;
-import org.wordpress.android.ui.notifications.NotificationEvents;
+import org.wordpress.android.ui.notifications.NotificationEvents.NotificationReadStatusChanged;
 import org.wordpress.android.ui.notifications.NotificationsListFragment;
 import org.wordpress.android.ui.notifications.SystemNotificationsTracker;
 import org.wordpress.android.ui.notifications.utils.NotificationsActions;
@@ -349,7 +349,7 @@ public class GCMMessageHandler {
 
             // Try to build the note object from the PN payload, and save it to the DB.
             NotificationsUtils.buildNoteObjectFromBundleAndSaveIt(data);
-            EventBus.getDefault().post(new NotificationEvents.NotificationsChanged(true));
+            EventBus.getDefault().post(new NotificationReadStatusChanged(true));
 
             String noteType = StringUtils.notNullStr(data.getString(PUSH_ARG_TYPE));
 
@@ -968,7 +968,7 @@ public class GCMMessageHandler {
                 mGCMMessageHandler.removeAllNotifications(context);
             }
 
-            EventBus.getDefault().post(new NotificationEvents.NotificationsChanged(
+            EventBus.getDefault().post(new NotificationReadStatusChanged(
                     mGCMMessageHandler.mActiveNotificationsMap.size() > 0));
         }
 
@@ -988,7 +988,7 @@ public class GCMMessageHandler {
                 rebuildAndUpdateNotificationsOnSystemBar(context, data);
             }
 
-            EventBus.getDefault().post(new NotificationEvents.NotificationsChanged(
+            EventBus.getDefault().post(new NotificationReadStatusChanged(
                     mGCMMessageHandler.mActiveNotificationsMap.size() > 0));
         }
 

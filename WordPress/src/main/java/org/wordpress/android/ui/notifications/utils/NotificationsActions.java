@@ -11,6 +11,7 @@ import org.wordpress.android.WordPress;
 import org.wordpress.android.datasets.NotificationsTable;
 import org.wordpress.android.models.Note;
 import org.wordpress.android.ui.notifications.NotificationEvents;
+import org.wordpress.android.ui.notifications.NotificationEvents.NotificationReadStatusChanged;
 import org.wordpress.android.util.AppLog;
 
 import java.util.ArrayList;
@@ -97,7 +98,7 @@ public class NotificationsActions {
                             if (notes.size() > 0) {
                                 NotificationsTable.saveNote(notes.get(0));
                                 EventBus.getDefault()
-                                        .post(new NotificationEvents.NotificationsChanged(notes.get(0).isUnread()));
+                                        .post(new NotificationReadStatusChanged(notes.get(0).isUnread()));
                             } else {
                                 AppLog.e(AppLog.T.NOTIFS, "Success, but no note!!!???");
                             }

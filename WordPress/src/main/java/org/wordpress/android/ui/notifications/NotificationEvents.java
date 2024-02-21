@@ -7,12 +7,12 @@ import org.wordpress.android.models.Note;
 import java.util.List;
 
 public class NotificationEvents {
-    public static class NotificationsChanged {
+    public static class NotificationReadStatusChanged {
         public final boolean hasUnseenNotes;
-        NotificationsChanged() {
+        NotificationReadStatusChanged() {
             this.hasUnseenNotes = false;
         }
-        public NotificationsChanged(boolean hasUnseenNotes) {
+        public NotificationReadStatusChanged(boolean hasUnseenNotes) {
             this.hasUnseenNotes = hasUnseenNotes;
         }
     }

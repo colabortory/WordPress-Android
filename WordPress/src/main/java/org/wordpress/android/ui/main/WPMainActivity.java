@@ -107,6 +107,7 @@ import org.wordpress.android.ui.mysite.MySiteViewModel;
 import org.wordpress.android.ui.mysite.SelectedSiteRepository;
 import org.wordpress.android.ui.mysite.cards.quickstart.QuickStartRepository;
 import org.wordpress.android.ui.notifications.NotificationEvents;
+import org.wordpress.android.ui.notifications.NotificationEvents.NotificationReadStatusChanged;
 import org.wordpress.android.ui.notifications.NotificationsListFragment;
 import org.wordpress.android.ui.notifications.NotificationsListViewModel;
 import org.wordpress.android.ui.notifications.SystemNotificationsTracker;
@@ -1665,7 +1666,7 @@ public class WPMainActivity extends LocaleAwareActivity implements
 
     @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventMainThread(NotificationEvents.NotificationsChanged event) {
+    public void onEventMainThread(NotificationReadStatusChanged event) {
         if (mBottomNav != null) mBottomNav.showNoteBadge(event.hasUnseenNotes);
     }
 

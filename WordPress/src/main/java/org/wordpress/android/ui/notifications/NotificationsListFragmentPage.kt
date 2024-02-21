@@ -420,7 +420,7 @@ class NotificationsListFragmentPage : ViewPagerFragment(R.layout.notifications_l
             if (note != null) {
                 note.localStatus = status.toString()
                 NotificationsTable.saveNote(note)
-                EventBus.getDefault().post(NotificationsChanged())
+                EventBus.getDefault().post(NotificationReadStatusChanged())
             }
         }
     }
@@ -470,11 +470,10 @@ class NotificationsListFragmentPage : ViewPagerFragment(R.layout.notifications_l
     }
 
     @Subscribe(sticky = true, threadMode = MAIN)
-    fun onEventMainThread(event: NotificationsChanged) {
+    fun onEventMainThread(event: NotificationReadStatusChanged) {
         if (!isAdded) {
             return
         }
-        notesAdapter.reloadLocalNotes()
         if (event.hasUnseenNotes) {
             binding?.showNewUnseenNotificationsUI()
         }
