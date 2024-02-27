@@ -71,6 +71,7 @@ import org.wordpress.android.editor.EditorMediaUploadListener;
 import org.wordpress.android.editor.EditorMediaUtils;
 import org.wordpress.android.editor.EditorThemeUpdateListener;
 import org.wordpress.android.editor.ExceptionLogger;
+import org.wordpress.android.editor.gutenberg.GutenbergNetworkConnectionListener;
 import org.wordpress.android.editor.savedinstance.SavedInstanceDatabase;
 import org.wordpress.android.editor.gutenberg.DialogVisibility;
 import org.wordpress.android.editor.gutenberg.GutenbergEditorFragment;
@@ -259,9 +260,6 @@ import static org.wordpress.android.analytics.AnalyticsTracker.Stat.APP_REVIEWS_
 import static org.wordpress.android.editor.gutenberg.GutenbergEditorFragment.MEDIA_ID_NO_FEATURED_IMAGE_SET;
 import static org.wordpress.android.imageeditor.preview.PreviewImageFragment.PREVIEW_IMAGE_REDUCED_SIZE_FACTOR;
 import static org.wordpress.android.ui.history.HistoryDetailContainerFragment.KEY_REVISION;
-
-import kotlin.Unit;
-import kotlin.jvm.functions.Function0;
 
 public class EditPostActivity extends LocaleAwareActivity implements
         EditorFragmentActivity,
@@ -1309,7 +1307,7 @@ public class EditPostActivity extends LocaleAwareActivity implements
     @Override
     public void onPhotoPickerMediaChosen(@NonNull final List<? extends Uri> uriList) {
         mEditorPhotoPicker.hidePhotoPicker();
-        mEditorMedia.onPhotoPickerMediaChosen(uriList);
+        mEditorMedia.addNewMediaItemsToEditorAsync(uriList, false);
     }
 
     /*
@@ -2509,11 +2507,11 @@ public class EditPostActivity extends LocaleAwareActivity implements
                 SiteUtils.supportsLayoutGridFeature(mSite),
                 SiteUtils.supportsTiledGalleryFeature(mSite),
                 SiteUtils.supportsVideoPressFeature(mSite),
+                SiteUtils.supportsVideoPressV5Feature(mSite, SiteUtils.WP_VIDEOPRESS_V5_JETPACK_VERSION),
                 SiteUtils.supportsEmbedVariationFeature(mSite, SiteUtils.WP_FACEBOOK_EMBED_JETPACK_VERSION),
                 SiteUtils.supportsEmbedVariationFeature(mSite, SiteUtils.WP_INSTAGRAM_EMBED_JETPACK_VERSION),
                 SiteUtils.supportsEmbedVariationFeature(mSite, SiteUtils.WP_LOOM_EMBED_JETPACK_VERSION),
                 SiteUtils.supportsEmbedVariationFeature(mSite, SiteUtils.WP_SMARTFRAME_EMBED_JETPACK_VERSION),
-                SiteUtils.supportsStoriesFeature(mSite, mJetpackFeatureRemovalPhaseHelper),
                 mSite.isUsingWpComRestApi(),
                 enableXPosts,
                 isUnsupportedBlockEditorEnabled,
@@ -2842,12 +2840,6 @@ public class EditPostActivity extends LocaleAwareActivity implements
                     // handleMediaPickerResult -> addExistingMediaToEditorAndSave
                     break;
                 case RequestCodes.PHOTO_PICKER:
-                    if (WPMediaUtils.shouldAdvertiseImageOptimization(this)) {
-                        WPMediaUtils.advertiseImageOptimization(this, () -> handlePhotoPickerResult(data));
-                    } else {
-                        handlePhotoPickerResult(data);
-                    }
-                    break;
                 case RequestCodes.STOCK_MEDIA_PICKER_SINGLE_SELECT:
                     handlePhotoPickerResult(data);
                     break;
@@ -2861,17 +2853,11 @@ public class EditPostActivity extends LocaleAwareActivity implements
                     break;
                 case RequestCodes.MEDIA_LIBRARY:
                 case RequestCodes.PICTURE_LIBRARY:
-                    mEditorMedia.advertiseImageOptimisationAndAddMedia(WPMediaUtils.retrieveMediaUris(data));
-                    break;
-                case RequestCodes.TAKE_PHOTO:
-                    if (WPMediaUtils.shouldAdvertiseImageOptimization(this)) {
-                        WPMediaUtils.advertiseImageOptimization(this, this::addLastTakenPicture);
-                    } else {
-                        addLastTakenPicture();
-                    }
-                    break;
                 case RequestCodes.VIDEO_LIBRARY:
                     mEditorMedia.addNewMediaItemsToEditorAsync(WPMediaUtils.retrieveMediaUris(data), false);
+                    break;
+                case RequestCodes.TAKE_PHOTO:
+                    addLastTakenPicture();
                     break;
                 case RequestCodes.TAKE_VIDEO:
                     Uri videoUri = data.getData();
@@ -3852,6 +3838,8 @@ public class EditPostActivity extends LocaleAwareActivity implements
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(ConnectionChangeReceiver.ConnectionChangeEvent event) {
+        if (!(mEditorFragment instanceof GutenbergNetworkConnectionListener)) return;
+
         ((GutenbergEditorFragment) mEditorFragment).onConnectionStatusChange(event.isConnected());
     }
 
@@ -3940,17 +3928,18 @@ public class EditPostActivity extends LocaleAwareActivity implements
         updateAndSavePostAsync(listener);
     }
 
-    @Override public void advertiseImageOptimization(@NonNull Function0<Unit> listener) {
-        WPMediaUtils.advertiseImageOptimization(this, listener::invoke);
-    }
-
     @Override
     public void onMediaModelsCreatedFromOptimizedUris(@NonNull Map<Uri, ? extends MediaModel> oldUriToMediaModels) {
         // no op - we're not doing any special handling on MediaModels in EditPostActivity
     }
 
     @Override public void showVideoDurationLimitWarning(@NonNull String fileName) {
-        ToastUtils.showToast(this, R.string.error_media_video_duration_exceeds_limit, ToastUtils.Duration.LONG);
+        String message = getString(R.string.error_media_video_duration_exceeds_limit);
+        WPSnackbar.make(
+                findViewById(R.id.editor_activity),
+                message,
+                Snackbar.LENGTH_LONG
+        ).show();
     }
 
     @Override
