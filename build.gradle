@@ -61,6 +61,8 @@ ext {
     androidxWebkitVersion =  '1.10.0'
     androidxComposeMaterial3Version = '1.1.1'
     apacheCommonsTextVersion = '1.10.0'
+    balloonComposeVersion = '1.6.4'
+    cascadeComposeVersion = '2.3.0'
     coilComposeVersion = '2.4.0'
     chrisbanesPhotoviewVersion = '2.3.0'
     eventBusVersion = '3.3.1'
