@@ -56,8 +56,8 @@ class NotificationsListViewModel @Inject constructor(
     private val _showJetpackOverlay = MutableLiveData<Event<Boolean>>()
     val showJetpackOverlay: LiveData<Event<Boolean>> = _showJetpackOverlay
 
-    private val _updatedNote = MutableLiveData<Note>()
-    val updatedNote: LiveData<Note> = _updatedNote
+    private val _updatedNotes = MutableLiveData<List<Note>>()
+    val updatedNotes: LiveData<List<Note>> = _updatedNotes
 
     val inlineActionEvents = MutableSharedFlow<InlineActionEvent>()
 
@@ -81,7 +81,7 @@ class NotificationsListViewModel @Inject constructor(
         appPrefsWrapper.notificationPermissionsWarningDismissed = false
     }
 
-    fun markNoteAsRead(context: Context, notes: List<Note>) {
+    fun markNoteAsRead(context: Context, notes: List<Note>) = launch {
         notes.filter { it.isUnread }
             .map {
                 gcmMessageHandler.removeNotificationWithNoteIdFromSystemBar(context, it.id)
@@ -90,7 +90,7 @@ class NotificationsListViewModel @Inject constructor(
                 it
             }.takeIf { it.isNotEmpty() }?.let {
                 notificationsTableWrapper.saveNotes(it, false)
-                eventBusWrapper.post(NotificationsChanged())
+                _updatedNotes.postValue(it)
             }
     }
 
@@ -100,7 +100,7 @@ class NotificationsListViewModel @Inject constructor(
             setIsWPCom(true)
         }
         note.setLikedComment(liked)
-        _updatedNote.postValue(note)
+        _updatedNotes.postValue(listOf(note))
         // for updating the UI in other tabs
         eventBusWrapper.postSticky(OnNoteCommentLikeChanged(note, liked))
         val result = commentStore.likeComment(site, note.commentId, null, liked)
@@ -141,7 +141,7 @@ class NotificationsListViewModel @Inject constructor(
 
     fun likePost(note: Note, liked: Boolean) = launch {
         note.setLikedPost(liked)
-        _updatedNote.postValue(note)
+        _updatedNotes.postValue(listOf(note))
         // for updating the UI in other tabs
         eventBusWrapper.postSticky(NotificationEvents.OnNotePostLikeChanged(note, liked))
         val post = readerPostTableWrapper.getBlogPost(note.siteId.toLong(), note.postId.toLong(), true)

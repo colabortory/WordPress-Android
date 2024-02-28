@@ -145,8 +145,8 @@ class NotificationsListFragmentPage : ViewPagerFragment(R.layout.notifications_l
             layoutNewNotificatons.setOnClickListener { onScrollToTop() }
             (TabPosition.entries.getOrNull(tabPosition) ?: All).let { notesAdapter.setFilter(it.filter) }
         }
-        viewModel.updatedNote.observe(viewLifecycleOwner) {
-            notesAdapter.updateNote(it)
+        viewModel.updatedNotes.observe(viewLifecycleOwner) {
+            notesAdapter.updateNotes(it)
         }
 
         swipeToRefreshHelper?.isRefreshing = true

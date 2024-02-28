@@ -107,14 +107,19 @@ class NotesAdapter(context: Context, private val inlineActionEvents: MutableShar
     }
 
     /**
-     * Update the note in the adapter and notify the change
+     * Update notes in the adapter and notify the change
      */
-    fun updateNote(note: Note) {
+    fun updateNotes(notes: List<Note>) = notes.forEach { note ->
         filteredNotes.indexOrNull { it.id == note.id }?.let { notePosition ->
             filteredNotes[notePosition] = note
             notifyItemChanged(notePosition)
         }
     }
+
+    /**
+     * Update the note in the adapter and notify the change
+     */
+    fun updateNote(note: Note) = updateNotes(listOf(note))
 
     companion object {
         // Instead of building the filtered notes list dynamically, create it once and re-use it.
