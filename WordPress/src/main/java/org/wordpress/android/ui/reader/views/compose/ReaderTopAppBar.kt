@@ -7,6 +7,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -26,6 +27,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,10 +35,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.skydoves.balloon.ArrowPositionRules
+import com.skydoves.balloon.BalloonAnimation
+import com.skydoves.balloon.BalloonSizeSpec
+import com.skydoves.balloon.compose.Balloon
+import com.skydoves.balloon.compose.BalloonWindow
+import com.skydoves.balloon.compose.rememberBalloonBuilder
+import com.skydoves.balloon.compose.setBackgroundColor
+import com.skydoves.balloon.compose.setTextColor
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.wordpress.android.R
 import org.wordpress.android.ui.compose.components.menu.dropdown.JetpackDropdownMenu
 import org.wordpress.android.ui.compose.components.menu.dropdown.MenuElementData
+import org.wordpress.android.ui.compose.theme.AppColor
 import org.wordpress.android.ui.compose.theme.AppTheme
 import org.wordpress.android.ui.compose.unit.Margin
 import org.wordpress.android.ui.compose.utils.horizontalFadingEdges
@@ -57,6 +69,9 @@ fun ReaderTopAppBar(
     isSearchVisible: Boolean,
     onSearchClick: () -> Unit = {},
 ) {
+    // TODO ideally get "isFilterTooltipNeeded" from topBarUiState and we send the info back to the ViewModel when shown
+    val isFilterTooltipNeeded = true
+
     var selectedItem by remember { mutableStateOf(topBarUiState.selectedItem) }
     var isFilterShown by remember { mutableStateOf(topBarUiState.filterUiState != null) }
     var latestFilterState by remember { mutableStateOf(topBarUiState.filterUiState) }
@@ -113,14 +128,23 @@ fun ReaderTopAppBar(
                             slideOutHorizontally(tween(ANIM_DURATION)) { -it / 2 },
                 ) {
                     latestFilterState?.let { filterUiState ->
-                        Filter(
-                            filterUiState = filterUiState,
-                            onFilterClick = onFilterClick,
-                            onClearFilterClick = onClearFilterClick,
-                            modifier = Modifier
-                                // use padding instead of Spacer for a nicer animation
-                                .padding(start = Margin.Medium.value),
-                        )
+                        // use padding instead of Spacer for a nicer animation
+                        Box(modifier = Modifier.padding(Margin.Medium.value)) {
+                            if (!isFilterTooltipNeeded) {
+                                Filter(
+                                    filterUiState = filterUiState,
+                                    onFilterClick = onFilterClick,
+                                    onClearFilterClick = onClearFilterClick,
+                                )
+                            } else {
+                                FilterWithTooltip(
+                                    filterUiState = filterUiState,
+                                    onFilterClick = onFilterClick,
+                                    onClearFilterClick = onClearFilterClick,
+                                    scrollState = scrollState,
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -162,6 +186,64 @@ private fun Filter(
         onSelectedItemDismissClick = onClearFilterClick,
         chipHeight = chipHeight,
     )
+}
+
+@Composable
+private fun FilterWithTooltip(
+    filterUiState: ReaderViewModel.TopBarUiState.FilterUiState,
+    onFilterClick: (ReaderFilterType) -> Unit,
+    onClearFilterClick: () -> Unit,
+    scrollState: ScrollState,
+    modifier: Modifier = Modifier,
+) {
+    val tooltipBackgroundColor = AppColor.DarkGray
+    val tooltipTextColor = AppColor.White
+    val balloonBuilder = rememberBalloonBuilder {
+        setArrowSize(10)
+        setArrowPosition(0.5f)
+        setArrowPositionRules(ArrowPositionRules.ALIGN_ANCHOR)
+        setWidth(120)
+        setHeight(BalloonSizeSpec.WRAP)
+        setCornerRadius(4f)
+        setBalloonAnimation(BalloonAnimation.OVERSHOOT)
+        setPadding(8)
+        setBackgroundColor(tooltipBackgroundColor)
+        setTextColor(tooltipTextColor)
+        setDismissWhenTouchOutside(false)
+        setDismissWhenClicked(true)
+        setText("Your Tags and Blogs live here")
+    }
+
+    val coroutineScope = rememberCoroutineScope()
+    var balloonWindow: BalloonWindow? by remember { mutableStateOf(null) }
+
+    Balloon(
+        builder = balloonBuilder,
+        onBalloonWindowInitialized = {
+            balloonWindow = it
+            it.setOnBalloonDismissListener {
+                coroutineScope.launch {
+                    delay(ANIM_DURATION.toLong())
+                    scrollState.animateScrollTo(0)
+                }
+            }
+        },
+    ) {
+        Filter(
+            modifier = modifier,
+            filterUiState = filterUiState,
+            onFilterClick = onFilterClick,
+            onClearFilterClick = onClearFilterClick,
+        )
+    }
+
+    LaunchedEffect(true) {
+        // Scroll to the end of the filter when it's shown
+        val duration = ANIM_DURATION * 2.5
+        delay(duration.toLong())
+        scrollState.animateScrollTo(scrollState.maxValue)
+        balloonWindow?.showAlignBottom()
+    }
 }
 
 @Preview
