@@ -1705,6 +1705,7 @@
     <string name="reader_filter_chip_tag_zero">0 Tags</string>
     <string name="reader_filter_chip_tag_one">1 Tag</string>
     <string name="reader_filter_chip_tag_other">%d Tags</string>
+    <string name="reader_subscriptions_feed_tooltip">Your Tags and\nBlogs live here.</string>
 
     <!-- editor -->
     <string name="editor_post_saved_online">Post saved online</string>

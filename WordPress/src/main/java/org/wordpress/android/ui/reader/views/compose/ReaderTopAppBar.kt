@@ -31,6 +31,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -196,13 +197,14 @@ private fun FilterWithTooltip(
     scrollState: ScrollState,
     modifier: Modifier = Modifier,
 ) {
-    val tooltipBackgroundColor = AppColor.DarkGray
+    val tooltipBackgroundColor = Color(0xFF2A2A2A)
     val tooltipTextColor = AppColor.White
+    val tooltipText = stringResource(R.string.reader_subscriptions_feed_tooltip)
     val balloonBuilder = rememberBalloonBuilder {
         setArrowSize(10)
         setArrowPosition(0.5f)
         setArrowPositionRules(ArrowPositionRules.ALIGN_ANCHOR)
-        setWidth(120)
+        setWidth(BalloonSizeSpec.WRAP)
         setHeight(BalloonSizeSpec.WRAP)
         setCornerRadius(4f)
         setBalloonAnimation(BalloonAnimation.OVERSHOOT)
@@ -211,7 +213,8 @@ private fun FilterWithTooltip(
         setTextColor(tooltipTextColor)
         setDismissWhenTouchOutside(false)
         setDismissWhenClicked(true)
-        setText("Your Tags and Blogs live here")
+        setText(tooltipText)
+        setTextSize(16f)
     }
 
     val coroutineScope = rememberCoroutineScope()
