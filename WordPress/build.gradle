@@ -80,7 +80,7 @@ android {
     compileSdkVersion rootProject.compileSdkVersion
 
     def versionProperties = loadPropertiesFromFile(file("${rootDir}/version.properties"))
-    def localProperties = loadPropertiesFromFile(file("${rootDir}/local.properties"))
+    def localProperties = loadPropertiesFromFileIfExists(file("${rootDir}/local.properties"))
     String alwaysShowAnnouncement = localProperties.getProperty("alwaysShowAnnouncement", "false")
 
     defaultConfig {
@@ -686,6 +686,16 @@ static def loadPropertiesFromFile(inputFile) {
     def properties = new Properties()
     inputFile.withInputStream { stream ->
         properties.load(stream)
+    }
+    return properties
+}
+
+static def loadPropertiesFromFileIfExists(inputFile) {
+    def properties = new Properties()
+    if (inputFile.exists()) {
+        inputFile.withInputStream { stream ->
+            properties.load(stream)
+        }
     }
     return properties
 }
