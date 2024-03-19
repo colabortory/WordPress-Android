@@ -27,7 +27,7 @@ import org.wordpress.android.viewmodel.ScopedViewModel
 import javax.inject.Inject
 import javax.inject.Named
 
-class PublishingViewModel @Inject constructor(
+class SyncPublishingViewModel @Inject constructor(
     private val dispatcher: Dispatcher,
     @param:Named(BG_THREAD) private val bgDispatcher: CoroutineDispatcher
 ) : ScopedViewModel(bgDispatcher) {

@@ -38,7 +38,7 @@ import org.wordpress.android.ui.posts.prepublishing.PrepublishingViewModel;
 import org.wordpress.android.ui.posts.prepublishing.categories.PrepublishingCategoriesViewModel;
 import org.wordpress.android.ui.posts.prepublishing.categories.addcategory.PrepublishingAddCategoryViewModel;
 import org.wordpress.android.ui.posts.prepublishing.home.PrepublishingHomeViewModel;
-import org.wordpress.android.ui.posts.prepublishing.publishing.PublishingViewModel;
+import org.wordpress.android.ui.posts.prepublishing.publishing.SyncPublishingViewModel;
 import org.wordpress.android.ui.posts.prepublishing.publishsettings.PrepublishingPublishSettingsViewModel;
 import org.wordpress.android.ui.posts.prepublishing.tags.PrepublishingTagsViewModel;
 import org.wordpress.android.ui.prefs.accountsettings.AccountSettingsViewModel;
@@ -543,7 +543,7 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(PublishingViewModel.class)
-    abstract ViewModel publishingViewModel(PublishingViewModel viewModel);
+    @ViewModelKey(SyncPublishingViewModel.class)
+    abstract ViewModel publishingViewModel(SyncPublishingViewModel viewModel);
 
 }

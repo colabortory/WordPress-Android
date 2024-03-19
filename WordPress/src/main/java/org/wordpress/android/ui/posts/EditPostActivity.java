@@ -178,7 +178,7 @@ import org.wordpress.android.ui.posts.editor.media.EditorMediaListener;
 import org.wordpress.android.ui.posts.prepublishing.PrepublishingBottomSheetFragment;
 import org.wordpress.android.ui.posts.prepublishing.home.usecases.PublishPostImmediatelyUseCase;
 import org.wordpress.android.ui.posts.prepublishing.listeners.PrepublishingBottomSheetListener;
-import org.wordpress.android.ui.posts.prepublishing.publishing.PublishingViewModel;
+import org.wordpress.android.ui.posts.prepublishing.publishing.SyncPublishingViewModel;
 import org.wordpress.android.ui.posts.reactnative.ReactNativeRequestHandler;
 import org.wordpress.android.ui.posts.services.AztecImageLoader;
 import org.wordpress.android.ui.posts.services.AztecVideoLoader;
@@ -437,7 +437,8 @@ public class EditPostActivity extends LocaleAwareActivity implements
     private StorageUtilsViewModel mStorageUtilsViewModel;
     private EditorBloggingPromptsViewModel mEditorBloggingPromptsViewModel;
     private EditorJetpackSocialViewModel mEditorJetpackSocialViewModel;
-    private PublishingViewModel mPublishingViewModel;
+
+    private SyncPublishingViewModel mSyncPublishingViewModel;
 
     private SiteModel mSite;
     private SiteSettingsInterface mSiteSettings;
@@ -581,7 +582,7 @@ public class EditPostActivity extends LocaleAwareActivity implements
                 .get(EditorBloggingPromptsViewModel.class);
         mEditorJetpackSocialViewModel = new ViewModelProvider(this, mViewModelFactory)
                 .get(EditorJetpackSocialViewModel.class);
-        mPublishingViewModel = new ViewModelProvider(this, mViewModelFactory).get(PublishingViewModel.class);
+        mSyncPublishingViewModel = new ViewModelProvider(this, mViewModelFactory).get(SyncPublishingViewModel.class);
 
         setContentView(R.layout.new_edit_post_activity);
 
@@ -816,7 +817,7 @@ public class EditPostActivity extends LocaleAwareActivity implements
 
         customizeToolbar();
 
-        mPublishingViewModel.getUiState().observe(this, uiState -> {
+        mSyncPublishingViewModel.getUiState().observe(this, uiState -> {
             if (uiState != null) {
                 Log.e("EditPostActivity", "ui state: " + uiState);
             }
@@ -1904,7 +1905,7 @@ public class EditPostActivity extends LocaleAwareActivity implements
             if (!media.getMarkedLocallyAsFeatured() && mEditorMediaUploadListener != null) {
                 mEditorMediaUploadListener.onMediaUploadSucceeded(String.valueOf(media.getId()),
                         FluxCUtils.mediaFileFromMediaModel(media));
-                mPublishingViewModel.onMediaUploadedSuccessfully(media);
+                mSyncPublishingViewModel.onMediaUploadedSuccessfully(media);
             } else if (media.getMarkedLocallyAsFeatured() && media.getLocalPostId() == mEditPostRepository
                     .getId()) {
                 setFeaturedImageId(media.getMediaId(), false, false);
@@ -1917,7 +1918,7 @@ public class EditPostActivity extends LocaleAwareActivity implements
         if (mEditorMediaUploadListener != null) {
             mEditorMediaUploadListener.onMediaUploadProgress(localMediaId, progress);
         }
-        mPublishingViewModel.onMediaUploadInProgress(localMediaId, progress);
+        mSyncPublishingViewModel.onMediaUploadInProgress(localMediaId, progress);
     }
 
     private void launchPictureLibrary() {
@@ -2226,13 +2227,13 @@ public class EditPostActivity extends LocaleAwareActivity implements
     }
 
     private void uploadPost(final boolean publishPost) {
-        mPublishingViewModel.onPostPublishingStarted();
+        mSyncPublishingViewModel.onPostPublishingStarted();
         updateAndSavePostAsyncOnEditorExit(((updatePostResult) -> {
             AccountModel account = mAccountStore.getAccount();
             // prompt user to verify e-mail before publishing
             if (!account.getEmailVerified()) {
                 mViewModel.hideSavingProgressDialog();
-                mPublishingViewModel.onPostUploadError();
+                mSyncPublishingViewModel.onPostUploadError();
                 String message = TextUtils.isEmpty(account.getEmail())
                         ? getString(R.string.editor_confirm_email_prompt_message)
                         : String.format(getString(R.string.editor_confirm_email_prompt_message_with_email),
@@ -2255,7 +2256,7 @@ public class EditPostActivity extends LocaleAwareActivity implements
             }
             if (!mPostUtils.isPublishable(mEditPostRepository.getPost())) {
                 mViewModel.hideSavingProgressDialog();
-                mPublishingViewModel.onPostUploadError();
+                mSyncPublishingViewModel.onPostUploadError();
                 // TODO we don't want to show "publish" message when the user clicked on eg. save
                 mEditPostRepository.updateStatusFromPostSnapshotWhenEditorOpened();
                 EditPostActivity.this.runOnUiThread(() -> {
@@ -2297,11 +2298,16 @@ public class EditPostActivity extends LocaleAwareActivity implements
             }, (postModel, result) -> {
                 if (result == Updated.INSTANCE) {
                     ActivityFinishState activityFinishState = savePostOnline(isFirstTimePublish);
+
+                    if (!mSyncPublishingFeatureConfig.isEnabled()) {
+                        mViewModel.finish(activityFinishState);
+                    }
+
                     Log.e("PostUpload", "uploadPost: " + activityFinishState);
                     if (activityFinishState == ActivityFinishState.NETWORK_ERROR) {
                         mViewModel.hideSavingProgressDialog();
-                        mPublishingViewModel.onPostUploadError();
-                    } else mPublishingViewModel.onPostUploadInProgress(postModel);
+                        mSyncPublishingViewModel.onPostUploadError();
+                    } else mSyncPublishingViewModel.onPostUploadInProgress(postModel);
 //                    mViewModel.finish(activityFinishState);
                 }
                 return null;
@@ -3791,7 +3797,7 @@ public class EditPostActivity extends LocaleAwareActivity implements
                 if (!event.isError()) {
                     mEditPostRepository.set(() -> {
                         updateOnSuccessfulUpload();
-                        mPublishingViewModel.onPostUploadSuccess(post);
+                        mSyncPublishingViewModel.onPostUploadSuccess(post);
                         return post;
                     });
                 }

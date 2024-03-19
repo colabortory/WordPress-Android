@@ -22,9 +22,10 @@ import org.wordpress.android.ui.posts.EditPostSettingsFragment
 import org.wordpress.android.ui.posts.EditorJetpackSocialViewModel
 import org.wordpress.android.ui.posts.prepublishing.listeners.PrepublishingActionClickedListener
 import org.wordpress.android.ui.posts.prepublishing.listeners.PrepublishingSocialViewModelProvider
-import org.wordpress.android.ui.posts.prepublishing.publishing.PublishingViewModel
+import org.wordpress.android.ui.posts.prepublishing.publishing.SyncPublishingViewModel
 import org.wordpress.android.ui.stats.refresh.utils.WrappingLinearLayoutManager
 import org.wordpress.android.ui.utils.UiHelpers
+import org.wordpress.android.util.config.SyncPublishingFeatureConfig
 import org.wordpress.android.util.image.ImageManager
 import org.wordpress.android.util.merge
 import org.wordpress.android.viewmodel.observeEvent
@@ -39,9 +40,13 @@ class PrepublishingHomeFragment : Fragment(R.layout.post_prepublishing_home_frag
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    internal lateinit var syncPublishingFeatureConfig: SyncPublishingFeatureConfig
+
     private lateinit var viewModel: PrepublishingHomeViewModel
     private lateinit var jetpackSocialViewModel: EditorJetpackSocialViewModel
-    private lateinit var publishingViewModel: PublishingViewModel
+    private var syncPublishingViewModel: SyncPublishingViewModel? = null
 
     private var actionClickedListener: PrepublishingActionClickedListener? = null
 
@@ -65,8 +70,10 @@ class PrepublishingHomeFragment : Fragment(R.layout.post_prepublishing_home_frag
         with(PostPrepublishingHomeFragmentBinding.bind(view)) {
             setupRecyclerView()
             initViewModel()
-            initPublishingViewModel()
             setupJetpackSocialViewModel()
+            if (syncPublishingFeatureConfig.isEnabled()) {
+                initSyncPublishingViewModel()
+            }
         }
     }
 
@@ -114,19 +121,15 @@ class PrepublishingHomeFragment : Fragment(R.layout.post_prepublishing_home_frag
         viewModel.start(getEditPostRepository(), getSite())
     }
 
-    private fun initPublishingViewModel() {
-        publishingViewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory)[PublishingViewModel::class.java]
-
-//        publishingViewModel.uiState.observe(viewLifecycleOwner) { uiState ->
-//            uiState?.let { viewModel.updatePublishingState(it) }
-//        }
+    private fun initSyncPublishingViewModel() {
+        syncPublishingViewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory)[SyncPublishingViewModel::class.java]
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                publishingViewModel.uiStateFlow.onEach { uiState ->
+                syncPublishingViewModel?.uiStateFlow?.onEach { uiState ->
                     uiState.let { viewModel.updatePublishingState(it) }
-                }.collect()
+                }?.collect()
             }
         }
     }
