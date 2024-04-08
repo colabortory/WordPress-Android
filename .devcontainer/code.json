@@ -1,0 +1,5 @@
+{
+  "image": "mcr.microsoft.com/code/universal:2",
+  "features": {
+  }
+}
